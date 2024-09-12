@@ -8,6 +8,7 @@ import { BsFillPersonFill } from 'react-icons/bs'; // Importar solo el icono de 
 import { TbTruckDelivery } from 'react-icons/tb';
 import { MdHelp } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import  LogoCTXY  from '../img/LogoCTXY.jpg';
 
 const Navbar = () => {
     const [nav, setNav] = useState(false);
@@ -18,7 +19,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="max-w-[1640px] mx-auto flex justify-between items-center p-4 bg-black text-white">
+        <div className="max-w mx-auto flex justify-between items-center p-4 bg-black text-white">
             {/* Left Side */}
             <div className="flex items-center">
                 <div
@@ -28,7 +29,7 @@ const Navbar = () => {
                     <AiOutlineMenu size={30} />
                 </div>
                 <div className="px-2">
-                    <img src="img/logoCTXY.jpg" alt="Logo" className="h-10" />
+                    <img src={LogoCTXY} alt="LogoCTXY" className="h-10" />
                 </div>
             </div>
 
@@ -63,7 +64,7 @@ const Navbar = () => {
                     className="absolute right-4 top-4 cursor-pointer text-white"
                 />
                 <div className="flex justify-center p-4">
-                    <img src="img/logoCTXY.jpg" alt="Logo" className="h-10" />
+                    <img src={LogoCTXY} alt="Logo" className="h-10" />
                 </div>
                 <nav>
                     <ul className="flex flex-col p-4 text-gray-300">
@@ -79,14 +80,7 @@ const Navbar = () => {
                             <BsFillPersonFill size={25} className="mr-4" />
                             <Link to="/login">Registrarse</Link>
                         </li>
-                        <li className="text-xl py-4 flex items-center cursor-pointer hover:text-[#9b59b6]">
-                            <TbTruckDelivery size={25} className="mr-4" />
-                            Contacto
-                        </li>
-                        <li className="text-xl py-4 flex items-center cursor-pointer hover:text-[#9b59b6]">
-                            <MdHelp size={25} className="mr-4" />
-                            Ayuda
-                        </li>
+                        
                     </ul>
                 </nav>
             </div>
@@ -95,3 +89,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

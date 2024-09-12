@@ -1,58 +1,67 @@
 import React from 'react';
 import Footer from '../components/Footer';
+import ImagenN1 from '../img/ImagenN1.jpeg';
+import ImagenN2 from '../img/ImagenN2.jpeg';
+import ImagenN3 from '../img/ImagenN3.jpeg';
+import ImagenN4 from '../img/ImagenN4.jpeg';
+import ImagenN5 from '../img/ImagenN5.jpeg';
+import ImagenN6 from '../img/ImagenN6.jpeg';
+import ImagenN7 from '../img/ImagenN7.jpeg';
 
+import ImagenN8 from '../img/ImagenN8.jpeg';
+import ImagenN9 from '../img/ImagenN9.jpeg';
 const Index = () => {
     const uniforms = [
         {
-            src: "https://via.placeholder.com/300x400/808080",
+            src: ImagenN1,
             alt: "Uniforme Escolar 1",
             description: "Uniforme Escolar - Tela 100% Algodón\nElaborado por empleados altamente capacitados, este uniforme ofrece comodidad y durabilidad para los estudiantes."
         },
         {
-            src: "https://via.placeholder.com/300x400/808080",
+            src: ImagenN2,
             alt: "Uniforme Escolar 2",
-            description: "Uniforme Escolar - Tela Poliéster\nDiseñado para resistir el desgaste diario, este uniforme mantiene su apariencia impecable incluso después de múltiples lavados."
+            description: "Uniforme  - Impermiable\nDiseñado para resistir el desgaste diario, este uniforme mantiene su apariencia impecable incluso después de múltiples lavados."
         },
         {
-            src: "https://via.placeholder.com/300x400/808080",
+            src: ImagenN3,
             alt: "Uniforme Escolar 3",
-            description: "Uniforme Escolar - Tela Mezclilla\nUn clásico que nunca pasa de moda, este uniforme combina estilo y durabilidad para un look casual pero elegante."
+            description: "Chaqueta de tela en un color azul vibrante  tiene un corte estructurado, con solapas marcadas, lo que sugiere un estilo formal o semiformal."
         },
         {
-            src: "https://via.placeholder.com/300x400/808080",
+            src: ImagenN4,
             alt: "Uniforme Escolar 4",
-            description: "Uniforme Escolar - Tela Resistente al Agua\nPerfecto para climas húmedos, este uniforme repele el agua y mantiene a los estudiantes secos y cómodos durante todo el día."
+            description: "Chalecos, colgados en un organizador de metal. Los colores predominantes de los chalecos son verde, azul y celeste, además de uno con un patrón de cuadros en tonos grises y negros. Las telas son ligeras y lisas."
         },
         {
-            src: "https://via.placeholder.com/300x400/808080",
+            src: ImagenN5,
             alt: "Uniforme Escolar 5",
-            description: "Uniforme Escolar - Tela Transpirable\nDiseñado para mantener a los estudiantes frescos y secos, este uniforme utiliza telas transpirables que permiten una circulación de aire adecuada."
+            description: "Chaleco de vestir sin mangas. Tiene un color blanco liso y está hecho con una tela satinada o similar, lo que le da un acabado suave y brillante."
         },
         {
-            src: "https://via.placeholder.com/300x400/808080",
+            src: ImagenN6,
             alt: "Uniforme Escolar 6",
-            description: "Uniforme Escolar - Tela de Alta Durabilidad\nFabricado con materiales de alta calidad, este uniforme está diseñado para durar y resistir el desgaste diario de los estudiantes."
+            description: "Exhibición de ropa casual y moderna de diferentes colores ,como lila, negro y gris, todas de estilo cropped, con detalles de cordones y puños elásticos."
         },
         {
-            src: "https://via.placeholder.com/300x400/808080",
+            src: ImagenN7,
             alt: "Uniforme Escolar 7",
-            description: "Uniforme Escolar - Tela Antiarrugas\nMantenerse impecable nunca ha sido tan fácil. Este uniforme está diseñado para resistir las arrugas y mantener su apariencia fresca durante todo el día."
+            description: "chaqueta estilo bomber de color azul marino. Está hecha de un material sintético brillante, nylon o poliéster, lo que le da un acabado resistente al agua."
         },
         {
-            src: "https://via.placeholder.com/300x400/808080",
+            src: ImagenN8,
             alt: "Uniforme Escolar 8",
-            description: "Uniforme Escolar - Tela Hipoalergénica\nIdeal para estudiantes con piel sensible, este uniforme está fabricado con telas hipoalergénicas que reducen la irritación y las alergias."
+            description: "Uniforme  - Impermiable\nDiseñado para resistir el desgaste diario, este uniforme mantiene su apariencia impecable incluso después de múltiples lavados."
         },
         {
-            src: "https://via.placeholder.com/300x400/808080",
-            alt: "Uniforme Escolar 9",
-            description: "Uniforme Escolar - Tela Reflectante\nPara una mayor seguridad, este uniforme incorpora elementos reflectantes que aumentan la visibilidad de los estudiantes en condiciones de poca luz o en la oscuridad."
+            src: ImagenN9,
+            alt: "Uniforme",
+            description: "Uniforme Escolar - Tela de algodón, uniforme completo de color gris completamente."
         }
     ];
 
     return (
         <div className="bg-black text-gray-300">
-          
+
 
             <section className="text-center py-8">
                 <h2 className="text-4xl font-bold mb-4 transition-transform transform hover:translate-y-1 hover:shadow-lg">
@@ -63,9 +72,7 @@ const Index = () => {
                     Utilizamos materiales premium que ofrecen comodidad, durabilidad y estilo, asegurando que cada uniforme esté diseñado 
                     para satisfacer las necesidades específicas de nuestros clientes.
                 </p>
-                <button className="bg-[#9b59b6] text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-300">
-                    Ver Nuestros Productos
-                </button>
+                
             </section>
 
             {/* Sección de Uniformes Escolares */}
