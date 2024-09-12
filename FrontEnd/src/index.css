@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html, body, main, #root {
+    height: 100%;
+}
+
+.sidebar {
+    background-image: url('../src/img/imagen1.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .main-content {
+    background-color: transparent;
+    flex-grow: 1;
+    padding: 2rem;
+  }
+  .sidebar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+    
+  
