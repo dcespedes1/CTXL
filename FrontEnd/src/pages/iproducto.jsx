@@ -20,10 +20,7 @@ function Iproducto() {
     getProductos()
   }
 
-
-
   const [searchTerm, setSearchTerm] = useState('');
-
 
   return (
     <div className="flex h-screen bg-gray-900">

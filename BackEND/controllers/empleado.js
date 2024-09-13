@@ -53,12 +53,12 @@ export const updateEmpleado = async (req, res) => {
 export const deleteEmpleado = async (req, res) => {
     try {
         console.log('Parametros recibidos:', req.params);  // Verifica los parámetros recibidos
-        const { id } = req.params;
-        if (!id) {
+        const { id_Empleado } = req.params;
+        if (!id_Empleado) {
             return res.status(400).json({ message: "ID no proporcionado" });
         }
         const Empleados = await Empleado.findOne({
-            where: { id_Empleado: id }
+            where: { id_Empleado: id_Empleado }
         });
         if (!Empleados) {
             return res.status(404).json({
@@ -66,7 +66,7 @@ export const deleteEmpleado = async (req, res) => {
             });
         }
         await Empleado.destroy({
-            where: { id_Empleado: id }
+            where: { id_Empleado: id_Empleado }
         });
         res.json({
             message: "¡Eliminación correcta!"

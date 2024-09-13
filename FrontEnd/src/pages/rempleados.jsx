@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import '../index.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+const URI = 'http://localhost:8000/api/Empleado/';
 
 function REmpleados() {
     const [Nombre, setNombre] = useState('');
@@ -9,11 +13,28 @@ function REmpleados() {
     const [FechaN, setFechaN] = useState('');
     const [Correo, setCorreo] = useState('');
     const [Celular, setCelular] = useState('');
+    const [id_administrador,setid_administrador] = useState('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log('Registro con:', { Nombre, TipoD, NumeroD, FechaN, Correo, Celular });
-    };
+    const navigate = useNavigate();
+
+    const store = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await axios.post(URI, {
+            Nombre: Nombre,
+            TipoD: TipoD,
+            NumeroD: NumeroD,
+            FechaN: FechaN,
+            Correo: Correo,
+            Celular: Celular,
+            id_administrador: id_administrador,
+          });
+          console.log('Respuesta del servidor:', response.data);
+          navigate('/app/iempleados'); // Redirige a la página de 
+        } catch (error) {
+          console.error('Error al registrar el empleado:', error);
+        }
+      };
 
     return (
         <div className="flex h-screen">
@@ -28,7 +49,7 @@ function REmpleados() {
                 <div className="flex justify-center items-center h-screen">
                     <div className="w-[800px] bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
                         <h2 className="text-3xl font-bold mb-8 text-center text-white">Registro Empleado</h2>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={store}>
                             <div className="space-y-6">
                                 <div className="flex space-x-4">
                                     <div className="w-1/3">
@@ -116,13 +137,23 @@ function REmpleados() {
                                             required
                                         />
                                     </div>
-                                    
+                                    <div className="w-full">
+                                        <label className="block text-white mb-2" htmlFor="id_administrador">administrador</label>
+                                        <input
+                                            type="number"
+                                            id="id_administrador"
+                                            value={id_administrador}
+                                            onChange={(e) => setid_administrador(e.target.value)}
+                                            className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 
                                 
                                 <div className="text-center">
                                 <Link
-                                to="/app/iproducto">
+                                to="/app/iempleados">
                                 <button
                                     type="button"
                                     className="px-6 py-3 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"

@@ -55,11 +55,11 @@ function MainLayout() {
                   <Route path="perfilDetalle" element={<PerfilDetalle />} />
                   <Route path="perfilEditar" element={<PerfilEditar />} />
                   <Route path="ipedidos" element={<IPedidos />} />
-                  <Route path="apedido" element={<EditarPedido />} />
+                  <Route path="apedido/:id_Pedido" element={<EditarPedido />} />
                   <Route path="iproducto" element={<Iproducto />} />
                   <Route path="aproducto/:id" element={<EditarProducto />} />
                   <Route path="iempleado" element={<IEmpleados />} />
-                  <Route path="aempleados" element={<EditarEmpleados />} />
+                  <Route path="aempleados/:id_Empleado" element={<EditarEmpleados />} />
                   <Route path="rproductos" element={<Rproductos />} />
                   <Route path="rpedidos" element={<RPedidos />} />
                   <Route path="rempleado" element={<REmpleados />} />

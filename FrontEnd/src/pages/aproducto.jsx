@@ -17,16 +17,12 @@ function AProductos() {
 
   useEffect(() => {
     const fetchProductById = async () => {
-      try {
         const res = await axios.get(`${URI}${id}`);
         setCantidadR(res.data.CantidadR);
         setMaterial(res.data.Material);
         setColores(res.data.Colores);
         setIdAdministrador(res.data.id_administrador);
         setIdEmpleado(res.data.id_Empleado);
-      } catch (error) {
-        console.error("Error al obtener el producto:", error);
-      }
     };
 
     fetchProductById();
@@ -34,19 +30,18 @@ function AProductos() {
 
   const updateProduct = async (e) => {
     e.preventDefault();
-    try {
       await axios.put(`${URI}${id}`, {
-        CantidadR,
-        Material,
-        Colores,
-        id_administrador,
-        id_Empleado,
+        CantidadR: CantidadR,
+        Material: Material,
+        Colores: Colores,
+        id_administrador: id_administrador,
+        id_Empleado: id_Empleado,
       });
-      navigate("/app/iproducto"); // Redirigir a la lista de productos
-    } catch (error) {
-      console.error("Error al actualizar el producto:", error);
+      navigate("/app/iproducto");
     }
-  };
+
+
+
 
   return (
     <div className="flex h-screen">
@@ -61,6 +56,7 @@ function AProductos() {
         <div className="flex justify-center items-center h-screen">
           <div className="w-full max-w-md bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
             <h2 className="text-3xl font-bold mb-8 text-center text-white">Actualizar producto</h2>
+
             <form onSubmit={updateProduct}>
               <div className="space-y-6">
                 <div className="flex flex-col space-y-4">

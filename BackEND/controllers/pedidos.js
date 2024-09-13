@@ -39,7 +39,7 @@ export const createPedidos = async (req, res) => {
 export const updatePedidos = async (req, res) => {
     try {
         await Pedidos.update(req.body, {
-            where: { id_pedido: req.params.id }
+            where: { id_Pedido: req.params.id_Pedido }  // Capturamos el id_producto correctamente
         });
         res.json({
             message: "¡Actualización correcta!"
@@ -48,6 +48,8 @@ export const updatePedidos = async (req, res) => {
         res.json({ message: error.message });
     }
 };
+
+
 // Eliminar un Pedidos
 export const deletePedidos = async (req, res) => {
     try {

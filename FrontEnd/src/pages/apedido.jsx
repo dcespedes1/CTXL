@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../index.css';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+
+const URI = "http://localhost:8000/api/pedidos/";
+
 
 function APedidos() {
   const [Cliente, setCliente] = useState('');
@@ -10,13 +16,52 @@ function APedidos() {
   const [Estampado, setEstampado] = useState('');
   const [Talla, setTalla] = useState('');
   const [Bordado, setBordado] = useState('');
-  const [PInicio, setPInicial] = useState('');
+  const [PInicial, setPInicial] = useState('');
   const [PFinal, setPFinal] = useState('');
+  const [id_administrador, setIdAdministrador] = useState("");
+  const [id_Empleado, setIdEmpleado] = useState("");
+  const navigate = useNavigate();
+  const { id_Pedido } = useParams();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Registro con:', { Cliente, Cantidad, Empleado, Prenda, Tela, Estampado, Talla, Bordado, PInicio, PFinal });
-  };
+  useEffect(() => {
+    const fetchProductById = async () => {
+        const res = await axios.get(`${URI}${id_Pedido}`);
+        setCliente(res.data.Cliente);
+        setCantidad(res.data.Cantidad);
+        setEmpleado(res.data.Empleado);
+        setPrenda(res.data.Prenda);
+        setTela(res.data.Tela);
+        setEstampado(res.data.Estampado);
+        setTalla(res.data.Talla);
+        setBordado(res.data.Bordado);
+        setPInicial(res.data.PInicial);
+        setPFinal(res.data.PFinal);
+        setIdAdministrador(res.data.id_administrador);
+        setIdEmpleado(res.data.id_Empleado);
+    }
+
+    fetchProductById()
+  }, [id_Pedido]);
+
+  const updatePedido = async (e) => {
+    e.preventDefault();
+      await axios.put(`${URI}${id_Pedido}`, {
+        Cliente: Cliente,
+        Cantidad: Cantidad,
+        Empleado: Empleado,
+        Prenda: Prenda,
+        Tela: Tela,
+        Estampado: Estampado,
+        Talla: Talla,
+        Bordado: Bordado,
+        PInicial:PInicial,
+        PFinal:PFinal,
+        id_administrador: id_administrador,
+        id_Empleado: id_Empleado,
+      });
+      navigate("/app/ipedidos");
+    }
+
 
   return (
     <div className="flex h-screen">
@@ -26,7 +71,7 @@ function APedidos() {
         <div className="flex justify-center items-center h-full">
           <div className="w-full max-w-4xl bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
             <h2 className="text-3xl font-bold mb-8 text-center text-white">Actualizar Pedido</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={updatePedido} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-white mb-2" htmlFor="Cliente">
@@ -139,13 +184,13 @@ function APedidos() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white mb-2" htmlFor="PInicio">
-                    Precio Inicio
+                  <label className="block text-white mb-2" htmlFor="PInicial">
+                    Precio Inicial
                   </label>
                   <input
-                    type="text"
-                    id="PInicio"
-                    value={PInicio}
+                    type="number"
+                    id="PInicial"
+                    value={PInicial}
                     onChange={(e) => setPInicial(e.target.value)}
                     className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                     required
@@ -156,7 +201,7 @@ function APedidos() {
                     Precio Final
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     id="PFinal"
                     value={PFinal}
                     onChange={(e) => setPFinal(e.target.value)}
@@ -164,15 +209,45 @@ function APedidos() {
                     required
                   />
                 </div>
+                <div className="w-full">
+                    <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
+                    <input
+                      type="number"
+                      id="id_administrador"
+                      value={id_administrador}
+                      onChange={(e) => setIdAdministrador(e.target.value)}
+                      className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      required
+                    />
+                  </div>
+                  <div className="w-full">
+                    <label className="block text-white mb-2" htmlFor="id_Empleado">Empleado</label>
+                    <input
+                      type="number"
+                      id="id_Empleado"
+                      value={id_Empleado}
+                      onChange={(e) => setIdEmpleado(e.target.value)}
+                      className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      required
+                    />
+                  </div>
               </div>
-              <div className="text-center">
-                <button
-                  type="submit"
-                  className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
-                >
-                  Actualizar
-                </button>
-              </div>
+              <div className="flex space-x-4">
+                  <Link to="/app/ipedidos">
+                    <button
+                      type="button"
+                      className="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
+                    >
+                      Cancelar
+                    </button>
+                  </Link>
+                  <button
+                    type="submit"
+                    className="w-1/2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
+                  >
+                    Actualizar
+                  </button>
+                </div>
             </form>
           </div>
         </div>
