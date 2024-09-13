@@ -1,26 +1,12 @@
 import React from 'react';
 import '../index.css';
+import Banner from '../img/banner.jpeg'
 
 const Home = () => {
-  // Estadísticas de ventas
-  const salesData = [
-    { label: 'Enero', value: 1500000, percentage: 0.8 },
-    { label: 'Febrero', value: 1800000, percentage: 0.9 },
-    { label: 'Marzo', value: 2200000, percentage: 1.1 },
-    { label: 'Abril', value: 2000000, percentage: 1.0 },
-    { label: 'Mayo', value: 2500000, percentage: 1.25 },
-    { label: 'Junio', value: 2800000, percentage: 1.4 },
-  ];
-
-  // Otras estadísticas
-  const otherStats = [
-    { label: 'Ventas Totales', value: 12000000 },
-    { label: 'Pedidos Completados', value: 850 },
-  ];
-
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
+    <div className="relative flex h-screen bg-gray-100">
+    
+      
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col p-10 bg-gray-900 text-white">
@@ -31,30 +17,37 @@ const Home = () => {
             Aquí podrás ver un resumen de las estadísticas de ventas y otros datos importantes para tu negocio.
           </p>
 
-          {/* Estadísticas de ventas */}
-          <h2 className="text-3xl font-bold mb-4">Estadísticas de Ventas</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {salesData.map((sale, index) => (
-              <div key={index} className="bg-black p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold">{sale.label}</h3>
-                <p className="text-4xl font-bold">$COP {sale.value.toLocaleString()}</p>
-                <p className={`text-lg ${sale.percentage > 1 ? 'text-green-500' : 'text-red-500'}`}>
-                  {sale.percentage > 1 ? `+${(sale.percentage * 100 - 100).toFixed(2)}%` : `${(sale.percentage * 100 - 100).toFixed(2)}%`}
-                </p>
-              </div>
-            ))}
-          </div>
+          {/* Ventajas como administrador */}
+          <section className="mb-8">
+            <h2 className="text-3xl font-bold mb-4">Ventajas de ser Administrador</h2>
+            <ul className="list-disc pl-6 mb-8">
+              <li>Acceso completo a todos los inventarios y datos en tiempo real.</li>
+              <li>Capacidad para generar y consultar reportes detallados.</li>
+              <li>Gestión de pedidos y seguimiento de estado de manera eficiente.</li>
+              <li>Control total sobre las estadísticas de ventas y otros indicadores clave.</li>
+              <li>Configuración personalizada de alertas y notificaciones.</li>
+            </ul>
 
-          {/* Otras estadísticas */}
-          <h2 className="text-3xl font-bold mb-4">Otras Estadísticas</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {otherStats.map((stat, index) => (
-              <div key={index} className="bg-black p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold">{stat.label}</h3>
-                <p className="text-4xl font-bold">{stat.label === 'Ventas Totales' ? `$COP ${stat.value.toLocaleString()}` : stat.value}</p>
+            {/* Íconos relacionados */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg shadow-lg">
+                <span className="text-4xl mb-2">📦</span> {/* Icono de inventario */}
+                <p className="text-lg font-bold">Inventarios</p>
               </div>
-            ))}
-          </div>
+              <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg shadow-lg">
+                <span className="text-4xl mb-2">📈</span> {/* Icono de reportes */}
+                <p className="text-lg font-bold">Reportes</p>
+              </div>
+              <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg shadow-lg">
+                <span className="text-4xl mb-2">⚙️</span> {/* Icono de configuración */}
+                <p className="text-lg font-bold">Configuración</p>
+              </div>
+              <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg shadow-lg">
+                <span className="text-4xl mb-2">🔔</span> {/* Icono de notificaciones */}
+                <p className="text-lg font-bold">Notificaciones</p>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </div>

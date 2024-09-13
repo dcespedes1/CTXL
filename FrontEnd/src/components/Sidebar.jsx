@@ -5,9 +5,7 @@ import logoGoogle from '../img/google_logo-google_icongoogle-512.webp';
 import logoTwitter from '../img/1690643591twitter-x-logo-png.webp';
 import logoInstagram from '../img/instagram-logo-instagram-icon-transparent-free-png.webp';
 import '../index.css';
-
-
-
+import  LogoCTXY  from '../img/LogoCTXY.jpg';
 const Sidebar = () =>{
     const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -27,7 +25,7 @@ return(
       {/* Sidebar */}
       <aside className="w-64 bg-black text-white flex flex-col">
         <div className="p-6">
-          <h2 className="text-3xl font-bold text-purple-500">CTXL</h2>
+          <h2 className="text-3xl font-bold text-purple-500"><img src={LogoCTXY} alt="LogoCTXY" className="h-10" /></h2>
         </div>
         <nav className="flex flex-col p-6 space-y-2">
           <Link
