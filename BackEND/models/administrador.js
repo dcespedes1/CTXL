@@ -10,7 +10,8 @@ const Administrador = db.define('administrador', {
     TipoDoc: {type: DataTypes.STRING, allowNull: false},
     NumeroDoc: {type: DataTypes.STRING, allowNull: false},
     Correo: {type: DataTypes.STRING, allowNull: false},
-    celular: {type: DataTypes.STRING, allowNull: true}
+    celular: {type: DataTypes.STRING, allowNull: true},
+    contraseña: {type: DataTypes.STRING, allowNull: true},
 }, {
     tableName: 'administrador',
     timestamps: false

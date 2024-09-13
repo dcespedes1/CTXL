@@ -4,7 +4,7 @@ import '../index.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const URI ='http://localhost:8000/api/pedidos/';
+const URI = 'http://localhost:8000/api/pedidos/';
 
 function IPedidos() {
   const [pedidos, setPedidos] = useState([]);
@@ -23,15 +23,14 @@ function IPedidos() {
       console.error('ID de pedido no proporcionado');
       return;
     }
-    
+
     try {
       await axios.delete(`${URI}${id_Pedido}`);
-      getPedidos();  // Actualiza la lista después de eliminar
+      getPedidos(); // Actualiza la lista después de eliminar
     } catch (error) {
       console.error('Error al eliminar el pedido:', error);
     }
   };
-  
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -45,7 +44,8 @@ function IPedidos() {
             </h1>
           </div>
         </div>
-        <div className="my-8">
+        <div className="my-8 flex justify-between items-center">
+          {/* Input de búsqueda */}
           <input
             type="text"
             placeholder="Buscar por material..."
@@ -53,21 +53,18 @@ function IPedidos() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
-        <div>
-          <div>
-            <Link
-              to="/app/rpedidos"
-              className="block text-right text-3xl p-8 hover:text-purple-400"
-            >
-              Registrar Nuevo
-            </Link>
-          </div>
+          {/* Botón Registrar Nuevo */}
+          <Link
+            to="/app/rpedidos"
+            className="block text-3xl p-4 text-purple-600 hover:text-purple-400 whitespace-nowrap"
+          >
+            Registrar Nuevo
+          </Link>
         </div>
 
         <div className="overflow-x-auto bg-gray-900 border border-purple-200 shadow-2xl shadow-purple-600/100">
           <table className="w-full bg-black overflow-hidden">
-          <thead className="bg-purple-600 text-white border-b border-white">
+            <thead className="bg-purple-600 text-white border-b border-white">
               <tr>
                 <th className="p-3 text-center">Cliente</th>
                 <th className="p-3 text-center">Empleado</th>
@@ -95,22 +92,22 @@ function IPedidos() {
                   <td className="p-4 border-b text-white">{pedido.Bordado}</td>
                   <td className="p-4 border-b text-white">{pedido.PInicial}</td>
                   <td className="p-4 border-b text-white">{pedido.PFinal}</td>
-      <td className="p-4 border-b text-white">
-        <Link to={`/app/apedido/${pedido.id_Pedido}`}>
-          <button className="bg-purple-600 text-white px-3 py-1 rounded-lg mr-2">
-            Editar
-          </button>
-        </Link>
-        <button onClick={() => deletepedido(pedido.id_Pedido)}  // Asegúrate de que sea `pedido.id_Pedido`
-        className="bg-purple-600 text-white px-3 py-1 rounded-lg"
-      >
-        Eliminar
-      </button>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+                  <td className="p-4 border-b text-white">
+                    <Link to={`/app/apedido/${pedido.id_Pedido}`}>
+                      <button className="bg-purple-600 text-white px-3 py-1 rounded-lg mr-2">
+                        Editar
+                      </button>
+                    </Link>
+                    <button
+                      onClick={() => deletepedido(pedido.id_Pedido)} // Asegúrate de que sea `pedido.id_Pedido`
+                      className="bg-purple-600 text-white px-3 py-1 rounded-lg"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </main>

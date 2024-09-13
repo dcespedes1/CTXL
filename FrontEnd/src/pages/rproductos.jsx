@@ -36,7 +36,7 @@ function Rproductos() {
         <div className="flex h-screen">
             {/* Sidebar */}
             {/* Main Content */}
-            <main className="flex-1 flex flex-col p-10 bg-gray-100 text-white bg-cover bg-no-repeat">
+            <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white bg-cover bg-no-repeat">
                 <div className="w-3/4 mt-20">
                     <div className="w-1/4 flex">
                         <h1 className="whitespace-nowrap text-4xl font-bold">Registro productos</h1>

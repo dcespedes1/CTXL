@@ -51,7 +51,7 @@ function RPedidos(){
         <div className="flex h-screen">
             {/* Sidebar */}
             {/* Main Content */}
-            <main className="flex-1 flex flex-col p-10 bg-gray-100 text-white bg-cover bg-no-repeat">
+            <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white bg-cover bg-no-repeat">
                 {/* Registro */}
                 <div className="flex justify-center items-center h-screen">
                     <div className="w-[800px] bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">

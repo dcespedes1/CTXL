@@ -41,7 +41,7 @@ function REmpleados() {
             {/* Sidebar */}
             {/* Main Content */}
             <main
-                className="flex-1 flex flex-col p-10 bg-gray-100 text-white bg-cover bg-no-repeat"
+                className="flex-1 flex flex-col p-10 bg-gray-800 text-white bg-cover bg-no-repeat"
             >
                 {/* Content */}
                 

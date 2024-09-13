@@ -28,7 +28,7 @@ function IEmpleados() {
         <div className="w-3/4 mt-20">
           <div className="w-full flex justify-between">
             <h1 className="text-4xl font-bold text-white">
-              Inventario Proveedores
+              Inventario Empleado
             </h1>
           </div>
         </div>

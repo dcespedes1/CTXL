@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import '../index.css';
 import { Link } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
 
-const URI = 'http://localhost:8000/api/productos/'
+const URI = 'http://localhost:8000/api/productos/';
 
 function Iproducto() {
-  const [productos, setproductos] = useState([])
-  useEffect ( () => {
-    getProductos()
-  },[])
+  const [productos, setproductos] = useState([]);
+
+  useEffect(() => {
+    getProductos();
+  }, []);
 
   const getProductos = async () => {
     const res = await axios.get(URI);
     setproductos(res.data);
   };
-  const deleteproducto =  async (id) =>{
-    await axios.delete(`${URI}${id}`)
-    getProductos()
-  }
+
+  const deleteproducto = async (id) => {
+    await axios.delete(`${URI}${id}`);
+    getProductos();
+  };
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -32,13 +34,11 @@ function Iproducto() {
             </h1>
           </div>
           {/* Texto explicativo centrado */}
-          <div className="mt-4 text-center text-xl text-gray-300">
-            Aquí puedes gestionar y controlar el stock de materiales disponibles.
-          </div>
+          
         </div>
 
-        {/* Campo de búsqueda */}
-        <div className="my-8">
+        {/* Campo de búsqueda y botón "Registrar Nuevo" */}
+        <div className="my-8 flex justify-between items-center">
           <input
             type="text"
             placeholder="Buscar por material..."
@@ -46,19 +46,15 @@ function Iproducto() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
-        {/* tabla */}
-        <div>
-          <div>
-            <Link
-              to="/app/rproductos"
-              className="block text-right text-2xl p-4 hover:text-purple-400"
-            >
-              Registrar Nuevo
-            </Link>
-          </div>
+          <Link
+            to="/app/rproductos"
+            className="text-2xl p-4 text-purple-600 hover:text-purple-400 whitespace-nowrap"
+          >
+            Registrar Nuevo
+          </Link>
         </div>
 
+        {/* Tabla */}
         <div className="overflow-x-auto bg-white border border-purple-200 shadow-lg shadow-purple-600/50">
           <table className="border-r border-l border-purple-600 w-full bg-black overflow-hidden">
             <thead className="bg-purple-600 text-white border-b border-white">
