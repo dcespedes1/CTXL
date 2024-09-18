@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../index.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/pedidos/';
 
-function RPedidos(){
-    
+function RPedidos() {
     const [Cliente, setCliente] = useState('');
     const [Cantidad, setCantidad] = useState('');
     const [Empleado, setEmpleado] = useState('');
@@ -18,49 +17,68 @@ function RPedidos(){
     const [Bordado, setBordado] = useState('');
     const [PInicial, setPInicial] = useState('');
     const [PFinal, setPFinal] = useState('');
-    const [id_administrador, setid_administrador] = useState('');
-    const [id_Empleado, setid_Empleado] = useState('');
+    const [empleados, setEmpleados] = useState([]);
+    const [prendas, setPrendas] = useState([]);
+    const [telas, setTelas] = useState([]);
 
-    const navigate =useNavigate();
-    
+    const navigate = useNavigate();
+
+    // Cargar empleados, prendas y telas
+    useEffect(() => {
+        const empleadosCargados = [
+            { id: 1, nombre: 'Juan Perez' },
+            { id: 2, nombre: 'Maria Rodriguez' },
+            { id: 3, nombre: 'Carlos Sanchez' },
+        ];
+        const prendasCargadas = [
+            { id: 1, tipo: 'Camiseta' },
+            { id: 2, tipo: 'Pantalón' },
+            { id: 3, tipo: 'Chaqueta' },
+        ];
+        const telasCargadas = [
+            { id: 1, tipo: 'Algodón' },
+            { id: 2, tipo: 'Poliéster' },
+            { id: 3, tipo: 'Lana' },
+        ];
+
+        setEmpleados(empleadosCargados);
+        setPrendas(prendasCargadas);
+        setTelas(telasCargadas);
+    }, []);
+
     const store = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(URI,{
-               Cliente:  Cliente,
-               Cantidad: Cantidad,
-               Empleado:  Empleado,
-               Prenda:  Prenda,
-               Tela:  Tela,
-               Estampado:  Estampado,
-               Talla:  Talla,
-               Bordado:  Bordado,
-               PInicial:  PInicial,
-               PFinal:  PFinal,
-               id_administrador:   id_administrador,
-               id_Empleado: id_Empleado,
+            await axios.post(URI, {
+                Cliente,
+                Cantidad,
+                Empleado,
+                Prenda,
+                Tela,
+                Estampado,
+                Talla,
+                Bordado,
+                PInicial,
+                PFinal,
             });
-            console.log('Respuesta del servidor:', response.data);
-            navigate('/app/ipedidos'); // Redirige a la página de productos
+            navigate('/app/ipedidos');
         } catch (error) {
             console.error('Error al registrar el pedido:', error);
         }
-    }
+    };
 
     return (
         <div className="flex h-screen">
-            {/* Sidebar */}
-            {/* Main Content */}
             <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white bg-cover bg-no-repeat">
-                {/* Registro */}
                 <div className="flex justify-center items-center h-screen">
                     <div className="w-[800px] bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
                         <h2 className="text-3xl font-bold mb-8 text-center text-white">Registro Pedido</h2>
                         <form onSubmit={store}>
                             <div className="space-y-6">
+                                {/* Primera fila */}
                                 <div className="flex space-x-4">
                                     <div className="w-1/3">
-                                        <label className="block text-white mb-2" htmlFor="Talla">
+                                        <label className="block text-white mb-2" htmlFor="Cliente">
                                             Cliente
                                         </label>
                                         <input
@@ -86,45 +104,65 @@ function RPedidos(){
                                         />
                                     </div>
                                     <div className="w-1/3">
-                                        <label className="block text-white mb-2" htmlFor="Bordado">
+                                        <label className="block text-white mb-2" htmlFor="Empleado">
                                             Empleado
                                         </label>
-                                        <input
-                                            type="text"
+                                        <select
                                             id="Empleado"
                                             value={Empleado}
                                             onChange={(e) => setEmpleado(e.target.value)}
                                             className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                             required
-                                        />
+                                        >
+                                            <option value="">Selecciona un empleado</option>
+                                            {empleados.map((empleado) => (
+                                                <option key={empleado.id} value={empleado.nombre}>
+                                                    {empleado.nombre}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
                                 </div>
+
+                                {/* Segunda fila */}
                                 <div className="flex space-x-4">
                                     <div className="w-1/3">
                                         <label className="block text-white mb-2" htmlFor="Prenda">
                                             Prenda
                                         </label>
-                                        <input
-                                            type="text"
+                                        <select
                                             id="Prenda"
                                             value={Prenda}
                                             onChange={(e) => setPrenda(e.target.value)}
                                             className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                             required
-                                        />
+                                        >
+                                            <option value="">Selecciona una prenda</option>
+                                            {prendas.map((prenda) => (
+                                                <option key={prenda.id} value={prenda.tipo}>
+                                                    {prenda.tipo}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
                                     <div className="w-1/3">
-                                        <label className="block text-white mb-2" htmlFor="Estampado">
+                                        <label className="block text-white mb-2" htmlFor="Tela">
                                             Tela
                                         </label>
-                                        <input
-                                            type="text"
+                                        <select
                                             id="Tela"
                                             value={Tela}
                                             onChange={(e) => setTela(e.target.value)}
                                             className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                             required
-                                        />
+                                        >
+                                            <option value="">Selecciona una tela</option>
+                                            {telas.map((tela) => (
+                                                <option key={tela.id} value={tela.tipo}>
+                                                    {tela.tipo}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
                                     <div className="w-1/3">
                                         <label className="block text-white mb-2" htmlFor="Estampado">
@@ -139,10 +177,11 @@ function RPedidos(){
                                             required
                                         />
                                     </div>
-                                    
                                 </div>
+
+                                {/* Tercera fila */}
                                 <div className="flex space-x-4">
-                                    <div className="w-1/2">
+                                    <div className="w-1/3">
                                         <label className="block text-white mb-2" htmlFor="Talla">
                                             Talla
                                         </label>
@@ -155,7 +194,7 @@ function RPedidos(){
                                             required
                                         />
                                     </div>
-                                    <div className="w-1/2">
+                                    <div className="w-1/3">
                                         <label className="block text-white mb-2" htmlFor="Bordado">
                                             Bordado
                                         </label>
@@ -168,11 +207,7 @@ function RPedidos(){
                                             required
                                         />
                                     </div>
-                                    
-                                </div>
-                                <div className="flex space-x-4">
-
-                                    <div className="w-1/2">
+                                    <div className="w-1/3">
                                         <label className="block text-white mb-2" htmlFor="PInicial">
                                             Precio Inicial
                                         </label>
@@ -185,54 +220,31 @@ function RPedidos(){
                                             required
                                         />
                                     </div>
-                                    <div className="w-1/2">
-                                        <label className="block text-white mb-2" htmlFor="PFinal">
-                                            Precio Final
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="PFinal"
-                                            value={PFinal}
-                                            onChange={(e) => setPFinal(e.target.value)}
-                                            className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="w-1/2">
-                                        <label className="block text-white mb-2" htmlFor="id_administrador">
-                                            id administrador
-                                        </label>
-                                        <input
-                                            type="number"
-                                            id="id_administrador"
-                                            value={id_administrador}
-                                            onChange={(e) => setid_administrador(e.target.value)}
-                                            className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="w-1/2">
-                                        <label className="block text-white mb-2" htmlFor="id_Empleado">
-                                            id Empleado
-                                        </label>
-                                        <input
-                                            type="number"
-                                            id="id_Empleado"
-                                            value={id_Empleado}
-                                            onChange={(e) => setid_Empleado(e.target.value)}
-                                            className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                            required
-                                        />
-                                    </div>
                                 </div>
+
+                                {/* Cuarta fila */}
+                                <div className="w-1/3">
+                                    <label className="block text-white mb-2" htmlFor="PFinal">
+                                        Precio Final
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="PFinal"
+                                        value={PFinal}
+                                        onChange={(e) => setPFinal(e.target.value)}
+                                        className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        required
+                                    />
+                                </div>
+
                                 <div className="text-center">
-                                <Link to="/app/ipedidos">
-                                <button
-                                    type="button"
-                                    className="px-6 py-3 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
-                                    >
-                                    Cancelar
-                                </button>
+                                    <Link to="/app/ipedidos">
+                                        <button
+                                            type="button"
+                                            className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-900 transition duration-200 mr-2"
+                                        >
+                                            Cancelar
+                                        </button>
                                     </Link>
                                     <button
                                         type="submit"

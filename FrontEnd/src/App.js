@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Navbar from '../src/components/navbar';  
+import Navbar from '../src/components/Navbar';  
 import Sidebar from '../src/components/Sidebar';
+import Footer from '../src/components/Footer'; 
 import React from 'react';
 import Index from '../src/pages/index';
 import SingUp from '../src/pages/singUp';
 import Login from '../src/pages/login';
 import Home from '../src/pages/home';
-import sidebarBackground from '../src/img/imagen1.jpg';
+
 import PerfilDetalle from '../src/pages/perfilDetalle';
 import PerfilEditar from '../src/pages/perfilEditar';
 import Iproducto from './pages/iproducto';
@@ -23,9 +24,9 @@ function MainLayout() {
   const location = useLocation(); 
 
   return (
-    <div>
-      {/* Renderiza Navbar solo en las rutas del Index */}
-      {location.pathname === '/' && <Navbar />}
+    <div className="flex flex-col min-h-screen"> {/* Cambiado para permitir que el footer esté al final */}
+      {/* Renderiza Navbar en todas las rutas */}
+      <Navbar />
       
       <Routes>
         {/* Ruta para el Index sin Sidebar */}
@@ -38,16 +39,17 @@ function MainLayout() {
         <Route
           path="/app/*"
           element={
-            <div className="flex">
+            <div className="flex flex-grow">
               <Sidebar />
               <div
-                className="content"
+                className="content flex-grow"
                 style={{
-                  backgroundImage: `url(${sidebarBackground})`,
+                 
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center',
+                  backgroundPosition: 'center', // Cambiado a 'center' para mejor alineación
                   width: '100%',  
-                  minHeight: '100vh', 
+                  backgroundColor: 'blanck'
+            
                 }}
               >
                 <Routes>
@@ -69,6 +71,9 @@ function MainLayout() {
           }
         />
       </Routes>
+
+      {/* Agrega el Footer al final */}
+      <Footer />
     </div>
   );
 }

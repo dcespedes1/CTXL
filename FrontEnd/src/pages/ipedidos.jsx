@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import '../index.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { CgAdd } from "react-icons/cg";
+import { VscEdit } from "react-icons/vsc";
 
 const URI = 'http://localhost:8000/api/pedidos/';
 
 function IPedidos() {
   const [pedidos, setPedidos] = useState([]);
-
+  const [showTooltip, setShowTooltip] = useState(null); 
   useEffect(() => {
     getPedidos();
   }, []);
@@ -39,7 +41,7 @@ function IPedidos() {
       <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white bg-cover bg-no-repeat">
         <div className="w-3/4 mt-20">
           <div className="w-1/4 flex">
-            <h1 className="text-4xl font-bold whitespace-nowrap text-purple-600">
+            <h1 className="text-4xl font-bold whitespace-nowrap text-white-600">
               Inventario Pedidos
             </h1>
           </div>
@@ -54,12 +56,20 @@ function IPedidos() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           {/* Botón Registrar Nuevo */}
-          <Link
-            to="/app/rpedidos"
-            className="block text-3xl p-4 text-purple-600 hover:text-purple-400 whitespace-nowrap"
-          >
-            Registrar Nuevo
-          </Link>
+          <div className="relative">
+            <Link 
+              to="/app/rempleado"
+              onMouseEnter={() => setShowTooltip('add')} 
+              onMouseLeave={() => setShowTooltip(null)} 
+            > 
+              <CgAdd className='text-5xl text-purple-600' />
+            </Link>
+            {showTooltip === 'add' && (
+              <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-purple-600 text-white text-lg rounded shadow-lg z-10">
+                Registrar Nuevo
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="overflow-x-auto bg-gray-900 border border-purple-200 shadow-2xl shadow-purple-600/100">
@@ -93,17 +103,18 @@ function IPedidos() {
                   <td className="p-4 border-b text-white">{pedido.PInicial}</td>
                   <td className="p-4 border-b text-white">{pedido.PFinal}</td>
                   <td className="p-4 border-b text-white">
-                    <Link to={`/app/apedido/${pedido.id_Pedido}`}>
-                      <button className="bg-purple-600 text-white px-3 py-1 rounded-lg mr-2">
-                        Editar
-                      </button>
-                    </Link>
-                    <button
-                      onClick={() => deletepedido(pedido.id_Pedido)} // Asegúrate de que sea `pedido.id_Pedido`
-                      className="bg-purple-600 text-white px-3 py-1 rounded-lg"
+                    <Link 
+                      to={`/app/aempleados/${pedido.id_Pedido}`}
+                      onMouseEnter={() => setShowTooltip(pedido.id_Pedido)} 
+                      onMouseLeave={() => setShowTooltip(null)} 
                     >
-                      Eliminar
-                    </button>
+                      <VscEdit className='text-3xl text-purple-600' />
+                    </Link>
+                    {showTooltip === pedido.id_Pedido && (
+                      <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-purple-600 text-white text-sm rounded">
+                        Editar
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}

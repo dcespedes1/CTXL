@@ -156,7 +156,7 @@ function REmpleados() {
                                 to="/app/iempleados">
                                 <button
                                     type="button"
-                                    className="px-6 py-3 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
+                                    className="px-6 py-3 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200 mr-2"
                                     >
                                     Cancelar
                                 </button>

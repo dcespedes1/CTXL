@@ -29,7 +29,7 @@ function Iproducto() {
       <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white">
         <div className="w-3/4 mt-20">
           <div className="w-1/4 flex">
-            <h1 className="text-4xl font-bold whitespace-nowrap text-purple-600">
+            <h1 className="text-4xl font-bold whitespace-nowrap text-white-600">
               Inventario Material
             </h1>
           </div>

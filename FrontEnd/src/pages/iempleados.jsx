@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 import '../index.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { CgAdd } from "react-icons/cg";
+import { VscEdit } from "react-icons/vsc";
+
 
 const URI = 'http://localhost:8000/api/Empleado/';
 
 function IEmpleados() {
   const [Empleados, setEmpleados] = useState([]);
+  const [showTooltip, setShowTooltip] = useState(null); 
   useEffect(() => {
     getEmpleados();
   }, []);
@@ -21,8 +27,9 @@ function IEmpleados() {
   };
 
   const [searchTerm, setSearchTerm] = useState('');
+  
 
-  return (
+  return ( 
     <div className="flex h-screen bg-gray-800">
       <main className="flex-1 flex flex-col p-10 text-white">
         <div className="w-3/4 mt-20">
@@ -46,9 +53,21 @@ function IEmpleados() {
             </button>
           </div>
           <div>
-            <Link to="/app/rempleado" className="text-2xl p-2 hover:text-purple-400">
-              Registrar Nuevo
+            
+          </div>
+          <div className="relative">
+            <Link 
+              to="/app/rempleado"
+              onMouseEnter={() => setShowTooltip('add')} 
+              onMouseLeave={() => setShowTooltip(null)} 
+            > 
+              <CgAdd className='text-5xl text-purple-600' />
             </Link>
+            {showTooltip === 'add' && (
+              <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-purple-600 text-white text-lg rounded shadow-lg z-10">
+                Registrar Nuevo
+              </div>
+            )}
           </div>
         </div>
         <div className="overflow-x-auto border border-purple-200 shadow-2xl shadow-purple-800 mt-6">
@@ -72,17 +91,21 @@ function IEmpleados() {
                   <td className="p-3">{Empleado.Correo}</td>
                   <td className="p-3">{Empleado.celular}</td>
                   <td className="p-3">
-                    <Link to={`/app/aempleados/${Empleado.id_Empleado}`}>
-                      <button className="bg-purple-600 text-white px-3 py-1 rounded-lg mr-2">
-                        Editar
-                      </button>
-                    </Link>
-                    <button
-                      onClick={() => deleteEmpleado(Empleado.id_Empleado)}
-                      className="bg-purple-600 text-white px-3 py-1 rounded-lg"
+                  
+                  <Link 
+                      to={`/app/aempleados/${Empleado.id_Empleado}`}
+                      onMouseEnter={() => setShowTooltip(Empleado.id_Empleado)} 
+                      onMouseLeave={() => setShowTooltip(null)} 
                     >
-                      Eliminar
-                    </button>
+                      <VscEdit className='text-3xl text-purple-600' />
+                    </Link>
+                    {showTooltip === Empleado.id_Empleado && (
+                      <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-purple-600 text-white text-sm rounded">
+                        Editar
+                      </div>
+                    )}
+
+                    
                   </td>
                 </tr>
               ))}
