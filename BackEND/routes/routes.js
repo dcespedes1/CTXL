@@ -9,7 +9,7 @@ import {
     createEmpleado, deleteEmpleado, getAllEmpleado, getEmpleado, updateEmpleado
 } from '../controllers/empleado.js';
 import {
-    createAdministrador, deleteAdministrador, getAdministrador, getAllAdministrador, updateAdministrador
+    createAdministrador, deleteAdministrador, getAdministrador, getAllAdministrador, updateAdministrador loginAdministrador,
 } from '../controllers/administrador.js';
 
 const router = express.Router();
@@ -25,15 +25,15 @@ router.delete('/productos/:id', deleteProductos);
 router.get('/pedidos', getAllPedidos);
 router.get('/pedidos/:id_pedido', getPedidos);
 router.post('/pedidos', createPedidos);
-router.put('/pedidos/:id', updatePedidos);
-router.delete('/pedidos/:id_pedido', deletePedidos);  // Corregido: id_pedido
+router.put('/pedidos/:id_Pedido', updatePedidos);
+router.delete('/pedidos/:id', deletePedidos); 
 
 // Rutas para Empleados
 router.get('/empleado', getAllEmpleado);
 router.get('/empleado/:id_Empleado', getEmpleado);
 router.post('/empleado', createEmpleado);
 router.put('/empleado/:id_Empleado', updateEmpleado);
-router.delete('/empleado/:id_Empleado', deleteEmpleado);  // Corregido: id_Empleado
+router.delete('/empleado/:id_Empleado', deleteEmpleado);  
 
 // Rutas para Administradores
 router.get('/administrador', getAllAdministrador);
@@ -41,10 +41,5 @@ router.get('/administrador/:id_administrador', getAdministrador);
 router.post('/administrador', createAdministrador);
 router.put('/administrador/:id_administrador', updateAdministrador);
 router.delete('/administrador/:id_administrador', deleteAdministrador);  // Corregido: id_administrador
-
-// Ruta de bienvenida
-router.get('/', (req, res) => {
-    res.send('Bienvenido a la API en /api');
-});
-
+router.post('/administrador', loginAdministrador);
 export default router;

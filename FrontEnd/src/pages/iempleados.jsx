@@ -21,10 +21,6 @@ function IEmpleados() {
     const res = await axios.get(URI);
     setEmpleados(res.data);
   };
-  const deleteEmpleado = async (id_Empleado) => {
-    await axios.delete(`${URI}${id_Empleado}`);
-    getEmpleados();
-  };
 
   const [searchTerm, setSearchTerm] = useState('');
   

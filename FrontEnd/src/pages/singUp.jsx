@@ -1,21 +1,73 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logoFacebook from "../img/facebook-512.webp";
-import logoGoogle from "../img/google_logo-google_icongoogle-512.webp"
-import { Link } from 'react-router-dom';
+import logoGoogle from "../img/google_logo-google_icongoogle-512.webp";
 
 function Login() {
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Login con:', { correo, contraseña });
+  const validateForm = () => {
+    if (!correo || !contraseña) {
+      setError('Por favor, completa todos los campos.');
+      return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(correo)) {
+      setError('Por favor, introduce un correo electrónico válido.');
+      return false;
+    }
+
+    if (contraseña.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres.');
+      return false;
+    }
+
+    return true;
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    try {
+        const response = await fetch('http://localhost:8000/api/administrador', { // Aquí la URL apunta a /api/login
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ correo, contraseña }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error en la autenticación');
+        }
+
+        const data = await response.json();
+        console.log('Login exitoso:', data);
+        navigate('/app/home');
+
+    } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        setError(error.message || 'Correo o contraseña incorrectos.');
+    } finally {
+        setLoading(false);
+    }
+};
+
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-900">
       <div className="w-full max-w-md bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
         <h2 className="text-3xl font-bold mb-8 text-center text-white">Iniciar Sesión</h2>
+
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
@@ -71,15 +123,21 @@ function Login() {
               <img src={logoFacebook} alt="Facebook" className="w-6 h-6 mr-2" />
             </button>
           </div>
-          <Link
-          to="/app/home">
+
           <button
             type="submit"
-            className="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition duration-200"
+            className={`w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={loading} // Disable the button while loading
           >
-            Iniciar Sesión
+            {loading ? 'Cargando...' : 'Iniciar Sesión'}
           </button>
-          </Link>
+
+          <div className="mt-4 text-center text-white">
+            <span>¿No tienes cuenta?</span>
+            <Link to="login" className="ml-2 text-purple-500 hover:underline">
+              Regístrate
+            </Link>
+          </div>
         </form>
       </div>
     </div>

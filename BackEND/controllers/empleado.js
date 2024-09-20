@@ -36,17 +36,37 @@ export const createEmpleado = async (req, res) => {
         res.json({ message: error.message });
     }
 };
-// Actualizar un Empleado existente
 export const updateEmpleado = async (req, res) => {
+    const { id_Empleado } = req.params; 
+
+    // Verificación de ID
+    if (!id_Empleado) {
+        return res.status(400).json({ message: "ID no proporcionado" });
+    }
+
+    const { Nombre, TipoD, NumeroD, FechaN, Correo, celular, id_administrador } = req.body;
+    
+    // Validaciones de los campos requeridos
+    if (!Nombre || !TipoD || !NumeroD || !FechaN || !Correo || !celular || !id_administrador) {
+        return res.status(400).json({ message: "Todos los campos son requeridos" });
+    }
+
     try {
-        await Empleado.update(req.body, {
-            where: { id_Empleado: req.params.id }
+        // Intenta actualizar el registro en la base de datos
+        const [updated] = await Empleado.update(req.body, {
+            where: { id_Empleado }  // El campo debe coincidir con la columna en la base de datos
         });
-        res.json({
-            message: "¡Actualización correcta!"
-        });
+
+        // Verifica si se actualizó algún registro
+        if (updated) {
+            return res.json({ message: "¡Actualización correcta!" });
+        } else {
+            return res.status(404).json({ message: "Empleado no encontrado" });
+        }
     } catch (error) {
-        res.json({ message: error.message });
+        console.error("Error al actualizar empleado:", error);
+        // Devolver error interno del servidor sin exponer detalles sensibles
+        return res.status(500).json({ message: "Error interno del servidor" });
     }
 };
 // Eliminar un Empleado

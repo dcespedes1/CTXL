@@ -1,13 +1,13 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Navbar from '../src/components/Navbar';  
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from '../src/components/Navbar';  // Navbar1
+import Navbar2 from './components/Navbar2';    // Navbar2
 import Sidebar from '../src/components/Sidebar';
-import Footer from '../src/components/Footer'; 
+import Footer from '../src/components/Footer';
 import React from 'react';
 import Index from '../src/pages/index';
 import SingUp from '../src/pages/singUp';
 import Login from '../src/pages/login';
 import Home from '../src/pages/home';
-
 import PerfilDetalle from '../src/pages/perfilDetalle';
 import PerfilEditar from '../src/pages/perfilEditar';
 import Iproducto from './pages/iproducto';
@@ -16,44 +16,41 @@ import IPedidos from './pages/ipedidos';
 import Rproductos from './pages/rproductos';
 import RPedidos from './pages/rpedidos';
 import REmpleados from './pages/rempleados';
-import EditarPedido from './pages/apedido'; 
-import EditarEmpleados from './pages/aempleados'; 
-import EditarProducto from './pages/aproducto'; 
+import EditarPedido from './pages/apedido';
+import EditarEmpleados from './pages/aempleados';
+import EditarProducto from './pages/aproducto';
 
-function MainLayout() {
-  const location = useLocation(); 
-
+function App() {
   return (
-    <div className="flex flex-col min-h-screen"> {/* Cambiado para permitir que el footer esté al final */}
-      {/* Renderiza Navbar en todas las rutas */}
-      <Navbar />
-      
-      <Routes>
-        {/* Ruta para el Index sin Sidebar */}
-        <Route path="/" element={<Index />} />
-        
-        <Route path="/singUp" element={<SingUp />} />
-        <Route path="/login" element={<Login />} />
-        
-        {/* Rutas con Sidebar */}
-        <Route
-          path="/app/*"
-          element={
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Routes>
+          {/* Ruta para Index con Navbar2 */}
+          <Route path="index" element={
+            <>
+              <Navbar2 />
+              <Index />
+            </>
+          } />
+          
+          {/* Ruta para Home con Navbar1 */}
+
+
+          {/* Rutas con Sidebar */}
+          <Route path="/app/*" element={
             <div className="flex flex-grow">
               <Sidebar />
               <div
                 className="content flex-grow"
                 style={{
-                 
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center', // Cambiado a 'center' para mejor alineación
-                  width: '100%',  
-                  backgroundColor: 'blanck'
-            
+                  backgroundPosition: 'center',
+                  width: '100%',
+                  backgroundColor: 'black'
                 }}
               >
                 <Routes>
-                  <Route path="home" element={<Home />} />
+                <Route path="Home" element={<Home />} />
                   <Route path="perfilDetalle" element={<PerfilDetalle />} />
                   <Route path="perfilEditar" element={<PerfilEditar />} />
                   <Route path="ipedidos" element={<IPedidos />} />
@@ -68,20 +65,16 @@ function MainLayout() {
                 </Routes>
               </div>
             </div>
-          }
-        />
-      </Routes>
-
-      {/* Agrega el Footer al final */}
-      <Footer />
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <Router>
-      <MainLayout />  {/* MainLayout está dentro de Router, por lo que useLocation funcionará */}
+          } />
+          
+          {/* Otras rutas, como SingUp y Login, si es necesario */}
+          <Route path="singup" element={<SingUp />} />
+          <Route path="login" element={<Login />} />
+        </Routes>
+        
+        {/* Agrega el Footer al final */}
+        <Footer />
+      </div>
     </Router>
   );
 }

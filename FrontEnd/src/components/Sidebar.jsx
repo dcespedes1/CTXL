@@ -20,7 +20,7 @@ const Sidebar = () => {
       <aside className="w-64 bg-black text-white flex flex-col">
         <div className="p-6">
           <h2 className="text-3xl font-bold text-purple-500">
-            <img src={LogoCTXY} alt="LogoCTXY" className="h-10" />
+            <Link to="/app/home"><img src={LogoCTXY} alt="LogoCTXY" className="h-10" /></Link>
           </h2>
         </div>
         <nav className="flex flex-col p-6 space-y-2">
@@ -113,6 +113,12 @@ const Sidebar = () => {
                   className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
                 >
                   Registro Empleados
+                </Link>
+                <Link
+                  to="/app/index"
+                  className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
+                >
+                  cerrar sesion 
                 </Link>
               </div>
             )}

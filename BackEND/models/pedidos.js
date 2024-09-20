@@ -6,7 +6,6 @@ const Pedidos = db.define ('pedidos', {
     id_Pedido: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Cliente: { type: DataTypes.STRING, allowNull: false},
     Cantidad:{type: DataTypes.INTEGER, allowNull: false},
-    Empleado:{type: DataTypes.STRING, allowNull: false},
     Prenda:  {type: DataTypes.STRING, allowNull: false},
     Tela: { type: DataTypes.STRING, allowNull: false},
     Estampado: { type: DataTypes.STRING,allowNull: true},

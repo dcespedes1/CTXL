@@ -12,7 +12,7 @@ function REmpleados() {
     const [NumeroD, setNumeroD] = useState('');
     const [FechaN, setFechaN] = useState('');
     const [Correo, setCorreo] = useState('');
-    const [Celular, setCelular] = useState('');
+    const [celular, setcelular] = useState('');
     const [id_administrador,setid_administrador] = useState('');
 
     const navigate = useNavigate();
@@ -26,11 +26,11 @@ function REmpleados() {
             NumeroD: NumeroD,
             FechaN: FechaN,
             Correo: Correo,
-            Celular: Celular,
+            celular: celular,
             id_administrador: id_administrador,
           });
           console.log('Respuesta del servidor:', response.data);
-          navigate('/app/iempleados'); // Redirige a la página de 
+          navigate('/app/iempleado'); // Redirige a la página de 
         } catch (error) {
           console.error('Error al registrar el empleado:', error);
         }
@@ -125,14 +125,14 @@ function REmpleados() {
                                         />
                                     </div>
                                     <div className="w-1/3">
-                                        <label className="block text-white mb-2" htmlFor="Celular">
+                                        <label className="block text-white mb-2" htmlFor="celular">
                                         Celular
                                         </label>
                                         <input
                                             type="text"
-                                            id="Celular"
-                                            value={Celular}
-                                            onChange={(e) => setCelular(e.target.value)}
+                                            id="celular"
+                                            value={celular}
+                                            onChange={(e) => setcelular(e.target.value)}
                                             className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                             required
                                         />
@@ -153,7 +153,7 @@ function REmpleados() {
                                 
                                 <div className="text-center">
                                 <Link
-                                to="/app/iempleados">
+                                to="/app/iempleado">
                                 <button
                                     type="button"
                                     className="px-6 py-3 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200 mr-2"

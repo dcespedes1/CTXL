@@ -7,7 +7,7 @@ const Navbar = () => {
       <ul className="flex justify-end space-x-6"> {/* Alineación a la derecha con más espacio */}
         <li>
           <a 
-            href="/" 
+            href="/home" 
             className="text-xl transition-colors duration-300 hover:text-purple-500" // Tamaño de texto aumentado
           >
             Inicio
@@ -24,7 +24,7 @@ const Navbar = () => {
         </li>
         <li>
           <a 
-            href="/logout" // Cambia esto a la ruta correcta para cerrar sesión
+            href="/index" // Cambia esto a la ruta correcta para cerrar sesión
             className="flex items-center text-xl transition-colors duration-300 hover:text-purple-500" // Tamaño de texto aumentado
           >
             <FaSignOutAlt className="w-5 h-5 mr-1" /> {/* Ícono de cerrar sesión */}

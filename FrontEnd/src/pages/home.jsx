@@ -60,48 +60,40 @@ const Home = () => {
     ];
 
     return (
-        <div className="bg-black text-gray-300">
-            
-            <section className="text-center py-8">
-                <h2 className="text-4xl mb-4 transform hover:text-purple-500 transition duration-300">
-                    ¿Qué Hacemos?
-                </h2>
-                <p className="text-lg max-w-2xl mx-auto mb-6">
-                    En TextileUniforms, nos especializamos en la confección de uniformes de alta calidad para diversas industrias. 
-                    Utilizamos materiales premium que ofrecen comodidad, durabilidad y estilo, asegurando que cada uniforme esté diseñado 
-                    para satisfacer las necesidades específicas de nuestros clientes.
-                </p>
-            </section>
 
-            {/* Sección de Uniformes Escolares */}
-            <section className="my-8 px-8">
-                <h2 className="text-3xl text-center mb-6 hover:text-purple-500 transition duration-300">
-                    Uniformes Escolares
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-                    {uniforms.map((uniform, index) => (
-                        <div key={index} className="flex items-center">
-                            <img 
-                                src={uniform.src} 
-                                alt={uniform.alt} 
-                                className="w-48 h-48 object-cover rounded-lg" 
-                            />
-                            <div className="ml-4 p-2 rounded-lg border-2 border-[#9b59b6]">
-                                <p className="text-white whitespace-pre-line">{uniform.description}</p>
+        <div className="flex">
+
+            {/* Main Content */}
+            <div className="flex-grow ml-64 bg-black text-gray-300">
+                {/* Sección de introducción */}
+                {/* Sección de Uniformes Escolares */}
+                <section className="my-8 px-8" id="section2">
+                    <h2 className="text-3xl text-center mb-6 hover:text-purple-500 transition duration-300">
+                        Uniformes Escolares
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                        {uniforms.map((uniform, index) => (
+                            <div key={index} className="flex items-center">
+                                <img 
+                                    src={uniform.src} 
+                                    alt={uniform.alt} 
+                                    className="w-48 h-48 object-cover rounded-lg" 
+                                />
+                                <div className="ml-4 p-2 rounded-lg border-2 border-[#9b59b6]">
+                                    <p className="text-white whitespace-pre-line">{uniform.description}</p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                        ))}
+                    </div>
+                </section>
 
-            {/* Sección de Servicios */}
-            <section className="py-8">
-                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* Aquí puedes agregar tus servicios si es necesario */}
-                </div>
-            </section>
-
-            {/* Footer */}
+                {/* Sección de Servicios */}
+                <section className="py-8" id="section3">
+                    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {/* Aquí puedes agregar tus servicios si es necesario */}
+                    </div>
+                </section>
+            </div>
         </div>
     );
 };

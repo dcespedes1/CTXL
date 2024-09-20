@@ -13,38 +13,47 @@ function AEmpleados() {
     const [FechaN, setFechaN] = useState('');
     const [Correo, setCorreo] = useState('');
     const [celular, setCelular] = useState('');
-    const [id_administrador, setIdAdministrador] = useState("");
+    const [id_administrador, setIdAdministrador] = useState('');
     const navigate = useNavigate();
-    const { id_Empleado } = useParams();
+    const {id_Empleado} = useParams();
 
     useEffect(() => {
-        const fetchProductById = async () => {
-            const res = await axios.get(`${URI}${id_Empleado}`);
-            setNombre(res.data.Nombre);
-            setTipoD(res.data.TipoD);
-            setNumeroD(res.data.NumeroD);
-            setFechaN(res.data.FechaN);
-            setCorreo(res.data.Correo);
-            setCelular(res.data.celular);
-            setIdAdministrador(res.data.id_administrador);
+        const fetchEmployeeById = async () => {
+            try {
+                const res = await axios.get(`${URI}${id_Empleado}`);
+                console.log(res.data); // Verifica que el campo celular existe
+                setNombre(res.data.Nombre);
+                setTipoD(res.data.TipoD);
+                setNumeroD(res.data.NumeroD);
+                setFechaN(res.data.FechaN.split(' ')[0]);
+                setCorreo(res.data.Correo);
+                setCelular(res.data.celular); // Asegúrate de que este campo está presente
+                setIdAdministrador(res.data.id_administrador);
+            } catch (error) {
+                console.error("Error fetching employee data:", error);
+            }
         };
 
-        fetchProductById();
+        fetchEmployeeById();
     }, [id_Empleado]);
 
     const updateEmpleado = async (e) => {
         e.preventDefault();
-        await axios.put(`${URI}${id_Empleado}`, {
-            Nombre: Nombre,
-            TipoD: TipoD,
-            NumeroD: NumeroD,
-            FechaN: FechaN,
-            Correo: Correo,
-            celular: celular,
-            id_administrador: id_administrador,
-        });
-        navigate("/app/iempleados");
-    }
+        try {
+            await axios.put(`${URI}${id_Empleado}`, {
+                Nombre:Nombre,
+                TipoD:TipoD,
+                NumeroD:NumeroD,
+                FechaN:FechaN,
+                Correo:Correo,
+                celular:celular, 
+                id_administrador:id_administrador,
+            });
+            navigate("/app/iempleado");
+        } catch (error) {
+            console.error("Error updating employee data:", error);
+        }
+    };
 
     return (
         <div className="flex h-screen">
@@ -56,9 +65,7 @@ function AEmpleados() {
                             <div className="space-y-6">
                                 <div className="flex space-x-4">
                                     <div className="w-1/3">
-                                        <label className="block text-white mb-2" htmlFor="Nombre">
-                                            Nombre
-                                        </label>
+                                        <label className="block text-white mb-2" htmlFor="Nombre">Nombre</label>
                                         <input
                                             type="text"
                                             id="Nombre"
@@ -69,9 +76,7 @@ function AEmpleados() {
                                         />
                                     </div>
                                     <div className="w-1/3">
-                                        <label className="block text-white mb-2" htmlFor="TipoD">
-                                            Tipo Documento
-                                        </label>
+                                        <label className="block text-white mb-2" htmlFor="TipoD">Tipo Documento</label>
                                         <select
                                             id="TipoD"
                                             value={TipoD}
@@ -86,9 +91,7 @@ function AEmpleados() {
                                         </select>
                                     </div>
                                     <div className="w-1/3">
-                                        <label className="block text-white mb-2" htmlFor="NumeroD">
-                                            Número Documento
-                                        </label>
+                                        <label className="block text-white mb-2" htmlFor="NumeroD">Número Documento</label>
                                         <input
                                             type="text"
                                             id="NumeroD"
@@ -101,9 +104,7 @@ function AEmpleados() {
                                 </div>
                                 <div className="flex space-x-4">
                                     <div className="w-1/3">
-                                        <label className="block text-white mb-2" htmlFor="FechaN">
-                                            Fecha Nacimiento
-                                        </label>
+                                        <label className="block text-white mb-2" htmlFor="FechaN">Fecha Nacimiento</label>
                                         <input
                                             type="date"
                                             id="FechaN"
@@ -114,9 +115,7 @@ function AEmpleados() {
                                         />
                                     </div>
                                     <div className="w-1/2">
-                                        <label className="block text-white mb-2" htmlFor="Correo">
-                                            Correo
-                                        </label>
+                                        <label className="block text-white mb-2" htmlFor="Correo">Correo</label>
                                         <input
                                             type="email"
                                             id="Correo"
@@ -127,9 +126,7 @@ function AEmpleados() {
                                         />
                                     </div>
                                     <div className="w-1/2">
-                                        <label className="block text-white mb-2" htmlFor="celular">
-                                            Celular
-                                        </label>
+                                        <label className="block text-white mb-2" htmlFor="celular">Celular</label>
                                         <input
                                             type="text"
                                             id="celular"
@@ -141,9 +138,7 @@ function AEmpleados() {
                                     </div>
                                 </div>
                                 <div className="w-1/6">
-                                    <label className="block text-white mb-2" htmlFor="id_administrador">
-                                        Administrador
-                                    </label>
+                                    <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
                                     <input
                                         type="number"
                                         id="id_administrador"
@@ -154,10 +149,10 @@ function AEmpleados() {
                                     />
                                 </div>
                                 <div className="text-center">
-                                    <Link to="/app/iproducto">
+                                    <Link to="/app/iempleado">
                                         <button
                                             type="button"
-                                            className="px-6 py-3 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
+                                            className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-900 transition duration-200"
                                         >
                                             Cancelar
                                         </button>
@@ -166,7 +161,7 @@ function AEmpleados() {
                                         type="submit"
                                         className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
                                     >
-                                        Registrar Pedido
+                                        Actualizar Empleado
                                     </button>
                                 </div>
                             </div>
@@ -177,5 +172,4 @@ function AEmpleados() {
         </div>
     );
 }
-
 export default AEmpleados;

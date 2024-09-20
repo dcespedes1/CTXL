@@ -1,5 +1,7 @@
 import Administrador from "../models/administrador.js";
+import bcrypt from 'bcrypt';
 
+//get all
 export const getAllAdministrador = async (req, res) => {
     try {
         const administrador = await Administrador.findAll();
@@ -8,6 +10,7 @@ export const getAllAdministrador = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+//get one
 export const getAdministrador = async (req, res) => {
     try {
         const { id_administrador } = req.params;
@@ -73,5 +76,33 @@ export const deleteAdministrador = async (req, res) => {
     } catch (error) {
         console.error('Error en el servidor:', error);
         res.status(500).json({ message: error.message });
+    }
+};
+
+//login
+export const loginAdministrador = async (req, res) => {
+    const { correo, contraseña } = req.body;
+
+    try {
+        // Buscar al administrador por correo
+        const administrador = await Administrador.findOne({ where: { Correo: correo } });
+
+        // Si no se encuentra un administrador con ese correo
+        if (!administrador) {
+            return res.status(404).json({ message: 'Administrador no encontrado' });
+        }
+
+        // Comparar las contraseñas usando bcrypt
+        const isMatch = await bcrypt.compare(contraseña, administrador.contraseña);
+
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Contraseña incorrecta' });
+        }
+
+        // Si todo es correcto, responde con éxito
+        res.json({ message: 'Inicio de sesión exitoso', administrador });
+    } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        res.status(500).json({ message: 'Error al iniciar sesión', error });
     }
 };

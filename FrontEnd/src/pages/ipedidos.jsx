@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
 import '../index.css';
 import { Link } from 'react-router-dom';
@@ -11,30 +10,27 @@ const URI = 'http://localhost:8000/api/pedidos/';
 function IPedidos() {
   const [pedidos, setPedidos] = useState([]);
   const [showTooltip, setShowTooltip] = useState(null); 
+  const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(() => {
     getPedidos();
   }, []);
 
   const getPedidos = async () => {
-    const res = await axios.get(URI);
-    setPedidos(res.data);
-  };
-
-  const deletepedido = async (id_Pedido) => {
-    if (!id_Pedido) {
-      console.error('ID de pedido no proporcionado');
-      return;
-    }
-
     try {
-      await axios.delete(`${URI}${id_Pedido}`);
-      getPedidos(); // Actualiza la lista después de eliminar
+      const res = await axios.get(URI);
+      setPedidos(res.data);
     } catch (error) {
-      console.error('Error al eliminar el pedido:', error);
+      console.error('Error al obtener pedidos:', error);
     }
   };
 
-  const [searchTerm, setSearchTerm] = useState('');
+  // Filtrar pedidos por todos los campos relevantes
+  const filteredPedidos = pedidos.filter(pedido => {
+    return Object.values(pedido).some(value =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
 
   return (
     <div className="flex h-screen bg-gray-800">
@@ -50,7 +46,7 @@ function IPedidos() {
           {/* Input de búsqueda */}
           <input
             type="text"
-            placeholder="Buscar por material..."
+            placeholder="Buscar..."
             className="w-full max-w-xs p-2 rounded-lg border-2 border-purple-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -58,7 +54,7 @@ function IPedidos() {
           {/* Botón Registrar Nuevo */}
           <div className="relative">
             <Link 
-              to="/app/rempleado"
+              to="/app/rpedidos"
               onMouseEnter={() => setShowTooltip('add')} 
               onMouseLeave={() => setShowTooltip(null)} 
             > 
@@ -77,7 +73,6 @@ function IPedidos() {
             <thead className="bg-purple-600 text-white border-b border-white">
               <tr>
                 <th className="p-3 text-center">Cliente</th>
-                <th className="p-3 text-center">Empleado</th>
                 <th className="p-3 text-center">Prenda</th>
                 <th className="p-3 text-center">Tela</th>
                 <th className="p-3 text-center">Estampado</th>
@@ -90,10 +85,9 @@ function IPedidos() {
               </tr>
             </thead>
             <tbody className="text-center">
-              {pedidos.map((pedido) => (
-                <tr key={uuidv4()} className="border-r border-b border-white">
+              {filteredPedidos.map((pedido) => (
+                <tr key={pedido.id_Pedido} className="border-r border-b border-white">
                   <td className="p-4 border-b text-white">{pedido.Cliente}</td>
-                  <td className="p-4 border-b text-white">{pedido.Empleado}</td>
                   <td className="p-4 border-b text-white">{pedido.Prenda}</td>
                   <td className="p-4 border-b text-white">{pedido.Tela}</td>
                   <td className="p-4 border-b text-white">{pedido.Estampado}</td>
@@ -104,7 +98,7 @@ function IPedidos() {
                   <td className="p-4 border-b text-white">{pedido.PFinal}</td>
                   <td className="p-4 border-b text-white">
                     <Link 
-                      to={`/app/aempleados/${pedido.id_Pedido}`}
+                      to={`/app/apedido/${pedido.id_Pedido}`}
                       onMouseEnter={() => setShowTooltip(pedido.id_Pedido)} 
                       onMouseLeave={() => setShowTooltip(null)} 
                     >
@@ -125,5 +119,4 @@ function IPedidos() {
     </div>
   );
 }
-
 export default IPedidos;

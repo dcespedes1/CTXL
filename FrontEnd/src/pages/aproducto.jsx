@@ -39,10 +39,6 @@ function AProductos() {
       });
       navigate("/app/iproducto");
     }
-
-
-
-
   return (
     <div className="flex h-screen">
       {/* Main Content */}
