@@ -9,7 +9,7 @@ import {
     createEmpleado, deleteEmpleado, getAllEmpleado, getEmpleado, updateEmpleado
 } from '../controllers/empleado.js';
 import {
-    createAdministrador, deleteAdministrador, getAdministrador, getAllAdministrador, updateAdministrador loginAdministrador,
+    createAdministrador, deleteAdministrador, getAdministrador, getAllAdministrador, updateAdministrador,loginAdministrador
 } from '../controllers/administrador.js';
 
 const router = express.Router();
@@ -41,5 +41,7 @@ router.get('/administrador/:id_administrador', getAdministrador);
 router.post('/administrador', createAdministrador);
 router.put('/administrador/:id_administrador', updateAdministrador);
 router.delete('/administrador/:id_administrador', deleteAdministrador);  // Corregido: id_administrador
-router.post('/administrador', loginAdministrador);
+
+
+
 export default router;

@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from '../src/components/Navbar';  // Navbar1
-import Navbar2 from './components/Navbar2';    // Navbar2
+import Navbar2 from './components/Navbar2';
+import Navbar from './components/navbar';
 import Sidebar from '../src/components/Sidebar';
 import Footer from '../src/components/Footer';
 import React from 'react';
 import Index from '../src/pages/index';
-import SingUp from '../src/pages/singUp';
+import SingIn from './pages/singIn';
 import Login from '../src/pages/login';
 import Home from '../src/pages/home';
 import PerfilDetalle from '../src/pages/perfilDetalle';
@@ -30,6 +30,7 @@ function App() {
             <>
               <Navbar2 />
               <Index />
+
             </>
           } />
           
@@ -50,7 +51,11 @@ function App() {
                 }}
               >
                 <Routes>
-                <Route path="Home" element={<Home />} />
+                <Route path="home" element={
+                  <>
+                  <Navbar/>
+                  <Home/>
+                  </>} />
                   <Route path="perfilDetalle" element={<PerfilDetalle />} />
                   <Route path="perfilEditar" element={<PerfilEditar />} />
                   <Route path="ipedidos" element={<IPedidos />} />
@@ -68,8 +73,16 @@ function App() {
           } />
           
           {/* Otras rutas, como SingUp y Login, si es necesario */}
-          <Route path="singup" element={<SingUp />} />
-          <Route path="login" element={<Login />} />
+          <Route path="singIn" element={            <>
+              <Navbar2 />
+              <SingIn />
+
+            </>} />
+          <Route path="login" element={          <>
+              <Navbar2 />
+              <Login />
+
+            </>} />
         </Routes>
         
         {/* Agrega el Footer al final */}

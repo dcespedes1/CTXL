@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../index.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/administrador/';
 
@@ -11,30 +11,41 @@ function Registro() {
   const [TipoDoc, setTipoDoc] = useState('');
   const [NumeroDoc, setNumeroDoc] = useState('');
   const [Correo, setCorreo] = useState('');
-  const [celular, setcelular] = useState('');
-  const [contraseña, setcontraseña] = useState('');
-  const navigate =useNavigate();
+  const [celular, setCelular] = useState('');
+  const [contraseña, setContraseña] = useState('');
+  const navigate = useNavigate();
 
   const store = async (e) => {
     e.preventDefault();
-    try {
-        const response = await axios.post(URI,{
-           Nombre:  Nombre,
-           FechaNacimiento: FechaNacimiento,
-           TipoDoc:  TipoDoc,
-           NumeroDoc:  NumeroDoc,
-           Correo:  Correo,
-           celular:  celular,
-           contraseña: contraseña,
-           
-        });
-        console.log('Respuesta del servidor:', response.data);
-        navigate('/app/index'); // Redirige a la página de index
-    } catch (error) {
-        console.error('Error al registrar el administrador:', error);
-    }
-}
 
+    // Validar el número de documento
+    if (NumeroDoc.length !== 10 || !/^\d+$/.test(NumeroDoc)) {
+      alert('El número de documento debe tener exactamente 10 dígitos y ser solo números.');
+      return;
+    }
+
+    // Validar el correo
+    if (!/\S+@\S+\.\S+/.test(Correo)) {
+      alert('Por favor, ingresa un correo electrónico válido.');
+      return;
+    }
+
+    try {
+      const response = await axios.post(URI, {
+        Nombre,
+        FechaNacimiento,
+        TipoDoc,
+        NumeroDoc,
+        Correo,
+        celular,
+        contraseña,
+      });
+      console.log('Respuesta del servidor:', response.data);
+      navigate('/index'); // Redirige a la página de index
+    } catch (error) {
+      console.error('Error al registrar el administrador:', error);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-900">
@@ -44,9 +55,7 @@ function Registro() {
         <form onSubmit={store}>
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="col-span-2 md:col-span-1">
-              <label className="block text-white mb-2" htmlFor="nombre">
-                Nombre
-              </label>
+              <label className="block text-white mb-2" htmlFor="nombre">Nombre</label>
               <input
                 type="text"
                 id="nombre"
@@ -58,9 +67,7 @@ function Registro() {
             </div>
 
             <div className="col-span-2 md:col-span-1">
-              <label className="block text-white mb-2" htmlFor="FechaNacimiento">
-                Fecha Nacimiento
-              </label>
+              <label className="block text-white mb-2" htmlFor="FechaNacimiento">Fecha Nacimiento</label>
               <input
                 type="date"
                 id="FechaNacimiento"
@@ -72,28 +79,66 @@ function Registro() {
             </div>
 
             <div className="col-span-2 md:col-span-1">
-              <label className="block text-white mb-2" htmlFor="TipoDoc">
-              Tipo Documento
-              </label>
-              <input
-                type="text"
+              <label className="block text-white mb-2" htmlFor="TipoDoc">Tipo Documento</label>
+              <select
                 id="TipoDoc"
                 value={TipoDoc}
                 onChange={(e) => setTipoDoc(e.target.value)}
+                className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                required
+              >
+                <option value="">Selecciona un tipo</option>
+                <option value="CC">Cédula de Ciudadanía (CC)</option>
+                <option value="CE">Cédula de Extranjería (CE)</option>
+                <option value="PA">Pasaporte (PA)</option>
+              </select>
+            </div>
+
+            <div className="col-span-2 md:col-span-1">
+              <label className="block text-white mb-2" htmlFor="NumeroDoc">Número Documento</label>
+              <input
+                type="text"
+                id="NumeroDoc"
+                value={NumeroDoc}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Filtrar solo números
+                  if (/^\d*$/.test(value) && value.length <= 10) {
+                    setNumeroDoc(value);
+                  }
+                }}
+                className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="col-span-2 md:col-span-1">
+              <label className="block text-white mb-2" htmlFor="Correo">Correo</label>
+              <input
+                type="email"
+                id="Correo"
+                value={Correo}
+                onChange={(e) => setCorreo(e.target.value)}
                 className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                 required
               />
             </div>
 
             <div className="col-span-2 md:col-span-1">
-              <label className="block text-white mb-2" htmlFor="NumeroDoc">
-                Numero Documento
-              </label>
+              <label className="block text-white mb-2" htmlFor="celular">Celular</label>
               <input
                 type="text"
-                id="NumeroDoc"
-                value={NumeroDoc}
-                onChange={(e) => setNumeroDoc(e.target.value)}
+                id="celular"
+                value={celular}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Filtrar solo números
+                  if (/^\d*$/.test(value) && value.length <= 10) {
+                    setCelular(value);
+                  }
+                }}
                 className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                 required
               />
@@ -101,54 +146,33 @@ function Registro() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-white mb-2" htmlFor="">
-              Correo
-            </label>
+            <label className="block text-white mb-2" htmlFor="contraseña">Contraseña</label>
             <input
-              type="email"
-              id="Correo"
-              value={Correo}
-              onChange={(e) => setCorreo(e.target.value)}
+              type="password"
+              id="contraseña"
+              value={contraseña}
+              onChange={(e) => setContraseña(e.target.value)}
               className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
             />
           </div>
 
-          <div className="mb-6 flex items-center">
-          <label className="block text-white mb-2" htmlFor="celular">
-              Celular
-            </label>
-            <input
-              type="checkbox"
-              id="celular"
-              checked={celular}
-              onChange={(e) => setcelular(e.target.checked)}
-              className="mr-2"
-              required
-            />
+          <div className="flex justify-between mb-6">
+            <Link to="/index">
+              <button
+                type="button"
+                className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-900 transition duration-200"
+              >
+                Cancelar
+              </button>
+            </Link>
+            <button
+              type="submit"
+              className="w-full ml-2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition duration-200"
+            >
+              Registrarse
+            </button>
           </div>
-          <div className="mb-6 flex items-center">
-          <label className="block text-white mb-2" htmlFor="contraseña">
-          contraseña
-            </label>
-            <input
-              type="checkbox"
-              id="contraseña"
-              checked={contraseña}
-              onChange={(e) => setcontraseña(e.target.checked)}
-              className="mr-2"
-              required
-            />
-          </div>
-
-           
-
-          <button
-            type="submit"
-            className="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition duration-200"
-          >
-            Registrarse
-          </button>
         </form>
       </div>
     </div>

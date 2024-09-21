@@ -114,12 +114,6 @@ const Sidebar = () => {
                 >
                   Registro Empleados
                 </Link>
-                <Link
-                  to="/app/index"
-                  className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-                >
-                  cerrar sesion 
-                </Link>
               </div>
             )}
           </div>

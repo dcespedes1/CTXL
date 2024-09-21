@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logoFacebook from "../img/facebook-512.webp";
-import logoGoogle from "../img/google_logo-google_icongoogle-512.webp";
 
 function Login() {
   const [correo, setCorreo] = useState('');
@@ -35,32 +33,35 @@ function Login() {
     setError(null);
     setLoading(true);
 
-    try {
-        const response = await fetch('http://localhost:8000/api/administrador', { // Aquí la URL apunta a /api/login
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ correo, contraseña }),
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Error en la autenticación');
-        }
-
-        const data = await response.json();
-        console.log('Login exitoso:', data);
-        navigate('/app/home');
-
-    } catch (error) {
-        console.error('Error al iniciar sesión:', error);
-        setError(error.message || 'Correo o contraseña incorrectos.');
-    } finally {
-        setLoading(false);
+    if (!validateForm()) {
+      setLoading(false);
+      return;
     }
-};
 
+    try {
+      const response = await fetch('http://localhost:8000/api/administrador', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ correo, contraseña }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error en la autenticación');
+      }
+
+      const data = await response.json();
+      console.log('Login exitoso:', data);
+      navigate('/app/home');
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      setError(error.message || 'Correo o contraseña incorrectos.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-900">
@@ -71,9 +72,7 @@ function Login() {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
-            <label className="block text-white mb-2" htmlFor="correo">
-              Correo Electrónico
-            </label>
+            <label className="block text-white mb-2" htmlFor="correo">Correo Electrónico</label>
             <input
               type="email"
               id="correo"
@@ -85,9 +84,7 @@ function Login() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-white mb-2" htmlFor="contraseña">
-              Contraseña
-            </label>
+            <label className="block text-white mb-2" htmlFor="contraseña">Contraseña</label>
             <input
               type="password"
               id="contraseña"
@@ -105,38 +102,22 @@ function Login() {
                 id="recordar"
                 className="mr-2"
               />
-              <label htmlFor="recordar" className="text-white">
-                Recordar sesión
-              </label>
+              <label htmlFor="recordar" className="text-white">Recordar sesión</label>
             </div>
-
-            <a href="." className="text-purple-500 hover:underline">
-              ¿Olvidaste tu contraseña?
-            </a>
-          </div>
-
-          <div className="flex mb-6 justify-between">
-            <button type="button" className="flex items-center justify-center w-full bg-gray-800 text-white py-3 rounded-md mx-1">
-              <img src={logoGoogle} alt="Google" className="w-6 h-6 mr-2" />
-            </button>
-            <button type="button" className="flex items-center justify-center w-full bg-gray-800 text-white py-3 rounded-md mx-1">
-              <img src={logoFacebook} alt="Facebook" className="w-6 h-6 mr-2" />
-            </button>
+            <Link to="/forgot-password" className="text-purple-500 hover:underline">¿Olvidaste tu contraseña?</Link>
           </div>
 
           <button
             type="submit"
             className={`w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={loading} // Disable the button while loading
+            disabled={loading}
           >
             {loading ? 'Cargando...' : 'Iniciar Sesión'}
           </button>
 
           <div className="mt-4 text-center text-white">
             <span>¿No tienes cuenta?</span>
-            <Link to="login" className="ml-2 text-purple-500 hover:underline">
-              Regístrate
-            </Link>
+            <Link to="/login" className="ml-2 text-purple-500 hover:underline">Regístrate</Link>
           </div>
         </form>
       </div>
