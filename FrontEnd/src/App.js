@@ -19,7 +19,7 @@ import REmpleados from './pages/rempleados';
 import EditarPedido from './pages/apedido';
 import EditarEmpleados from './pages/aempleados';
 import EditarProducto from './pages/aproducto';
-
+import Contact from './components/Contact'
 function App() {
   return (
     <Router>
@@ -84,7 +84,7 @@ function App() {
 
             </>} />
         </Routes>
-        
+        <Contact/>
         {/* Agrega el Footer al final */}
         <Footer />
       </div>
