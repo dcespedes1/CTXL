@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../index.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { CgAdd } from "react-icons/cg";
 
 const URI = 'http://localhost:8000/api/productos/';
 
@@ -33,8 +34,6 @@ function Iproducto() {
               Inventario Material
             </h1>
           </div>
-          {/* Texto explicativo centrado */}
-          
         </div>
 
         {/* Campo de búsqueda y botón "Registrar Nuevo" */}
@@ -48,15 +47,17 @@ function Iproducto() {
           />
           <Link
             to="/app/rproductos"
-            className="text-2xl p-4 text-purple-600 hover:text-purple-400 whitespace-nowrap"
+            className="flex items-center whitespace-nowrap"
           >
-            Registrar Nuevo
+            <button className="flex items-center bg-purple-600 text-white p-4 rounded-lg shadow-lg focus:outline-none">
+              <CgAdd size={30} />
+            </button>
           </Link>
         </div>
 
         {/* Tabla */}
         <div className="overflow-x-auto bg-white border border-purple-200 shadow-lg shadow-purple-600/50">
-          <table className="border-r border-l border-purple-600 w-full bg-black overflow-hidden">
+          <table className=" w-full bg-black overflow-hidden">
             <thead className="bg-purple-600 text-white border-b border-white">
               <tr>
                 <th className="p-4">Cantidad</th>

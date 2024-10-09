@@ -35,7 +35,7 @@ const Contact = () => {
             <input
               type="text"
               className="w-full p-2 bg-transparent border-b-2 border-purple-600 text-white rounded focus:outline-none focus:ring focus:ring-purple-300 transition duration-200 hover:border-purple-700"
-              placeholder="Enter Your Name" name='name'
+              placeholder="Ingrese Su Nombre" name='name'
               required
             />
           </div>
@@ -44,7 +44,7 @@ const Contact = () => {
             <input
               type="email"
               className="w-full p-2 bg-transparent border-b-2 border-purple-600 text-white rounded focus:outline-none focus:ring focus:ring-purple-300 transition duration-200 hover:border-purple-700"
-              placeholder="Enter Your email" name='email'
+              placeholder="Ingresa tu E-mail" name='email'
               required
             />
           </div>

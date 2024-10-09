@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar2 from './components/Navbar2';
 import Navbar from './components/navbar';
-import Sidebar from '../src/components/Sidebar';
-import Footer from '../src/components/Footer';
+import Sidebar from './components/Sidebar';
+import Footer from './components/Footer';
 import React from 'react';
-import Index from '../src/pages/index';
+import Index from './pages/index';
 import SingIn from './pages/singIn';
-import Login from '../src/pages/login';
-import Home from '../src/pages/home';
-import PerfilDetalle from '../src/pages/perfilDetalle';
-import PerfilEditar from '../src/pages/perfilEditar';
+import Login from './pages/login';
+import Home from './pages/home';
+import PerfilDetalle from './pages/perfilDetalle';
+import PerfilEditar from './pages/perfilEditar';
 import Iproducto from './pages/iproducto';
 import IEmpleados from './pages/iempleados';
 import IPedidos from './pages/ipedidos';
@@ -19,25 +19,22 @@ import REmpleados from './pages/rempleados';
 import EditarPedido from './pages/apedido';
 import EditarEmpleados from './pages/aempleados';
 import EditarProducto from './pages/aproducto';
-import Contact from './components/Contact'
+import Contact from './pages/Contact';
+
 function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
+        
         <Routes>
-          {/* Ruta para Index con Navbar2 */}
-          <Route path="index" element={
-            <>
-              <Navbar2 />
-              <Index />
-
-            </>
-          } />
+          <Route path="/index" element={
+            <><Navbar2 /> <Index /></>} />
           
-          {/* Ruta para Home con Navbar1 */}
-
-
-          {/* Rutas con Sidebar */}
+         
+          <Route path="singIn" element={<><Navbar2 /><SingIn /></>} />
+          <Route path="login" element={<><Navbar2 /><Login /></>} />
+          
+          {/* Protected Routes with Sidebar */}
           <Route path="/app/*" element={
             <div className="flex flex-grow">
               <Sidebar />
@@ -47,15 +44,13 @@ function App() {
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   width: '100%',
-                  backgroundColor: 'black'
+                  backgroundColor: 'black',
                 }}
               >
+                {/* Navbar for app routes */}
+                <Navbar />
                 <Routes>
-                <Route path="home" element={
-                  <>
-                  <Navbar/>
-                  <Home/>
-                  </>} />
+                  <Route path="home" element={<Home />} />
                   <Route path="perfilDetalle" element={<PerfilDetalle />} />
                   <Route path="perfilEditar" element={<PerfilEditar />} />
                   <Route path="ipedidos" element={<IPedidos />} />
@@ -71,22 +66,12 @@ function App() {
               </div>
             </div>
           } />
-          
-          {/* Otras rutas, como SingUp y Login, si es necesario */}
-          <Route path="singIn" element={            <>
-              <Navbar2 />
-              <SingIn />
-
-            </>} />
-          <Route path="login" element={          <>
-              <Navbar2 />
-              <Login />
-
-            </>} />
         </Routes>
-        <Contact/>
-        {/* Agrega el Footer al final */}
-        <Footer />
+        
+        <Footer/>
+        <Routes>
+        <Route path="Contact" element={<Contact />} />
+        </Routes>
       </div>
     </Router>
   );

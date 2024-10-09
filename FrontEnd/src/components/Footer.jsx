@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -7,12 +8,9 @@ const Footer = () => {
                 {/* Contact Information */}
                 <div className="flex flex-col sm:flex-row justify-between items-center text-center">
                     <p className="text-sm">
-                        <a 
-                          href="/contacto" 
-                          className="underline transition-colors duration-300 hover:text-purple-500"
-                        >
+                    <Link to="/Contact" >
                           Contacto
-                        </a>
+                        </Link>
                     </p>
                     <p className="text-sm">
                         &copy; {new Date().getFullYear()} TextileUniforms. Todos los derechos reservados.
