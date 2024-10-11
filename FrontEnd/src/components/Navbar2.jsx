@@ -12,10 +12,10 @@ const Navbar2 = () => {
                     <h1 className="text-white text-xl font-bold">Textiles la Y</h1>
                 </div>
                 <div className="space-x-4">
-                    <Link to="/singIn" className="text-white hover:text-purple-300">
+                    <Link to="/SingIn" className="text-white hover:text-purple-300">
                         Iniciar Sesión
                     </Link>
-                    <Link to="/login" className="text-white hover:text-purple-300">
+                    <Link to="/Login" className="text-white hover:text-purple-300">
                         Registrarse
                     </Link>
                 </div>

@@ -5,7 +5,7 @@ import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import React from 'react';
 import Index from './pages/index';
-import SingIn from './pages/singIn';
+import SignIn from './pages/singIn';
 import Login from './pages/login';
 import Home from './pages/home';
 import PerfilDetalle from './pages/perfilDetalle';
@@ -26,15 +26,13 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen">
         
+        {/* Rutas principales */}
         <Routes>
-          <Route path="/index" element={
-            <><Navbar2 /> <Index /></>} />
-          
-         
-          <Route path="singIn" element={<><Navbar2 /><SingIn /></>} />
-          <Route path="login" element={<><Navbar2 /><Login /></>} />
-          
-          {/* Protected Routes with Sidebar */}
+          <Route path="/index" element={<><Navbar2 /> <Index /></>} />
+          <Route path="/singIn" element={<><Navbar2 /><SignIn /></>} /> {/* Corregido */}
+          <Route path="/login" element={<><Navbar2 /><Login /></>} />
+
+          {/* Rutas protegidas con Sidebar */}
           <Route path="/app/*" element={
             <div className="flex flex-grow">
               <Sidebar />
@@ -47,7 +45,6 @@ function App() {
                   backgroundColor: 'black',
                 }}
               >
-                {/* Navbar for app routes */}
                 <Navbar />
                 <Routes>
                   <Route path="home" element={<Home />} />
@@ -66,12 +63,12 @@ function App() {
               </div>
             </div>
           } />
+
+
+          <Route path="/contact" element={<Contact />} /> {/* Corregido a "/contact" */}
         </Routes>
         
-        <Footer/>
-        <Routes>
-        <Route path="Contact" element={<Contact />} />
-        </Routes>
+        <Footer />
       </div>
     </Router>
   );

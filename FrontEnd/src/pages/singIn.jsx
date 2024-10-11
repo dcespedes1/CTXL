@@ -6,6 +6,7 @@ function Login() {
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [mostrarContraseña, setMostrarContraseña] = useState(false); // Nuevo estado
   const navigate = useNavigate();
 
   const validateForm = () => {
@@ -39,7 +40,8 @@ function Login() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/administrador', {
+      console.log('Enviando datos:', { correo, contraseña }); // Para depuración
+      const response = await fetch('http://localhost:8000/api/administrador/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,6 +51,7 @@ function Login() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.error('Error del servidor:', errorData); // Para depuración
         throw new Error(errorData.message || 'Error en la autenticación');
       }
 
@@ -83,16 +86,23 @@ function Login() {
             />
           </div>
 
-          <div className="mb-6">
+          <div className="mb-6 relative"> {/* Aquí añadimos "relative" */}
             <label className="block text-white mb-2" htmlFor="contraseña">Contraseña</label>
             <input
-              type="password"
+              type={mostrarContraseña ? 'text' : 'password'} // Cambiar tipo según estado
               id="contraseña"
               value={contraseña}
               onChange={(e) => setContraseña(e.target.value)}
               className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
             />
+            {/* Icono para mostrar/ocultar contraseña */}
+            <span
+              onClick={() => setMostrarContraseña(!mostrarContraseña)}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-white"
+            >
+              {mostrarContraseña ? '🙈' : '👁️'} {/* Cambia el icono aquí */}
+            </span>
           </div>
 
           <div className="mb-6 flex items-center justify-between">

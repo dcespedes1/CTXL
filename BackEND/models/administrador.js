@@ -1,6 +1,5 @@
 // Importa la conexión a la base de datos
 import db from "../database/db.js";
-import bcrypt from 'bcrypt';
 // Importa Sequelize
 import { DataTypes } from "sequelize";
 
@@ -36,7 +35,7 @@ const Administrador = db.define('administrador', {
     },
     celular: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     contraseña: {
         type: DataTypes.STRING,
@@ -48,20 +47,7 @@ const Administrador = db.define('administrador', {
 }, {
     tableName: 'administrador',
     timestamps: false,
-    hooks: {
-        beforeCreate: async (administrador) => {
-            if (administrador.contraseña) {
-                const salt = await bcrypt.genSalt(10);
-                administrador.contraseña = await bcrypt.hash(administrador.contraseña, salt);
-            }
-        },
-        beforeUpdate: async (administrador) => {
-            if (administrador.contraseña) {
-                const salt = await bcrypt.genSalt(10);
-                administrador.contraseña = await bcrypt.hash(administrador.contraseña, salt);
-            }
-        }
-    }
+
 });
 
 export default Administrador;

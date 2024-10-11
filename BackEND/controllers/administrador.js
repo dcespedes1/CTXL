@@ -38,7 +38,35 @@ export const createAdministrador = async (req, res) => {
         res.json({ message: error.message });
     }
 };
-// Actualizar un Administrador existente
+//login
+export const loginAdministrador = async (req, res) => {
+    const { correo, contraseña } = req.body;
+
+    if (!correo || !contraseña) {
+        return res.status(400).json({ message: 'Correo y contraseña son requeridos.' });
+    }
+
+    try {
+        const administrador = await Administrador.findOne({ where: { correo } });
+        if (!administrador) {
+            return res.status(404).json({ message: 'Administrador no encontrado.' });
+        }
+
+        const isMatch = await bcrypt.compare(contraseña, administrador.contraseña);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Contraseña incorrecta.' });
+        }
+
+        // Aquí puedes generar el token o hacer lo que necesites al iniciar sesión
+        res.json({ message: 'Login exitoso', administrador: { id: administrador.id_administrador, correo: administrador.correo } });
+    } catch (error) {
+        console.error('Error en el login:', error);
+        res.status(500).json({ message: 'Error del servidor.' });
+    }
+};
+
+
+//actualizar un administrador
 export const updateAdministrador = async (req, res) => {
     try {
         await Administrador.update(req.body, {
@@ -51,6 +79,7 @@ export const updateAdministrador = async (req, res) => {
         res.json({ message: error.message });
     }
 };
+
 // Eliminar un Administrador
 export const deleteAdministrador = async (req, res) => {
     try {
@@ -76,33 +105,5 @@ export const deleteAdministrador = async (req, res) => {
     } catch (error) {
         console.error('Error en el servidor:', error);
         res.status(500).json({ message: error.message });
-    }
-};
-
-//login
-export const loginAdministrador = async (req, res) => {
-    const { correo, contraseña } = req.body;
-
-    try {
-        // Buscar al administrador por correo
-        const administrador = await Administrador.findOne({ where: { Correo: correo } });
-
-        // Si no se encuentra un administrador con ese correo
-        if (!administrador) {
-            return res.status(404).json({ message: 'Administrador no encontrado' });
-        }
-
-        // Comparar las contraseñas usando bcrypt
-        const isMatch = await bcrypt.compare(contraseña, administrador.contraseña);
-
-        if (!isMatch) {
-            return res.status(401).json({ message: 'Contraseña incorrecta' });
-        }
-
-        // Si todo es correcto, responde con éxito
-        res.json({ message: 'Inicio de sesión exitoso', administrador });
-    } catch (error) {
-        console.error('Error al iniciar sesión:', error);
-        res.status(500).json({ message: 'Error al iniciar sesión', error });
     }
 };

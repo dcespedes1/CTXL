@@ -39,6 +39,7 @@ router.delete('/empleado/:id_Empleado', deleteEmpleado);
 router.get('/administrador', getAllAdministrador);
 router.get('/administrador/:id_administrador', getAdministrador);
 router.post('/administrador', createAdministrador);
+router.post('/administrador/login', loginAdministrador);
 router.put('/administrador/:id_administrador', updateAdministrador);
 router.delete('/administrador/:id_administrador', deleteAdministrador);  // Corregido: id_administrador
 
