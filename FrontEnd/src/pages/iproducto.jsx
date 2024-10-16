@@ -1,98 +1,117 @@
 import React, { useState, useEffect } from 'react';
-import '../index.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
+import { VscEdit } from "react-icons/vsc";
 
 const URI = 'http://localhost:8000/api/productos/';
 
-function Iproducto() {
-  const [productos, setproductos] = useState([]);
+function IProductos() {
+  const [productos, setProductos] = useState([]);
+  const [showTooltip, setShowTooltip] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     getProductos();
   }, []);
 
   const getProductos = async () => {
-    const res = await axios.get(URI);
-    setproductos(res.data);
+    try {
+      const res = await axios.get(URI);
+      setProductos(res.data);
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+    }
   };
 
-  const deleteproducto = async (id) => {
-    await axios.delete(`${URI}${id}`);
-    getProductos();
-  };
-
-  const [searchTerm, setSearchTerm] = useState('');
+  const filteredProductos = productos.filter(producto =>
+    Object.values(producto).some(value =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
 
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className="flex h-screen bg-purple-800">
       <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white">
         <div className="w-3/4 mt-20">
-          <div className="w-1/4 flex">
-            <h1 className="text-4xl font-bold whitespace-nowrap text-white-600">
-              Inventario Material
-            </h1>
-          </div>
+          <h1 className="text-4xl font-bold text-white">Inventario de Productos</h1>
         </div>
-
-        {/* Campo de búsqueda y botón "Registrar Nuevo" */}
         <div className="my-8 flex justify-between items-center">
           <input
             type="text"
-            placeholder="Buscar por material..."
+            placeholder="Buscar..."
             className="w-full max-w-xs p-2 rounded-lg border-2 border-purple-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <Link
-            to="/app/rproductos"
-            className="flex items-center whitespace-nowrap"
-          >
-            <button className="flex items-center bg-purple-600 text-white p-4 rounded-lg shadow-lg focus:outline-none">
-              <CgAdd size={30} />
-            </button>
-          </Link>
+          <div className="relative ml-4">
+            <Link
+              to="/app/rproductos"
+              onMouseEnter={() => setShowTooltip('add')}
+              onMouseLeave={() => setShowTooltip(null)}
+            >
+              <CgAdd className='text-5xl text-purple-600' />
+            </Link>
+            {showTooltip === 'add' && (
+              <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-purple-600 text-white text-lg rounded shadow-lg z-10">
+                Registrar Nuevo
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Tabla */}
-        <div className="overflow-x-auto bg-white border border-purple-200 shadow-lg shadow-purple-600/50">
-          <table className=" w-full bg-black overflow-hidden">
-            <thead className="bg-purple-600 text-white border-b border-white">
+        <div className="overflow-x-auto bg-gray-900 border border-purple-200 shadow-2xl shadow-purple-600/100 rounded-lg">
+          <table className="min-w-full text-sm text-left text-white-400">
+            <thead className="bg-purple-700 text-white-300 uppercase">
               <tr>
-                <th className="p-4">Cantidad</th>
-                <th className="p-4">Material</th>
-                <th className="p-4">Color</th>
-                <th className="p-4">Acciones</th>
+                <th className="px-6 py-3">Cantidad</th>
+                <th className="px-6 py-3">Material</th>
+                <th className="px-6 py-3">Color</th>
+                <th className="px-6 py-3">Acciones</th>
               </tr>
             </thead>
-            <tbody className="text-center">
-              {productos.map((producto) => (
-                <tr key={producto.id_producto} className="border-r border-b border-white">
-                  <td className="p-4 border-b text-white">{producto.CantidadR}</td>
-                  <td className="p-4 border-b text-white">{producto.Material}</td>
-                  <td className="p-4 border-b text-white">{producto.Colores}</td>
-                  <td className="p-4 border-b">
-                    <Link to={`/app/aproducto/${producto.id_producto}`}>
-                      <button className="bg-purple-600 text-white px-3 py-1 rounded-lg mr-2">
-                        Editar
-                      </button>
-                    </Link>
-                    <button
-                      onClick={() => deleteproducto(producto.id_producto)}
-                      className="bg-purple-600 text-white px-3 py-1 rounded-lg"
-                    >
-                      Eliminar
-                    </button>
+            <tbody>
+              {filteredProductos.length > 0 ? (
+                filteredProductos.map((producto) => (
+                  <tr key={producto.id_producto} className="bg-gray-800 border-b border-gray-700 hover:bg-gray-700">
+                    <td className="px-6 py-4">{producto.CantidadR}</td>
+                    <td className="px-6 py-4">{producto.Material}</td>
+                    <td className="px-6 py-4">{producto.Colores}</td>
+                    <td className="px-6 py-4">
+                      <Link
+                        to={`/app/aproducto/${producto.id_producto}`}
+                        onMouseEnter={() => setShowTooltip(producto.id_producto)}
+                        onMouseLeave={() => setShowTooltip(null)}
+                      >
+                        <VscEdit className='text-3xl text-purple-600' />
+                      </Link>
+                      {showTooltip === producto.id_producto && (
+                        <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-purple-600 text-white text-sm rounded">
+                          Editar
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="px-6 py-4 text-center">
+                    No hay datos disponibles
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
+
+          {filteredProductos.length === 0 && (
+            <div className="text-center py-4 text-white-300">
+              Mostrando filas 0 a 0 de 0
+            </div>
+          )}
         </div>
       </main>
     </div>
   );
 }
 
-export default Iproducto;
+export default IProductos;

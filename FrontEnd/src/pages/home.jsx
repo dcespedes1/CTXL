@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaUserCircle } from 'react-icons/fa'; // Importing a user icon
 import '../index.css';
 import ImagenN1 from '../img/ImagenN1.jpeg';
 import ImagenN2 from '../img/ImagenN2.jpeg';
@@ -11,6 +12,16 @@ import ImagenN8 from '../img/ImagenN8.jpeg';
 import ImagenN9 from '../img/ImagenN9.jpeg';
 
 const Home = () => {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownOpen(prev => !prev);
+    };
+
+    const closeDropdown = () => {
+        setDropdownOpen(false);
+    };
+
     const uniforms = [
         {
             src: ImagenN1,
@@ -60,12 +71,11 @@ const Home = () => {
     ];
 
     return (
-
         <div className="flex">
-
             {/* Main Content */}
-            <div className="flex-grow ml-64 bg-black text-gray-300">
-                {/* Sección de introducción */}
+            <div className="flex-grow ml-4 bg-black text-gray-300">
+                {/* Profile Dropdown */}
+    
                 {/* Sección de Uniformes Escolares */}
                 <section className="my-8 px-8" id="section2">
                     <h2 className="text-3xl text-center mb-6 hover:text-purple-500 transition duration-300">
@@ -74,10 +84,10 @@ const Home = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                         {uniforms.map((uniform, index) => (
                             <div key={index} className="flex items-center">
-                                <img 
-                                    src={uniform.src} 
-                                    alt={uniform.alt} 
-                                    className="w-48 h-48 object-cover rounded-lg" 
+                                <img
+                                    src={uniform.src}
+                                    alt={uniform.alt}
+                                    className="w-48 h-48 object-cover rounded-lg"
                                 />
                                 <div className="ml-4 p-2 rounded-lg border-2 border-[#9b59b6]">
                                     <p className="text-white whitespace-pre-line">{uniform.description}</p>
