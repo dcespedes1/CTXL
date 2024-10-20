@@ -27,7 +27,7 @@ function AEmpleados() {
                 setNumeroD(res.data.NumeroD);
                 setFechaN(res.data.FechaN.split(' ')[0]);
                 setCorreo(res.data.Correo);
-                setCelular(res.data.celular); // Asegúrate de que este campo está presente
+                setCelular(res.data.celular); 
                 setIdAdministrador(res.data.id_administrador);
             } catch (error) {
                 console.error("Error fetching employee data:", error);
