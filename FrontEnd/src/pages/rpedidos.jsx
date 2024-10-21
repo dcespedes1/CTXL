@@ -14,26 +14,31 @@ function RPedidos() {
     const [Talla, setTalla] = useState('S');
     const [Bordado, setBordado] = useState('No');
     const [PInicial, setPInicial] = useState(0);
-    const [PFinal, setPFinal] = useState(0);
+    const [PFinal, setPFinal] = useState(8000); // Precio inicial por prenda es 8.000 COP
     const [id_Empleado, setid_Empleado] = useState('');
-    const [id_administrador, setid_administrador] = useState('');
-    const [empleados, setEmpleados] = useState([{ id: 1, nombre: 'Juan' }, { id: 2, nombre: 'María' }, { id: 3, nombre: 'Pedro' }]); // Lista de empleados
+    const [id_administrador, setid_administrador] = useState('Juan Perez'); // Administrador bloqueado
+    const [empleados, setEmpleados] = useState([
+        { id: 1, nombre: 'Juan' },
+        { id: 2, nombre: 'María' },
+        { id: 3, nombre: 'Pedro' },
+    ]); // Lista de empleados
     const navigate = useNavigate();
 
     // Función para actualizar el precio automáticamente según la cantidad
     useEffect(() => {
-        const nuevoPrecio = Cantidad * 100; // Precio base multiplicado por la cantidad
-        setPFinal(nuevoPrecio);
+        const precioBase = 8000; // Precio base por prenda en COP
+        const nuevoPrecioFinal = Cantidad * precioBase;
+        setPFinal(nuevoPrecioFinal);
     }, [Cantidad]);
 
-    // Función para formatear el precio en pesos colombianos (COP) con comas
+    // Función para formatear el precio en pesos colombianos (COP)
     const formatCOP = (valor) => {
         return valor.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
     };
 
     const store = async (e) => {
         e.preventDefault();
-        console.log("Formulario enviado");
+        console.log('Formulario enviado');
         try {
             const response = await axios.post(URI, {
                 Cliente,
@@ -49,7 +54,7 @@ function RPedidos() {
                 id_administrador,
                 id_Empleado,
             });
-            console.log("Respuesta de la API:", response.data);
+            console.log('Respuesta de la API:', response.data);
             navigate('/app/ipedidos');
         } catch (error) {
             console.error('Error al registrar el pedido:', error);
@@ -73,10 +78,11 @@ function RPedidos() {
                                             id="Cliente"
                                             value={Cliente}
                                             onChange={(e) => setCliente(e.target.value)}
-                                            className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                            className="w-full max-w-[250px] px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                             required
                                         />
                                     </div>
+
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-white mb-2" htmlFor="Cantidad">Cantidad</label>
@@ -85,17 +91,18 @@ function RPedidos() {
                                                 id="Cantidad"
                                                 value={Cantidad}
                                                 onChange={(e) => setCantidad(Math.max(1, e.target.value))}
-                                                className="w-full max-w-[120px] px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                className="w-full px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                                 required
                                             />
                                         </div>
+
                                         <div>
                                             <label className="block text-white mb-2" htmlFor="Prenda">Prenda</label>
                                             <select
                                                 id="Prenda"
                                                 value={Prenda}
                                                 onChange={(e) => setPrenda(e.target.value)}
-                                                className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                className="w-full px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                                 required
                                             >
                                                 <option value="Uniformes">Uniformes</option>
@@ -106,6 +113,7 @@ function RPedidos() {
                                             </select>
                                         </div>
                                     </div>
+
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-white mb-2" htmlFor="Tela">Tela</label>
@@ -113,7 +121,7 @@ function RPedidos() {
                                                 id="Tela"
                                                 value={Tela}
                                                 onChange={(e) => setTela(e.target.value)}
-                                                className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                className="w-full px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                                 required
                                             >
                                                 <option value="Algodón">Algodón</option>
@@ -122,13 +130,14 @@ function RPedidos() {
                                                 <option value="Mezcla">Mezcla</option>
                                             </select>
                                         </div>
+
                                         <div>
                                             <label className="block text-white mb-2" htmlFor="Estampado">Estampado</label>
                                             <select
                                                 id="Estampado"
                                                 value={Estampado}
                                                 onChange={(e) => setEstampado(e.target.value)}
-                                                className="w-full max-w-[120px] px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                className="w-full px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                                 required
                                             >
                                                 <option value="Sí">Sí</option>
@@ -136,7 +145,7 @@ function RPedidos() {
                                             </select>
                                         </div>
                                     </div>
-                                    {/* Especificaciones del estampado, solo se muestra si el estampado es "Sí" */}
+
                                     {Estampado === 'Sí' && (
                                         <div>
                                             <label className="block text-white mb-2" htmlFor="EspecificacionesEstampado">Especificaciones del Estampado</label>
@@ -145,7 +154,7 @@ function RPedidos() {
                                                 id="EspecificacionesEstampado"
                                                 value={EspecificacionesEstampado}
                                                 onChange={(e) => setEspecificacionesEstampado(e.target.value)}
-                                                className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                className="w-full px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                                 required
                                             />
                                         </div>
@@ -161,7 +170,7 @@ function RPedidos() {
                                                 id="Talla"
                                                 value={Talla}
                                                 onChange={(e) => setTalla(e.target.value)}
-                                                className="w-full max-w-[120px] px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                className="w-full px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                                 required
                                             >
                                                 <option value="XS">XS</option>
@@ -172,13 +181,14 @@ function RPedidos() {
                                                 <option value="XXL">XXL</option>
                                             </select>
                                         </div>
+
                                         <div>
                                             <label className="block text-white mb-2" htmlFor="Bordado">Bordado</label>
                                             <select
                                                 id="Bordado"
                                                 value={Bordado}
                                                 onChange={(e) => setBordado(e.target.value)}
-                                                className="w-full max-w-[120px] px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                className="w-full px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                                 required
                                             >
                                                 <option value="Sí">Sí</option>
@@ -186,6 +196,7 @@ function RPedidos() {
                                             </select>
                                         </div>
                                     </div>
+
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-white mb-2" htmlFor="PInicial">Precio Inicial</label>
@@ -194,21 +205,23 @@ function RPedidos() {
                                                 id="PInicial"
                                                 value={PInicial}
                                                 onChange={(e) => setPInicial(Math.max(0, e.target.value))}
-                                                className="w-full max-w-[120px] px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                className="w-full px-2 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                                 required
                                             />
                                         </div>
+
                                         <div>
                                             <label className="block text-white mb-2" htmlFor="PFinal">Precio Final</label>
                                             <input
                                                 type="text"
                                                 id="PFinal"
-                                                value={formatCOP(PFinal)} // Aquí se formatea el precio final
+                                                value={formatCOP(PFinal)} // Precio final en formato COP
                                                 readOnly
                                                 className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                             />
                                         </div>
                                     </div>
+
                                     <div>
                                         <label className="block text-white mb-2" htmlFor="id_Empleado">Empleado</label>
                                         <select
@@ -225,15 +238,16 @@ function RPedidos() {
                                             ))}
                                         </select>
                                     </div>
+
+                                    {/* Administrador bloqueado */}
                                     <div>
                                         <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
                                         <input
-                                            type="number"
+                                            type="text"
                                             id="id_administrador"
-                                            value={id_administrador}
-                                            onChange={(e) => setid_administrador(Math.max(0, e.target.value))}
+                                            value={id_administrador} // Campo bloqueado con el nombre del administrador
                                             className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                            required
+                                            readOnly
                                         />
                                     </div>
                                 </div>
@@ -253,4 +267,4 @@ function RPedidos() {
     );
 }
 
-export default RPedidos
+export default RPedidos;

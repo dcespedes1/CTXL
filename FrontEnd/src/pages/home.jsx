@@ -1,107 +1,100 @@
-import React, { useState } from 'react';
-import { FaUserCircle } from 'react-icons/fa'; // Importing a user icon
+import React, { useState, useEffect } from 'react';
+import { FaExclamationTriangle } from 'react-icons/fa'; // Icono de alerta
 import '../index.css';
-import ImagenN1 from '../img/ImagenN1.jpeg';
-import ImagenN2 from '../img/ImagenN2.jpeg';
-import ImagenN3 from '../img/ImagenN3.jpeg';
-import ImagenN4 from '../img/ImagenN4.jpeg';
-import ImagenN5 from '../img/ImagenN5.jpeg';
-import ImagenN6 from '../img/ImagenN6.jpeg';
-import ImagenN7 from '../img/ImagenN7.jpeg';
-import ImagenN8 from '../img/ImagenN8.jpeg';
-import ImagenN9 from '../img/ImagenN9.jpeg';
 
 const Home = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    // Simulando datos de tareas y niveles de stock
+    const [tasks, setTasks] = useState([
+        { id: 1, description: 'Revisar inventario de pedidos', completed: false },
+        { id: 2, description: 'Atender solicitud del cliente Juan Perez', completed: false },
+        { id: 3, description: 'Actualizar precios de nuevos productos', completed: false },
+        { id: 4, description: 'Enviar cotización a proveedor', completed: false },
+    ]);
 
-    const toggleDropdown = () => {
-        setDropdownOpen(prev => !prev);
+    const [stockAlerts, setStockAlerts] = useState({
+        pedidos: 10, // Por ejemplo, quedan 10 pedidos en stock
+        materiales: 5, // Por ejemplo, quedan 5 unidades de material en stock
+    });
+
+    // Efecto para simular cambios en el stock
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setStockAlerts((prev) => ({
+                pedidos: Math.max(0, prev.pedidos - 1),
+                materiales: Math.max(0, prev.materiales - 1),
+            }));
+        }, 5000); // Simula que cada 5 segundos se reduce el stock
+
+        return () => clearInterval(interval);
+    }, []);
+
+    // Lógica para completar una tarea
+    const completeTask = (id) => {
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id === id ? { ...task, completed: true } : task
+            )
+        );
     };
-
-    const closeDropdown = () => {
-        setDropdownOpen(false);
-    };
-
-    const uniforms = [
-        {
-            src: ImagenN1,
-            alt: "Uniforme Escolar 1",
-            description: "Uniforme Escolar - Tela 100% Algodón\nElaborado por empleados altamente capacitados, este uniforme ofrece comodidad y durabilidad para los estudiantes."
-        },
-        {
-            src: ImagenN2,
-            alt: "Uniforme Escolar 2",
-            description: "Uniforme - Impermeable\nDiseñado para resistir el desgaste diario, este uniforme mantiene su apariencia impecable incluso después de múltiples lavados."
-        },
-        {
-            src: ImagenN3,
-            alt: "Uniforme Escolar 3",
-            description: "Chaqueta de tela en un color azul vibrante tiene un corte estructurado, con solapas marcadas, lo que sugiere un estilo formal o semiformal."
-        },
-        {
-            src: ImagenN4,
-            alt: "Uniforme Escolar 4",
-            description: "Chalecos, colgados en un organizador de metal. Los colores predominantes de los chalecos son verde, azul y celeste, además de uno con un patrón de cuadros en tonos grises y negros. Las telas son ligeras y lisas."
-        },
-        {
-            src: ImagenN5,
-            alt: "Uniforme Escolar 5",
-            description: "Chaleco de vestir sin mangas. Tiene un color blanco liso y está hecho con una tela satinada o similar, lo que le da un acabado suave y brillante."
-        },
-        {
-            src: ImagenN6,
-            alt: "Uniforme Escolar 6",
-            description: "Exhibición de ropa casual y moderna de diferentes colores, como lila, negro y gris, todas de estilo cropped, con detalles de cordones y puños elásticos."
-        },
-        {
-            src: ImagenN7,
-            alt: "Uniforme Escolar 7",
-            description: "Chaqueta estilo bomber de color azul marino. Está hecha de un material sintético brillante, nylon o poliéster, lo que le da un acabado resistente al agua."
-        },
-        {
-            src: ImagenN8,
-            alt: "Uniforme Escolar 8",
-            description: "Uniforme - Impermeable\nDiseñado para resistir el desgaste diario, este uniforme mantiene su apariencia impecable incluso después de múltiples lavados."
-        },
-        {
-            src: ImagenN9,
-            alt: "Uniforme",
-            description: "Uniforme Escolar - Tela de algodón, uniforme completo de color gris completamente."
-        }
-    ];
 
     return (
         <div className="flex">
             {/* Main Content */}
-            <div className="flex-grow ml-4 bg-black text-gray-300">
-                {/* Profile Dropdown */}
-    
-                {/* Sección de Uniformes Escolares */}
-                <section className="my-8 px-8" id="section2">
-                    <h2 className="text-3xl text-center mb-6 hover:text-purple-500 transition duration-300">
-                        Uniformes Escolares
-                    </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-                        {uniforms.map((uniform, index) => (
-                            <div key={index} className="flex items-center">
-                                <img
-                                    src={uniform.src}
-                                    alt={uniform.alt}
-                                    className="w-48 h-48 object-cover rounded-lg"
-                                />
-                                <div className="ml-4 p-2 rounded-lg border-2 border-[#9b59b6]">
-                                    <p className="text-white whitespace-pre-line">{uniform.description}</p>
-                                </div>
-                            </div>
+            <div className="flex-grow ml-4 bg-black text-gray-300 p-8">
+                <h2 className="text-3xl mb-6 text-white text-center">Panel de Control</h2>
+                
+                {/* Sección de Tareas */}
+                <section className="mb-8">
+                    <h3 className="text-2xl mb-4 text-purple-500">Tareas Pendientes</h3>
+                    <ul className="space-y-4">
+                        {tasks.map((task) => (
+                            <li
+                                key={task.id}
+                                className={`p-4 rounded-md flex justify-between items-center ${task.completed ? 'bg-green-500' : 'bg-gray-700'}`}
+                            >
+                                <span className={`${task.completed ? 'line-through' : ''}`}>
+                                    {task.description}
+                                </span>
+                                {!task.completed && (
+                                    <button
+                                        onClick={() => completeTask(task.id)}
+                                        className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                                    >
+                                        Completar
+                                    </button>
+                                )}
+                            </li>
                         ))}
+                    </ul>
+                </section>
+
+                {/* Sección de Alertas de Inventario */}
+                <section className="mb-8">
+                    <h3 className="text-2xl mb-4 text-red-500">Alertas de Inventario</h3>
+                    <div className="space-y-4">
+                        {stockAlerts.pedidos <= 5 && (
+                            <div className="flex items-center p-4 bg-red-600 text-white rounded-md">
+                                <FaExclamationTriangle className="mr-2" />
+                                <span>Alerta: Quedan solo {stockAlerts.pedidos} pedidos en el inventario.</span>
+                            </div>
+                        )}
+                        {stockAlerts.materiales <= 5 && (
+                            <div className="flex items-center p-4 bg-yellow-600 text-white rounded-md">
+                                <FaExclamationTriangle className="mr-2" />
+                                <span>Alerta: Stock de materiales está bajo ({stockAlerts.materiales} unidades restantes).</span>
+                            </div>
+                        )}
                     </div>
                 </section>
 
-                {/* Sección de Servicios */}
-                <section className="py-8" id="section3">
-                    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Aquí puedes agregar tus servicios si es necesario */}
-                    </div>
+                {/* Sección de resumen de negocio */}
+                <section>
+                    <h3 className="text-2xl mb-4 text-blue-500">Resumen del Negocio</h3>
+                    <p className="bg-gray-700 p-4 rounded-md">
+                        El negocio está funcionando de manera estable. Revisa las alertas de stock
+                        y asegúrate de completar las tareas pendientes. Mantén actualizada la información
+                        de tus proveedores y sigue mejorando la gestión de los pedidos y materiales.
+                    </p>
                 </section>
             </div>
         </div>
