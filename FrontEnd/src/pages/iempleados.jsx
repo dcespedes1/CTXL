@@ -12,6 +12,7 @@ function IEmpleados() {
   const [showTooltip, setShowTooltip] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [modalVisible, setModalVisible] = useState(false); // Estado para el modal
+  const [numRecords, setNumRecords] = useState(5); // Estado para controlar el número de registros por página
 
   useEffect(() => {
     getEmpleados();
@@ -38,29 +39,31 @@ function IEmpleados() {
         <div className="w-3/4 mt-20">
           <div className="w-full flex justify-between">
             <h1 className="text-4xl font-bold text-white">
-              Inventario Empleado
+              Inventario Empleados
             </h1>
           </div>
         </div>
 
-        <div className="flex justify-between items-center mt-6">
-          <div className="flex items-center">
+        <div className="flex justify-between items-center mt-6 space-x-4">
+          <div className="flex items-center w-full">
+            {/* Campo de búsqueda más amplio */}
             <input
               type="text"
               placeholder="Buscar..."
-              className="w-full max-w-xs p-2 rounded-lg border-2 border-purple-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full max-w-xs p-3 rounded-lg border-2 border-purple-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
           <div className="relative">
+            {/* Botón más pequeño para registrar un nuevo empleado */}
             <button 
               onClick={() => setModalVisible(true)} // Mostrar el modal al hacer clic
               onMouseEnter={() => setShowTooltip('add')} 
               onMouseLeave={() => setShowTooltip(null)}
             >
-              <CgAdd className="text-5xl text-purple-600" />
+              <CgAdd className="text-4xl text-purple-600 hover:text-purple-700 transition duration-300" />
             </button>
             {showTooltip === 'add' && (
               <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-purple-600 text-white text-lg rounded shadow-lg z-10">
@@ -84,7 +87,7 @@ function IEmpleados() {
             </thead>
             <tbody className="text-center text-white">
               {filteredEmpleados.length > 0 ? (
-                filteredEmpleados.map((Empleado) => (
+                filteredEmpleados.slice(0, numRecords).map((Empleado) => (
                   <tr key={Empleado.id_Empleado} className="bg-gray-800 border-b border-gray-700 hover:bg-gray-700">
                     <td className="p-3">{Empleado.Nombre}</td>
                     <td className="p-3">{Empleado.TipoD}</td>
@@ -96,8 +99,9 @@ function IEmpleados() {
                         to={`/app/aempleados/${Empleado.id_Empleado}`}
                         onMouseEnter={() => setShowTooltip(Empleado.id_Empleado)}
                         onMouseLeave={() => setShowTooltip(null)}
+                        className="text-2xl text-purple-600 hover:text-purple-400 transition duration-300"
                       >
-                        <VscEdit className="text-3xl text-purple-600" />
+                        <VscEdit />
                       </Link>
                       {showTooltip === Empleado.id_Empleado && (
                         <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-purple-600 text-white text-sm rounded">
@@ -116,12 +120,25 @@ function IEmpleados() {
               )}
             </tbody>
           </table>
-          
-          {filteredEmpleados.length === 0 && (
-            <div className="text-center py-4 text-gray-300 bg-gray-900">
-              Mostrando filas 0 a 0 de 0
+
+          {/* Mostrar selector de registros en la parte inferior de la tabla */}
+          <div className="flex justify-between items-center p-4 bg-gray-900 text-white">
+            <span className="text-sm">Mostrando {Math.min(numRecords, filteredEmpleados.length)} de {filteredEmpleados.length} empleados</span>
+            <div className="flex items-center space-x-2">
+              <label htmlFor="numRecords" className="text-sm">Registros por página:</label>
+              <select
+                id="numRecords"
+                value={numRecords}
+                onChange={(e) => setNumRecords(parseInt(e.target.value))}
+                className="p-2 bg-gray-800 text-white rounded-md border border-purple-500"
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
             </div>
-          )}
+          </div>
         </div>
 
         {modalVisible && <REmpleados setModalVisible={setModalVisible} />} {/* Mostrar el modal */}

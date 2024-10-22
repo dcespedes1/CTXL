@@ -52,8 +52,8 @@ export const loginAdministrador = async (req, res) => {
             return res.status(404).json({ message: 'Administrador no encontrado.' });
         }
 
-        const isMatch = await bcrypt.compare(contraseña, administrador.contraseña);
-        if (!isMatch) {
+        // Comparación directa de contraseñas en texto plano
+        if (contraseña !== administrador.contraseña) {
             return res.status(401).json({ message: 'Contraseña incorrecta.' });
         }
 
@@ -64,7 +64,6 @@ export const loginAdministrador = async (req, res) => {
         res.status(500).json({ message: 'Error del servidor.' });
     }
 };
-
 
 //actualizar un administrador
 export const updateAdministrador = async (req, res) => {

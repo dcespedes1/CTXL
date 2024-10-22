@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { AiTwotoneEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 function Login() {
   const [correo, setCorreo] = useState('');
@@ -15,11 +16,13 @@ function Login() {
       return false;
     }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.(com|net|org|info|biz|co|[a-z]{2})$/i;
+
     if (!emailPattern.test(correo)) {
       setError('Por favor, introduce un correo electrónico válido.');
       return false;
     }
+    
 
     if (contraseña.length < 6) {
       setError('La contraseña debe tener al menos 6 caracteres.');
@@ -67,8 +70,8 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-900">
-      <div className="w-full max-w-md bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
+    <div className="flex justify-center items-center h-screen bg-slate-400">
+      <div className="w-full max-w-md bg-gray-700 p-8 rounded-lg shadow-2xl shadow-purple-600/100">
         <h2 className="text-3xl font-bold mb-8 text-center text-white">Iniciar Sesión</h2>
 
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
@@ -81,27 +84,26 @@ function Login() {
               id="correo"
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
-              className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-              required
+              className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-violet-900"
+              required  
             />
           </div>
 
-          <div className="mb-6 relative"> {/* Aquí añadimos "relative" */}
+          <div className="mb-6 relative ">
             <label className="block text-white mb-2" htmlFor="contraseña">Contraseña</label>
             <input
-              type={mostrarContraseña ? 'text' : 'password'} // Cambiar tipo según estado
+              type={mostrarContraseña ? 'text' : 'password'}
               id="contraseña"
               value={contraseña}
               onChange={(e) => setContraseña(e.target.value)}
               className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
             />
-            {/* Icono para mostrar/ocultar contraseña */}
-            <span
+            <span 
               onClick={() => setMostrarContraseña(!mostrarContraseña)}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-white"
+              className="aling-center absolute right-4 top-3/4 transform -translate-y-3/4 cursor-pointer text-white"
             >
-              {mostrarContraseña ? '🙈' : '👁️'} {/* Cambia el icono aquí */}
+              {mostrarContraseña ? <AiFillEyeInvisible /> : <AiTwotoneEye />}
             </span>
           </div>
 
@@ -119,7 +121,7 @@ function Login() {
 
           <button
             type="submit"
-            className={`w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`w-full bg-violet-900 text-white py-3 rounded-md hover:bg-violet-700 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             disabled={loading}
           >
             {loading ? 'Cargando...' : 'Iniciar Sesión'}

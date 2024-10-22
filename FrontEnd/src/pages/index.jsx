@@ -3,10 +3,10 @@ import React from 'react';
 
 const Index = () => {
     return (
-        <div className="bg-black text-gray-300">
+        <div className="bg-slate-400 text-gray-900">
             {/* Sección de Misión */}
             <section className="text-center py-8">
-                <h2 className="text-4xl font-bold mb-4 transition-transform transform hover:translate-y-1 hover:shadow-lg">
+                <h2 className="text-4xl font-bold mb-4 ">
                     Nuestra Misión
                 </h2>
                 <p className="text-lg max-w-2xl mx-auto mb-6">
@@ -18,7 +18,7 @@ const Index = () => {
 
             {/* Sección de Visión */}
             <section className="text-center py-8">
-                <h2 className="text-4xl font-bold mb-4 transition-transform transform hover:translate-y-1 hover:shadow-lg">
+                <h2 className="text-4xl font-bold mb-4 ">
                     Nuestra Visión
                 </h2>
                 <p className="text-lg max-w-2xl mx-auto mb-6">
@@ -30,7 +30,7 @@ const Index = () => {
 
             {/* Sección de Valores (Opcional) */}
             <section className="py-8">
-                <h2 className="text-3xl font-bold text-center mb-6 transition-transform transform hover:translate-y-1 hover:shadow-lg">
+                <h2 className="text-3xl font-bold text-center mb-6">
                     Nuestros Valores
                 </h2>
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
