@@ -49,7 +49,7 @@ function Registro() {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-900">
-      <div className="w-full max-w-2xl bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
+      <div className="w-full max-w-md bg-black p-6 rounded-lg shadow-2xl shadow-purple-600/100"> {/* Cambiado a max-w-md y padding reducido */}
         <h2 className="text-3xl font-bold mb-8 text-center text-white">Registro</h2>
 
         <form onSubmit={store}>
@@ -102,7 +102,6 @@ function Registro() {
                 value={NumeroDoc}
                 onChange={(e) => {
                   const value = e.target.value;
-                  // Filtrar solo números
                   if (/^\d*$/.test(value) && value.length <= 10) {
                     setNumeroDoc(value);
                   }
@@ -134,7 +133,6 @@ function Registro() {
                 value={celular}
                 onChange={(e) => {
                   const value = e.target.value;
-                  // Filtrar solo números
                   if (/^\d*$/.test(value) && value.length <= 10) {
                     setCelular(value);
                   }
@@ -168,10 +166,15 @@ function Registro() {
             </Link>
             <button
               type="submit"
-              className="w-full ml-2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition duration-200"
+              className="w-full ml-2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition duration=200"
             >
               Registrarse
             </button>
+          </div>
+
+          <div className="mt-4 text-center text-white">
+            <span>¿Ya tienes cuenta?</span>
+            <Link to="/singin" className="ml-2 text-purple-500 hover:underline">Inicia sesión</Link>
           </div>
         </form>
       </div>

@@ -28,7 +28,8 @@ function App() {
         
         {/* Rutas principales */}
         <Routes>
-          <Route path="/index" element={<><Navbar2 /> <Index /></>} />
+          <Route path="/" element={<><Navbar2 /> <Index /></>} /> {/* Ruta principal */}
+          <Route path="/index" element={<><Navbar2 /><Index /></>} />
           <Route path="/singIn" element={<><Navbar2 /><SignIn /></>} /> {/* Corregido */}
           <Route path="/login" element={<><Navbar2 /><Login /></>} />
 
@@ -63,7 +64,6 @@ function App() {
               </div>
             </div>
           } />
-
 
           <Route path="/contact" element={<Contact />} /> {/* Corregido a "/contact" */}
         </Routes>
