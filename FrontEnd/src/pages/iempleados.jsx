@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
+import REmpleados from '../pages/rempleados'; // Asegúrate de importar el componente modal
 
 const URI = 'http://localhost:8000/api/Empleado/';
 
@@ -10,6 +11,7 @@ function IEmpleados() {
   const [Empleados, setEmpleados] = useState([]);
   const [showTooltip, setShowTooltip] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [modalVisible, setModalVisible] = useState(false); // Estado para el modal
 
   useEffect(() => {
     getEmpleados();
@@ -53,13 +55,13 @@ function IEmpleados() {
           </div>
 
           <div className="relative">
-            <Link 
-              to="/app/rempleado"
+            <button 
+              onClick={() => setModalVisible(true)} // Mostrar el modal al hacer clic
               onMouseEnter={() => setShowTooltip('add')} 
               onMouseLeave={() => setShowTooltip(null)}
             >
               <CgAdd className="text-5xl text-purple-600" />
-            </Link>
+            </button>
             {showTooltip === 'add' && (
               <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-purple-600 text-white text-lg rounded shadow-lg z-10">
                 Registrar Nuevo
@@ -117,10 +119,12 @@ function IEmpleados() {
           
           {filteredEmpleados.length === 0 && (
             <div className="text-center py-4 text-gray-300 bg-gray-900">
-            Mostrando filas 0 a 0 de 0
+              Mostrando filas 0 a 0 de 0
             </div>
           )}
         </div>
+
+        {modalVisible && <REmpleados setModalVisible={setModalVisible} />} {/* Mostrar el modal */}
       </main>
     </div>
   );

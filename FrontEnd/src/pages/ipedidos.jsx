@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
+import RPedidos from '../pages/rpedidos'; 
+import { Link } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/pedidos/';
 
@@ -10,6 +11,7 @@ function IPedidos() {
   const [pedidos, setPedidos] = useState([]);
   const [showTooltip, setShowTooltip] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [modalVisible, setModalVisible] = useState(false); 
 
   useEffect(() => {
     getPedidos();
@@ -46,13 +48,13 @@ function IPedidos() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div className="relative ml-4">
-            <Link
-              to="/app/rpedidos"
+            <button
+              onClick={() => setModalVisible(true)} 
               onMouseEnter={() => setShowTooltip('add')}
               onMouseLeave={() => setShowTooltip(null)}
             >
               <CgAdd className='text-5xl text-purple-600' />
-            </Link>
+            </button>
             {showTooltip === 'add' && (
               <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-purple-600 text-white text-lg rounded shadow-lg z-10">
                 Registrar Nuevo
@@ -122,6 +124,11 @@ function IPedidos() {
             </div>
           )}
         </div>
+
+        {/* Modal para registrar un nuevo pedido */}
+        {modalVisible && (
+          <RPedidos setModalVisible={setModalVisible} /> 
+        )}
       </main>
     </div>
   );

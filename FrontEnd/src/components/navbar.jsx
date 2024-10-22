@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa'; // Importar icono de usuario
-import { MdSettings } from 'react-icons/md'; // Importar icono de configuraciones
-import { RiLogoutCircleRLine } from 'react-icons/ri'; // Importar icono de cerrar sesión
+import { FaUserCircle } from 'react-icons/fa';
+import { MdSettings } from 'react-icons/md';
+import { RiLogoutCircleRLine } from 'react-icons/ri';
 import '../index.css'; // Asegúrate de que el CSS se carga correctamente
 
 const Navbar = () => {
@@ -28,14 +28,16 @@ const Navbar = () => {
                     </button>
                     {dropdownOpen && (
                         <div 
-                            className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg"
+                            className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg z-50"
                             onMouseLeave={closeDropdown} // Cierra el menú al salir
                         >
                             <ul>
-                                <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer" onClick={closeDropdown}>
-                                    <MdSettings className="mr-2" />
-                                    Mi Cuenta
-                                </li>
+                                <Link to="/app/perfilDetalle" onClick={closeDropdown}>
+                                    <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer">
+                                        <MdSettings className="mr-2" />
+                                        Mi Cuenta
+                                    </li>
+                                </Link>
                                 <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer" onClick={closeDropdown}>
                                     <MdSettings className="mr-2" />
                                     Configuraciones

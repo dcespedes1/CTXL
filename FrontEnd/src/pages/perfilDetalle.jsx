@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../index.css';
-import { Link } from 'react-router-dom';
+import  Perfil  from '../pages/perfilEditar'; 
 
 const PerfilDetalle = () => {
-  return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
+  const [isModalVisible, setModalVisible] = useState(false);
 
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  return (
+    <div className="flex h-screen bg-gray-800">
       {/* Main Content */}
-      <main
-        className="flex-1 flex flex-col p-10"
-        
-      >
+      <main className="flex-1 flex flex-col p-10">
         {/* Content */}
         <div className="w-full rounded-lg shadow-2xl shadow-purple-600/100">
           <div className="bg-black p-6 rounded-t-lg">
@@ -27,13 +32,12 @@ const PerfilDetalle = () => {
                 <h2 className="text-2xl font-bold text-white">Paco Gertes</h2>
                 <div className="text-gray-400">paco69@gmail.com</div>
               </div>
-              <Link 
-                  to="/app/perfilEditar"
-                  ><button className="bg-purple-600 text-white p-2 rounded hover:bg-purple-700">
-                  Editar
-                </button>
-              </Link>
-              
+              <button
+                onClick={openModal}
+                className="bg-purple-600 text-white p-2 rounded hover:bg-purple-700"
+              >
+                Editar
+              </button>
             </div>
           </div>
 
@@ -122,6 +126,22 @@ const PerfilDetalle = () => {
           </div>
         </div>
       </main>
+
+      {/* Modal para editar perfil */}
+      {isModalVisible && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center"
+          onClick={closeModal}
+        >
+          <div
+            className="bg-black p-8 rounded-lg shadow-lg max-w-2xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-3xl font-bold mb-8 text-center text-white">Editar Perfil</h2>
+            <Perfil setModalVisible={setModalVisible} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
