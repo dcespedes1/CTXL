@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
-import RPedidos from '../pages/rpedidos'; 
+import RPedidos from './rpedidos'; 
 import { Link } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/pedidos/';
 
-function IPedidos() {
+function IPedidosE() {
   const [pedidos, setPedidos] = useState([]);
   const [showTooltip, setShowTooltip] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -38,10 +38,10 @@ function IPedidos() {
   );
 
   return (
-    <div className="flex h-screen ">
-      <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white  bg-slate-400">
+    <div className="flex h-screen bg-slate-400 ">
+      <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white">
         <div className="w-3/4 mt-20">
-          <h1 className="text-4xl font-bold text-black">Inventario de Pedidos</h1>
+          <h1 className="text-4xl font-bold text-white">Inventario de Pedidos</h1>
         </div>
 
         <div className="my-8 flex justify-between items-center space-x-4">
@@ -167,5 +167,5 @@ function IPedidos() {
   );
 }
 
-export default IPedidos;
+export default IPedidosE;
   

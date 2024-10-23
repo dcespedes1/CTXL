@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../index.css';
 import  Perfil  from '../pages/perfilEditar'; 
+import LogoCTXY from '../img/LogoCTXY.jpg';
 
 const PerfilDetalle = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -14,19 +15,15 @@ const PerfilDetalle = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-800">
+    <div className="flex h-screen bg-slate-400">
       {/* Main Content */}
       <main className="flex-1 flex flex-col p-10">
         {/* Content */}
         <div className="w-full rounded-lg shadow-2xl shadow-purple-600/100">
-          <div className="bg-black p-6 rounded-t-lg">
+          <div className="bg-slate-900 p-6 rounded-t-lg">
             <div className="flex flex-col items-center gap-4 md:flex-row">
               <div className="h-16 w-16 rounded-full bg-gray-500 overflow-hidden">
-                <img
-                  src="/placeholder-user.jpg"
-                  alt="User Avatar"
-                  className="object-cover h-full w-full"
-                />
+              <img src={LogoCTXY} alt="LogoCTXY" className="h-10" />
               </div>
               <div className="grid gap-1 text-center md:text-left flex-grow">
                 <h2 className="text-2xl font-bold text-white">Paco Gertes</h2>
@@ -34,14 +31,14 @@ const PerfilDetalle = () => {
               </div>
               <button
                 onClick={openModal}
-                className="bg-purple-600 text-white p-2 rounded hover:bg-purple-700"
+                className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700"
               >
                 Editar
               </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 p-8 bg-black rounded-b-lg md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 p-8 bg-slate-900 rounded-b-lg md:grid-cols-2">
             <div className="grid gap-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="grid gap-2">
@@ -89,24 +86,24 @@ const PerfilDetalle = () => {
               <h3 className="text-lg font-semibold text-white">Historial Inicio Sesión</h3>
               <table className="table-auto w-full">
                 <thead>
-                  <tr className="bg-purple-600">
+                  <tr className="bg-slate-400">
                     <th className="text-white p-2">Fecha</th>
                     <th className="text-white p-2">Ubicación</th>
                     <th className="text-white p-2">Dispositivo</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="bg-black hover:bg-purple-600">
+                  <tr className="bg-black hover:bg-slate-400">
                     <td className="text-white p-2">2023-04-15 10:30 AM</td>
                     <td className="text-white p-2">Bogota, COL</td>
                     <td className="text-white p-2">iPhone 12</td>
                   </tr>
-                  <tr className="bg-black hover:bg-purple-600">
+                  <tr className="bg-black hover:bg-slate-400">
                     <td className="text-white p-2">2023-04-10 3:45 PM</td>
                     <td className="text-white p-2">Bogota, COL</td>
                     <td className="text-white p-2">MacBook Pro</td>
                   </tr>
-                  <tr className="bg-black hover:bg-purple-600">
+                  <tr className="bg-black hover:bg-slate-400 ">
                     <td className="text-white p-2">2023-04-05 8:20 AM</td>
                     <td className="text-white p-2">Bogota, COL</td>
                     <td className="text-white p-2">Samsung Galaxy S22</td>
@@ -116,11 +113,11 @@ const PerfilDetalle = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 p-6 bg-black rounded-b-lg md:flex-row md:justify-end">
-            <button className="bg-purple-600 text-white p-2 rounded hover:bg-purple-700">
+          <div className="flex flex-col gap-2 p-6 bg-slate-900 rounded-b-lg md:flex-row md:justify-end">
+            <button className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700">
               Cambiar Contraseña
             </button>
-            <button className="bg-purple-600 text-white p-2 rounded hover:bg-purple-700">
+            <button className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700">
               Guardar Cambios
             </button>
           </div>
@@ -130,11 +127,11 @@ const PerfilDetalle = () => {
       {/* Modal para editar perfil */}
       {isModalVisible && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center"
+          className="fixed inset-0 bg-slate-900 bg-opacity-60 flex justify-center items-center"
           onClick={closeModal}
         >
           <div
-            className="bg-black p-8 rounded-lg shadow-lg max-w-2xl w-full"
+            className="bg-slate-900 p-8 rounded-lg shadow-lg max-w-2xl w-full"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-3xl font-bold mb-8 text-center text-white">Editar Perfil</h2>

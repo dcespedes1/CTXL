@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const URI = 'http://localhost:8000/api/pedidos/';
 
-function RPedidos() { 
+function RPedidosE({ setModalVisible }) { 
     const [Cliente, setCliente] = useState('');
     const [Cantidad, setCantidad] = useState(1);
     const [Prenda, setPrenda] = useState('Uniformes');
@@ -58,9 +58,19 @@ function RPedidos() {
         }
     };
 
+    const closeModal = () => {
+        setModalVisible(false); 
+    };
+
     return (
-        <div className="bg-slate-400 p-10 flex justify-center items-center min-h-screen ">
-            <div className=" bg-slate-900 p-10 rounded-lg shadow-lg max-w-2xl w-full">
+        <div
+            className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center"
+            onClick={closeModal} 
+        >
+            <div
+                className="bg-black p-10 rounded-lg shadow-lg max-w-2xl w-full"
+                onClick={(e) => e.stopPropagation()} 
+            >
                 <h2 className="text-3xl font-bold mb-10 text-center text-white">Registro de Pedido</h2>
                 <form onSubmit={store}>
                     <div className="grid grid-cols-2 gap-8">
@@ -248,13 +258,11 @@ function RPedidos() {
                     </div>
                     <div className="text-center mt-6">
                     <button
-                        type="button"
-                        onClick={() => navigate('/app/ipedidos')} 
-                        className="px-6 py-3 bg-gray-500 text-white font-semibold  rounded-md mr-2 hover:bg-gray-700 transition duration-300"
-                        >
-                        Cancelar
+                    onClick={closeModal}
+                    className="px-6 py-3 bg-gray-500 text-white font-semibold  rounded-md mr-2 hover:bg-gray-700 transition duration-300"
+                    >
+                    Cancelar
                     </button>
-
                     <button
                         type="submit"
                         className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
@@ -262,7 +270,6 @@ function RPedidos() {
                         Registrar Pedido
                     </button>
                     </div>
-                    
                 </form>
                 
             </div>
@@ -270,4 +277,4 @@ function RPedidos() {
     );
 }
 
-export default RPedidos;
+export default RPedidosE;

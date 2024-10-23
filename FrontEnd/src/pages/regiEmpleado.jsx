@@ -71,8 +71,8 @@ function REmpleados() {
     };
 
     return (
-        <div className="bg-gray-800 p-10 flex justify-center items-center min-h-screen">
-            <div className="p-8 bg-black rounded-lg shadow-lg max-w-2xl mx-auto">
+        <div className="bg-slate-400 p-10 flex justify-center items-center min-h-screen">
+            <div className="p-8 bg-slate-900 rounded-lg shadow-lg max-w-2xl mx-auto">
                 <h2 className="text-3xl font-bold mb-8 text-center text-white">
                     Registro Empleado
                 </h2>

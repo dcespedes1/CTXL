@@ -17,12 +17,12 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-black p-4">
+        <nav className="bg-violet-900 p-4">
             <div className="container mx-auto flex justify-end items-center">
                 <div className="relative">
                     <button
                         onClick={toggleDropdown}
-                        className="bg-transparent border-none cursor-pointer text-purple-600 hover:text-purple-400"
+                        className="bg-transparent border-none cursor-pointer text-purple-200 hover:text-purple-100 transition duration-300"
                     >
                         <FaUserCircle className="text-3xl" />
                     </button>
@@ -31,21 +31,19 @@ const Navbar = () => {
                             className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg z-50"
                             onMouseLeave={closeDropdown} // Cierra el menú al salir
                         >
-                            <ul>
+                            <ul className="rounded-lg">
                                 <Link to="/app/perfilDetalle" onClick={closeDropdown}>
-                                    <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer">
+                                    <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer rounded-t-lg">
                                         <MdSettings className="mr-2" />
                                         Mi Cuenta
                                     </li>
                                 </Link>
-                                <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer" onClick={closeDropdown}>
-                                    <MdSettings className="mr-2" />
-                                    Configuraciones
-                                </li>
-                                <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer" onClick={closeDropdown}>
-                                    <RiLogoutCircleRLine className="mr-2" />
-                                    Cerrar Sesión
-                                </li>
+                                <Link to="/app/index" onClick={closeDropdown}>
+                                    <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer rounded-b-lg">
+                                        <RiLogoutCircleRLine className="mr-2" />
+                                        Cerrar Sesión
+                                    </li>
+                                </Link>
                             </ul>
                         </div>
                     )}
