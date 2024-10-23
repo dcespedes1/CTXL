@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/administrador/';
 
-function Registro() {
+function RecuperarContra() {
   const [Nombre, setNombre] = useState('');
   const [FechaNacimiento, setFechaNacimiento] = useState('');
   const [TipoDoc, setTipoDoc] = useState('');
@@ -182,4 +182,4 @@ function Registro() {
   );
 }
 
-export default Registro;
+export default RecuperarContra;

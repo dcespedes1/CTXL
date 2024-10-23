@@ -34,8 +34,8 @@ function IProductosE() {
   );
 
   return (
-    <div className="flex h-screen bg-purple-800">
-      <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white">
+    <div className="flex h-screen bg-slate-500 ">
+      <main className="flex-1 flex flex-col p-10 bg-slate-500 text-white">
         <div className="w-3/4 mt-20">
           <h1 className="text-4xl font-bold text-white">Inventario de Material</h1>
         </div>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { FaClipboardList, FaBoxOpen, FaFileAlt, FaBox, FaUserPlus } from 'react-icons/fa'; // Importamos los iconos
-import LogoCTXY from '../img/LogoCTXY.jpg'; // Asegúrate de que esta ruta sea correcta
+import { FaClipboardList, FaBoxOpen, FaFileAlt, FaBox } from 'react-icons/fa';
+import LogoCTXY from '../img/LogoCTXY.jpg';
 
 const SidebarE = ({ children }) => {
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
@@ -16,18 +16,18 @@ const SidebarE = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <aside className="w-64 bg-violet-900 text-white flex flex-col">
+    <div className="  min-h-screen  "> 
+      
+      <aside className="w-64 bg-violet-900 text-white flex flex-col min-h-screen"> {/* Forzamos el ancho del aside */}
         <div className="p-6">
-          <h2 className="text-3xl font-bold text-purple-400">
+          <h2 className="text-3xl font-bold text-purple-500">
             <Link to="/empleado/homeE">
-              <img src={LogoCTXY} alt="LogoCTXY" className="h-10 mb-4" />
+              <img src={LogoCTXY} alt="LogoCTXY" className="h-10" />
             </Link>
           </h2>
         </div>
         
-        <nav className="flex flex-col p-6 space-y-4">
+        <nav className="flex flex-col p-6 space-y-2">
           {/* Inventarios */}
           <div>
             <button
@@ -47,7 +47,10 @@ const SidebarE = ({ children }) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {isInventoryOpen && (
+            <div
+              className={`overflow-hidden transition-all duration-300 ${isInventoryOpen ? 'max-h-96' : 'max-h-0'}`}
+              style={{ maxHeight: isInventoryOpen ? '96px' : '0' }}
+            >
               <div className="pl-6 mt-2 space-y-2">
                 <Link
                   to="/empleado/ipedidosE"
@@ -62,7 +65,7 @@ const SidebarE = ({ children }) => {
                   <FaBoxOpen className="mr-2" /> Inventario Material
                 </Link>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Registros */}
@@ -84,7 +87,10 @@ const SidebarE = ({ children }) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {isRegisterOpen && (
+            <div
+              className={`overflow-hidden transition-all duration-300 ${isRegisterOpen ? 'max-h-96' : 'max-h-0'}`}
+              style={{ maxHeight: isRegisterOpen ? '96px' : '0' }}
+            >
               <div className="pl-6 mt-2 space-y-2">
                 <Link
                   to="/empleado/regiPedido"
@@ -98,15 +104,14 @@ const SidebarE = ({ children }) => {
                 >
                   <FaBox className="mr-2" /> Registro Material
                 </Link>
-                
               </div>
-            )}
+            </div>
           </div>
         </nav>
       </aside>
 
       {/* Contenido principal */}
-      <main className="flex-1 bg-gray-100 p-10">
+      <main className="flex-1 bg-gray-100 p-10 w-full"> {/* Aseguramos que el main ocupe todo el ancho disponible */}
         {children}
       </main>
     </div>

@@ -38,10 +38,10 @@ const Home = () => {
     };
 
     return (
-        <div className="flex bg-slate-500">
+        <div className="min-h-screen bg-slate-500">
             {/* Main Content */}
             <div className="flex-grow ml-4 bg-slate-500 text-gray-300 p-8">
-                <h2 className="text-3xl mb-6 text-white text-center">Panel de Control</h2>
+                <h2 className="text-3xl mb-6 text-black text-center">Panel de Control</h2>
                 
                 {/* Sección de Tareas */}
                 <section className="mb-8">
@@ -89,7 +89,7 @@ const Home = () => {
 
                 {/* Sección de resumen de negocio */}
                 <section>
-                    <h3 className="text-2xl mb-4 text-blue-500">Resumen del Negocio</h3>
+                    <h3 className="text-2xl mb-4 text-black">Resumen del Negocio</h3>
                     <p className="bg-gray-700 p-4 rounded-md">
                         El negocio está funcionando de manera estable. Revisa las alertas de stock
                         y asegúrate de completar las tareas pendientes. Mantén actualizada la información

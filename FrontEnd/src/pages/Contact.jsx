@@ -47,10 +47,10 @@ const ContactModal = ({ setModalVisible }) => {
             onClick={closeModal} // Cerrar modal al hacer clic en el fondo
         >
             <div
-                className="bg-black p-8 rounded-lg shadow-lg max-w-4xl w-full"
+                className="bg-gray-700 p-8 rounded-lg shadow-lg max-w-4xl w-full"
                 onClick={(e) => e.stopPropagation()} // Evitar cerrar el modal al hacer clic en su contenido
             >
-                <h2 className="text-3xl text-center mb-6 text-white">Formulario De Contacto</h2>
+                <h2 className="text-3xl text-center mb-6 text-black">Formulario De Contacto</h2>
 
                 {/* Mostrar alertas */}
                 {alert.message && (
@@ -64,7 +64,7 @@ const ContactModal = ({ setModalVisible }) => {
                         {/* Primera columna */}
                         <div className="space-y-4">
                             <div>
-                                <label className="block mb-2 text-white">Nombre Completo</label>
+                                <label className="block mb-2 text-black">Nombre Completo</label>
                                 <input
                                     type="text"
                                     name="name"
@@ -75,7 +75,7 @@ const ContactModal = ({ setModalVisible }) => {
                                 />
                             </div>
                             <div>
-                                <label className="block mb-2 text-white">Correo Electrónico</label>
+                                <label className="block mb-2 text-black">Correo Electrónico</label>
                                 <input
                                     type="email"
                                     name="email"
@@ -89,7 +89,7 @@ const ContactModal = ({ setModalVisible }) => {
                         {/* Segunda columna */}
                         <div className="space-y-4">
                             <div>
-                                <label className="block mb-2 text-white">Tu Mensaje:</label>
+                                <label className="block mb-2 text-black">Tu Mensaje:</label>
                                 <textarea
                                     name="message"
                                     minLength="10"

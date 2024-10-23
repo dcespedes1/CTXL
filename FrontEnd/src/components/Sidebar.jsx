@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import {
-  FaClipboardList, FaBoxOpen, FaUserTie,  FaBell, FaLock, FaCog, FaHome
+  FaClipboardList, FaBoxOpen, FaUserTie, FaBell, FaLock, FaCog, FaHome
 } from 'react-icons/fa'; // Importamos los iconos
 import LogoCTXY from '../img/LogoCTXY.jpg'; // Asegúrate de que esta ruta sea correcta
 
@@ -25,7 +25,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className=" flex ">
       {/* Sidebar */}
       <aside className="w-64 bg-violet-900 text-white flex flex-col">
         {/* Logo */}
@@ -66,44 +66,49 @@ const Sidebar = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {isInventoryOpen && (
-              <div className="pl-6 mt-2">
-                <Link
-                  to="/admin/ipedidos"
-                  className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
-                    location.pathname === '/app/ipedidos' ? 'bg-purple-600' : ''
-                  }`}
-                >
-                  <FaClipboardList className="mr-2" /> Inventario Pedidos
-                  {notifications.pedidos > 0 && (
-                    <span className="ml-auto bg-red-600 text-white text-xs px-2 py-1 rounded-full">
-                      {notifications.pedidos}
-                    </span>
-                  )}
-                </Link>
-                <Link
-                  to="/admin/iproducto"
-                  className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
-                    location.pathname === '/app/iproducto' ? 'bg-purple-600' : ''
-                  }`}
-                >
-                  <FaBoxOpen className="mr-2" /> Inventario Material
-                  {notifications.productos > 0 && (
-                    <span className="ml-auto bg-red-600 text-white text-xs px-2 py-1 rounded-full">
-                      {notifications.productos}
-                    </span>
-                  )}
-                </Link>
-                <Link
-                  to="/admin/iempleado"
-                  className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
-                    location.pathname === '/app/iempleado' ? 'bg-purple-600' : ''
-                  }`}
-                >
-                  <FaUserTie className="mr-2" /> Inventario Empleados
-                </Link>
-              </div>
-            )}
+
+            {/* Menú colapsable de Inventarios */}
+            <div
+              className={`pl-6 mt-2 overflow-hidden transition-all duration-300 ease-in-out ${
+                isInventoryOpen ? 'max-h-96' : 'max-h-0'
+              }`}
+              style={{ maxHeight: isInventoryOpen ? '300px' : '0px' }}
+            >
+              <Link
+                to="/admin/ipedidos"
+                className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
+                  location.pathname === '/app/ipedidos' ? 'bg-purple-600' : ''
+                }`}
+              >
+                <FaClipboardList className="mr-2" /> Inventario Pedidos
+                {notifications.pedidos > 0 && (
+                  <span className="ml-auto bg-red-600 text-white text-xs px-2 py-1 rounded-full">
+                    {notifications.pedidos}
+                  </span>
+                )}
+              </Link>
+              <Link
+                to="/admin/iproducto"
+                className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
+                  location.pathname === '/app/iproducto' ? 'bg-purple-600' : ''
+                }`}
+              >
+                <FaBoxOpen className="mr-2" /> Inventario Material
+                {notifications.productos > 0 && (
+                  <span className="ml-auto bg-red-600 text-white text-xs px-2 py-1 rounded-full">
+                    {notifications.productos}
+                  </span>
+                )}
+              </Link>
+              <Link
+                to="/admin/iempleado"
+                className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
+                  location.pathname === '/app/iempleado' ? 'bg-purple-600' : ''
+                }`}
+              >
+                <FaUserTie className="mr-2" /> Inventario Empleados
+              </Link>
+            </div>
           </div>
 
           <div>
@@ -124,32 +129,34 @@ const Sidebar = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {isRegisterOpen && (
-              <div className="pl-6 mt-2">
-                <Link
-              to="/admin/regiPedido"
-              className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-            >
-              Registro Pedido
-            </Link>
-            <Link
-              to="/admin/regiMaterial"
-              className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-            >
-              Registro Material
-            </Link>
-            <Link
-              to="/admin/regiEmpleado"
-              className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-            >
-              Registro Empleados
-            </Link>
-              </div>
-              
-            )}
-          </div>
 
-        
+            {/* Menú colapsable de Registros */}
+            <div
+              className={`pl-6 mt-2 overflow-hidden transition-all duration-300 ease-in-out ${
+                isRegisterOpen ? 'max-h-96' : 'max-h-0'
+              }`}
+              style={{ maxHeight: isRegisterOpen ? '300px' : '0px' }}
+            >
+              <Link
+                to="/admin/regiPedido"
+                className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
+              >
+                Registro Pedido
+              </Link>
+              <Link
+                to="/admin/regiMaterial"
+                className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
+              >
+                Registro Material
+              </Link>
+              <Link
+                to="/admin/regiEmpleado"
+                className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
+              >
+                Registro Empleados
+              </Link>
+            </div>
+          </div>
 
           {/* Sección de Configuración */}
           <div>
@@ -168,28 +175,33 @@ const Sidebar = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {isSettingsOpen && (
-              <div className="pl-6 mt-2">
-                <Link
-                  to="/admin/config/notificaciones"
-                  className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-                >
-                  <FaBell className="mr-2" /> Notificaciones
-                </Link>
-                <Link
-                  to="/admin/config/seguridad"
-                  className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-                >
-                  <FaLock className="mr-2" /> Seguridad
-                </Link>
-                <Link
-                  to="/admin/config/general"
-                  className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-                >
-                  <FaCog className="mr-2" /> General
-                </Link>
-              </div>
-            )}
+
+            {/* Menú colapsable de Configuración */}
+            <div
+              className={`pl-6 mt-2 overflow-hidden transition-all duration-300 ease-in-out ${
+                isSettingsOpen ? 'max-h-96' : 'max-h-0'
+              }`}
+              style={{ maxHeight: isSettingsOpen ? '300px' : '0px' }}
+            >
+              <Link
+                to="/admin/config/notificaciones"
+                className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
+              >
+                <FaBell className="mr-2" /> Notificaciones
+              </Link>
+              <Link
+                to="/admin/config/seguridad"
+                className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
+              >
+                <FaLock className="mr-2" /> Seguridad
+              </Link>
+              <Link
+                to="/admin/config/general"
+                className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
+              >
+                <FaCog className="mr-2" /> General
+              </Link>
+            </div>
           </div>
         </nav>
       </aside>
