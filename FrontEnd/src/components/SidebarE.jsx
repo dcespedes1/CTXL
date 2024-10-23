@@ -21,7 +21,7 @@ const SidebarE = ({ children }) => {
       <aside className="w-64 bg-violet-900 text-white flex flex-col">
         <div className="p-6">
           <h2 className="text-3xl font-bold text-purple-400">
-            <Link to="/app/home">
+            <Link to="/empleado/homeE">
               <img src={LogoCTXY} alt="LogoCTXY" className="h-10 mb-4" />
             </Link>
           </h2>
@@ -50,13 +50,13 @@ const SidebarE = ({ children }) => {
             {isInventoryOpen && (
               <div className="pl-6 mt-2 space-y-2">
                 <Link
-                  to="/app/ipedidos"
+                  to="/empleado/ipedidosE"
                   className="flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition-all duration-300"
                 >
                   <FaClipboardList className="mr-2" /> Inventario Pedidos
                 </Link>
                 <Link
-                  to="/app/iproducto"
+                  to="/empleado/iproductoE"
                   className="flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition-all duration-300"
                 >
                   <FaBoxOpen className="mr-2" /> Inventario Material
@@ -87,23 +87,18 @@ const SidebarE = ({ children }) => {
             {isRegisterOpen && (
               <div className="pl-6 mt-2 space-y-2">
                 <Link
-                  to="/app/regiPedido"
+                  to="/empleado/regiPedido"
                   className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition-all duration-300"
                 >
                   <FaFileAlt className="mr-2" /> Registro Pedido
                 </Link>
                 <Link
-                  to="/app/regiMaterial"
+                  to="/empleado/regiMaterial"
                   className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition-all duration-300"
                 >
                   <FaBox className="mr-2" /> Registro Material
                 </Link>
-                <Link
-                  to="/app/regiEmpleado"
-                  className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition-all duration-300"
-                >
-                  <FaUserPlus className="mr-2" /> Registro Empleados
-                </Link>
+                
               </div>
             )}
           </div>

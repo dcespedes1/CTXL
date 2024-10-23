@@ -32,13 +32,13 @@ const Navbar = () => {
                             onMouseLeave={closeDropdown} // Cierra el menú al salir
                         >
                             <ul className="rounded-lg">
-                                <Link to="/app/perfilDetalle" onClick={closeDropdown}>
+                                <Link to="/admin/perfilDetalle" onClick={closeDropdown}>
                                     <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer rounded-t-lg">
                                         <MdSettings className="mr-2" />
                                         Mi Cuenta
                                     </li>
                                 </Link>
-                                <Link to="/app/index" onClick={closeDropdown}>
+                                <Link to="/index" onClick={closeDropdown}>
                                     <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer rounded-b-lg">
                                         <RiLogoutCircleRLine className="mr-2" />
                                         Cerrar Sesión

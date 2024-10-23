@@ -31,7 +31,7 @@ const Sidebar = () => {
         {/* Logo */}
         <div className="p-6">
           <h2 className="text-3xl font-bold text-purple-500">
-            <Link to="/app/home">
+            <Link to="/admin/home">
               <img src={LogoCTXY} alt="LogoCTXY" className="h-10" />
             </Link>
           </h2>
@@ -40,7 +40,7 @@ const Sidebar = () => {
         <nav className="flex flex-col p-6 space-y-2">
           {/* Enlace directo a Home */}
           <Link
-            to="/app/home"
+            to="/admin/home"
             className={`flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300 ${
               location.pathname === '/app/home' ? 'bg-purple-600' : ''
             }`}
@@ -69,7 +69,7 @@ const Sidebar = () => {
             {isInventoryOpen && (
               <div className="pl-6 mt-2">
                 <Link
-                  to="/app/ipedidos"
+                  to="/admin/ipedidos"
                   className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
                     location.pathname === '/app/ipedidos' ? 'bg-purple-600' : ''
                   }`}
@@ -82,7 +82,7 @@ const Sidebar = () => {
                   )}
                 </Link>
                 <Link
-                  to="/app/iproducto"
+                  to="/admin/iproducto"
                   className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
                     location.pathname === '/app/iproducto' ? 'bg-purple-600' : ''
                   }`}
@@ -95,7 +95,7 @@ const Sidebar = () => {
                   )}
                 </Link>
                 <Link
-                  to="/app/iempleado"
+                  to="/admin/iempleado"
                   className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
                     location.pathname === '/app/iempleado' ? 'bg-purple-600' : ''
                   }`}
@@ -127,19 +127,19 @@ const Sidebar = () => {
             {isRegisterOpen && (
               <div className="pl-6 mt-2">
                 <Link
-              to="/app/regiPedido"
+              to="/admin/regiPedido"
               className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
             >
               Registro Pedido
             </Link>
             <Link
-              to="/app/regiMaterial"
+              to="/admin/regiMaterial"
               className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
             >
               Registro Material
             </Link>
             <Link
-              to="/app/regiEmpleado"
+              to="/admin/regiEmpleado"
               className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
             >
               Registro Empleados
@@ -171,19 +171,19 @@ const Sidebar = () => {
             {isSettingsOpen && (
               <div className="pl-6 mt-2">
                 <Link
-                  to="/app/config/notificaciones"
+                  to="/admin/config/notificaciones"
                   className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
                 >
                   <FaBell className="mr-2" /> Notificaciones
                 </Link>
                 <Link
-                  to="/app/config/seguridad"
+                  to="/admin/config/seguridad"
                   className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
                 >
                   <FaLock className="mr-2" /> Seguridad
                 </Link>
                 <Link
-                  to="/app/config/general"
+                  to="/admin/config/general"
                   className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
                 >
                   <FaCog className="mr-2" /> General

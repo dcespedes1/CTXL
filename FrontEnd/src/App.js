@@ -3,7 +3,7 @@ import Navbar2 from './components/Navbar2';
 import Navbar from './components/navbar';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
-import React from 'react';
+import React, { useState } from 'react'; // Importar useState
 import Index from './pages/index';
 import SignIn from './pages/singIn';
 import Login from './pages/login';
@@ -20,32 +20,32 @@ import EditarPedido from './pages/apedido';
 import EditarEmpleados from './pages/aempleados';
 import EditarProducto from './pages/aproducto';
 import Contact from './pages/Contact';
+import EmpleadoHome from './pages/homeE';
+import EmpleadoSidebar from './components/SidebarE';
+import EmpleadoPedidos from './pages/EpedidoR';
+import EmpleadoMaterial from './pages/EmRegiProduct'; 
+import EmpleadoIpedido from './pages/ipedidosE';
+import EmpleadoIproduct from './pages/iproductosE';
 
 function App() {
+  const [modalVisible, setModalVisible] = useState(false); // Estado para controlar el modal
+
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
         
         {/* Rutas principales */}
         <Routes>
-          <Route path="/" element={<><Navbar2 /> <Index /></>} /> {/* Ruta principal */}
+          <Route path="/" element={<><Navbar2 /><Index /></>} />
           <Route path="/index" element={<><Navbar2 /><Index /></>} />
-          <Route path="/singIn" element={<><Navbar2 /><SignIn /></>} /> {/* Corregido */}
+          <Route path="/singIn" element={<><Navbar2 /><SignIn /></>} />
           <Route path="/login" element={<><Navbar2 /><Login /></>} />
 
-          {/* Rutas protegidas con Sidebar */}
-          <Route path="/app/*" element={
+          {/* Rutas para Administrador */}
+          <Route path="/admin/*" element={
             <div className="flex flex-grow">
               <Sidebar />
-              <div
-                className="content flex-grow"
-                style={{
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  width: '100%',
-                  backgroundColor: 'black',
-                }}
-              >
+              <div className="content flex-grow bg-black">
                 <Navbar />
                 <Routes>
                   <Route path="home" element={<Home />} />
@@ -65,10 +65,37 @@ function App() {
             </div>
           } />
 
-          <Route path="/contact" element={<Contact />} /> {/* Corregido a "/contact" */}
+          {/* Rutas para Empleados */}
+          <Route path="/empleado/*" element={
+            <div className="flex flex-grow">
+              <EmpleadoSidebar setModalVisible={setModalVisible} /> {/* Pasar setModalVisible */}
+              <div className="content flex-grow bg-black">
+                <Navbar />
+                <Routes>
+                  <Route path="homeE" element={<EmpleadoHome />} />
+                  <Route path="perfilDetalle" element={<PerfilDetalle />} />
+                  <Route path="perfilEditar" element={<PerfilEditar />} />
+                  <Route path="ipedidosE" element={<EmpleadoIpedido />} />
+                  <Route path="iproductoE" element={<EmpleadoIproduct />} />
+                  <Route path="regiMaterial" element={<EmpleadoMaterial />} />  
+                  <Route path="regiPedido" element={<EmpleadoPedidos />} />      
+                </Routes>
+              </div>
+            </div>
+          } />
+
+          {/* Ruta de contacto */}
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         
-        <Footer />
+        <Footer setModalVisible={setModalVisible} /> {/* Pasar setModalVisible al Footer */}
+
+        {/* Modal para contacto */}
+        {modalVisible && (
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
+            <Contact setModalVisible={setModalVisible} /> {/* Mostrar el modal de contacto */}
+          </div>
+        )}
       </div>
     </Router>
   );
