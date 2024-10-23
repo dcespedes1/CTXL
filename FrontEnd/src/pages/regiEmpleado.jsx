@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/Empleado/';
 
-function REmpleados({ setModalVisible }) { 
+function REmpleados() {
     const [Nombre, setNombre] = useState('');
     const [Apellido, setApellido] = useState('');
     const [TipoD, setTipoD] = useState('');
@@ -47,7 +47,7 @@ function REmpleados({ setModalVisible }) {
 
     const store = async (e) => {
         e.preventDefault();
-        
+
         if (!validate()) {
             return;
         }
@@ -64,30 +64,20 @@ function REmpleados({ setModalVisible }) {
                 id_administrador,
             });
             console.log('Respuesta del servidor:', response.data);
-            navigate('/app/iempleado'); 
+            navigate('/app/iempleado');
         } catch (error) {
             console.error('Error al registrar el empleado:', error);
         }
     };
 
-    const closeModal = () => {
-        setModalVisible(false); 
-    };
-
     return (
-        <div
-            className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center"
-            onClick={closeModal} 
-        >
-            <div
-                className="bg-black p-8 rounded-lg shadow-lg max-w-2xl w-full"
-                onClick={(e) => e.stopPropagation()} 
-            >
+        <div className="bg-gray-800 p-10 flex justify-center items-center min-h-screen">
+            <div className="p-8 bg-black rounded-lg shadow-lg max-w-2xl mx-auto">
                 <h2 className="text-3xl font-bold mb-8 text-center text-white">
                     Registro Empleado
                 </h2>
                 <form onSubmit={store}>
-                <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-6">
                         <div>
                             <label className="block text-white mb-2" htmlFor="Nombre">
                                 Nombre
@@ -217,8 +207,8 @@ function REmpleados({ setModalVisible }) {
                     <div className="text-center mt-6">
                         <button
                             type="button"
-                            onClick={closeModal}
-                            className="px-6 py-3 bg-gray-500 text-white font-semibold  rounded-md mr-2 hover:bg-gray-700 transition duration-300"
+                            onClick={() => navigate('/app/iempleado')}
+                            className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-md mr-2 hover:bg-gray-700 transition duration-300"
                         >
                             Cancelar
                         </button>

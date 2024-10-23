@@ -13,9 +13,9 @@ import PerfilEditar from './pages/perfilEditar';
 import Iproducto from './pages/iproducto';
 import IEmpleados from './pages/iempleados';
 import IPedidos from './pages/ipedidos';
-import Rproductos from './pages/rproductos';
-import RPedidos from './pages/rpedidos';
-import REmpleados from './pages/rempleados';
+import Rproductos from './pages/regiMaterial';
+import RPedidos from './pages/regiPedido';
+import REmpleados from './pages/regiEmpleado';
 import EditarPedido from './pages/apedido';
 import EditarEmpleados from './pages/aempleados';
 import EditarProducto from './pages/aproducto';
@@ -57,9 +57,9 @@ function App() {
                   <Route path="aproducto/:id" element={<EditarProducto />} />
                   <Route path="iempleado" element={<IEmpleados />} />
                   <Route path="aempleados/:id_Empleado" element={<EditarEmpleados />} />
-                  <Route path="rproductos" element={<Rproductos />} />
-                  <Route path="rpedidos" element={<RPedidos />} />
-                  <Route path="rempleado" element={<REmpleados />} />
+                  <Route path="regiMaterial" element={<Rproductos />} />
+                  <Route path="regiPedido" element={<RPedidos />} />
+                  <Route path="regiEmpleado" element={<REmpleados />} />
                 </Routes>
               </div>
             </div>

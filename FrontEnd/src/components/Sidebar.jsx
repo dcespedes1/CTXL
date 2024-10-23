@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import LogoCTXY from '../img/LogoCTXY.jpg'; // Asegúrate de que esta ruta sea correcta
 
-const Sidebar = () => {
+const Sidebar = ({ children }) => {
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
@@ -24,7 +24,6 @@ const Sidebar = () => {
           </h2>
         </div>
         <nav className="flex flex-col p-6 space-y-2">
-          {/* Se eliminaron los enlaces de Inicio y Perfil */}
           <div>
             <button
               onClick={toggleInventory}
@@ -97,19 +96,19 @@ const Sidebar = () => {
             {isRegisterOpen && (
               <div className="pl-6 mt-2">
                 <Link
-                  to="/app/rpedidos"
+                  to="/app/regiPedido"
                   className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
                 >
                   Registro Pedido
                 </Link>
                 <Link
-                  to="/app/rproductos"
+                  to="/app/regiMaterial"
                   className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
                 >
                   Registro Material
                 </Link>
                 <Link
-                  to="/app/rempleado"
+                  to="/app/regiEmpleado"
                   className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
                 >
                   Registro Empleados
@@ -119,8 +118,10 @@ const Sidebar = () => {
           </div>
         </nav>
       </aside>
+
+    
     </div>
   );
-}
+};
 
 export default Sidebar;
