@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../index.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import LogoCTXY from '../img/LogoCTXY.jpg'; 
+
 
 const URI = 'http://localhost:8000/api/administrador/';
 
@@ -49,7 +51,9 @@ function Registro() {
 
   return (
     <div className="flex justify-center items-center h-screen bg-slate-500 ">
-      <div className="w-full max-w-md bg-gray-700 p-6 rounded-lg shadow-2xl shadow-purple-600/100"> {/* Cambiado a max-w-md y padding reducido */}
+      <div className="w-full max-w-md bg-gray-700 p-4 rounded-lg shadow-2xl shadow-purple-600/100"> {/* Cambiado a max-w-md y padding reducido */}
+      <img src={LogoCTXY} alt="LogoCTXY" className="h-8 mx-auto" />        
+
         <h2 className="text-3xl font-bold mb-8 text-center text-white">Registro</h2>
 
         <form onSubmit={store}>

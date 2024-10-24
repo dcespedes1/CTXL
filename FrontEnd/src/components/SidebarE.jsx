@@ -83,7 +83,7 @@ const Sidebar = () => {
                 )}
               </Link>
               <Link
-                to="/empleado/iproductosE"
+                to="/empleado/iproductoE"
                 className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
                   location.pathname === '/app/iproducto' ? 'bg-purple-600' : ''
                 }`}

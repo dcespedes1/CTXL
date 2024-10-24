@@ -111,9 +111,7 @@ const PerfilDetalle = () => {
                 </tbody>
               </table>
             </div>
-          </div>
-
-          <div className="flex flex-col gap-2 p-6 bg-slate-900 rounded-b-lg md:flex-row md:justify-end">
+            <div className="mx-auto flex items-center flex-col gap-2 p-6 bg-slate-900 rounded-b-lg md:flex-row md:justify-">
             <button className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700">
               Cambiar Contraseña
             </button>
@@ -121,6 +119,9 @@ const PerfilDetalle = () => {
               Guardar Cambios
             </button>
           </div>
+          </div>
+
+          
         </div>
       </main>
 

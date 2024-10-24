@@ -1,9 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const PasswordResetForm = () => {
+const PasswordResetForm = ({ setModalVisible }) => {
+  const closeModal = () => {
+    setModalVisible(false); 
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-lg">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center"
+      onClick={closeModal} 
+    >
+      <div
+        className="bg-white p-8 rounded-lg shadow-lg max-w-2xl w-full"
+        onClick={(e) => e.stopPropagation()} 
+      >
         <h2 className="text-3xl font-bold text-center mb-8 text-purple-600">
           Recuperar Contraseña
         </h2>
@@ -52,23 +63,29 @@ const PasswordResetForm = () => {
           </div>
 
           {/* Botón enviar */}
-          <div className="flex flex-col md:col-span-2">
-            <button
+          <div className="mx-auto text-center mt-6 flex  md:col-span-2">
+                    <button
+                    onClick={closeModal}
+                    className="px-6 py-3 bg-gray-500 text-white font-semibold  rounded-md mr-2 hover:bg-gray-700 transition duration-300"
+                    >
+                    Cancelar
+                    </button>
+                    <button
               type="submit"
-              className="w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition duration-300"
-            >
+              className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
+              >
               Restablecer Contraseña
             </button>
-          </div>
+                    </div>
+                    
         </form>
 
         {/* Enlace a iniciar sesión */}
         <div className="text-center mt-6">
           <p className="text-gray-600">
             ¿Recuerdas tu contraseña?{' '}
-            <a href="/login" className="text-purple-600 hover:underline">
-              Inicia sesión
-            </a>
+            <Link to="/singin" onClick={closeModal} className="ml-2 text-purple-500 hover:underline">Inicia sesión</Link>             
+            
           </p>
         </div>
       </div>

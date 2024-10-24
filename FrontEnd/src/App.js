@@ -3,7 +3,7 @@ import Navbar2 from './components/Navbar2';
 import Navbar from './components/navbar';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
-import React, { useState } from 'react'; // Importar useState
+import React, { useState } from 'react'; 
 import Index from './pages/index';
 import SignIn from './pages/singIn';
 import Login from './pages/login';

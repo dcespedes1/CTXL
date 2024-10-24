@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiTwotoneEye, AiFillEyeInvisible } from 'react-icons/ai';
+import PasswordResetForm from './RecuperarContra'; 
+import LogoCTXY from '../img/LogoCTXY.jpg'; 
+
 
 function Login() {
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [mostrarContraseña, setMostrarContraseña] = useState(false); // Nuevo estado
+  const [mostrarContraseña, setMostrarContraseña] = useState(false); 
+  const [modalVisible, setModalVisible] = useState(false); 
   const navigate = useNavigate();
 
   const validateForm = () => {
@@ -22,7 +26,6 @@ function Login() {
       setError('Por favor, introduce un correo electrónico válido.');
       return false;
     }
-    
 
     if (contraseña.length < 6) {
       setError('La contraseña debe tener al menos 6 caracteres.');
@@ -72,7 +75,8 @@ function Login() {
   return (
     <div className="flex justify-center items-center h-screen bg-slate-400">
       <div className="w-full max-w-md bg-gray-700 p-8 rounded-lg shadow-2xl shadow-purple-600/100">
-        <h2 className="text-3xl font-bold mb-8 text-center text-white">Iniciar Sesión</h2>
+       <img src={LogoCTXY} alt="LogoCTXY" className="h-8 mx-auto" />        
+       <h2 className="text-3xl font-bold mb-8 text-center text-white">Iniciar Sesión</h2>
 
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
@@ -116,7 +120,9 @@ function Login() {
               />
               <label htmlFor="recordar" className="text-white">Recordar sesión</label>
             </div>
-            <Link to="/forgot-password" className="text-purple-500 hover:underline">¿Olvidaste tu contraseña?</Link>
+            <button type="button" onClick={() => setModalVisible(true)} className="text-purple-500 hover:underline">
+              ¿Olvidaste tu contraseña?
+            </button>
           </div>
 
           <button
@@ -132,6 +138,8 @@ function Login() {
             <Link to="/login" className="ml-2 text-purple-500 hover:underline">Regístrate</Link>
           </div>
         </form>
+
+        {modalVisible && <PasswordResetForm setModalVisible={setModalVisible} />} {/* Mostrar el modal */}
       </div>
     </div>
   );
