@@ -6,7 +6,7 @@ import {
     createPedidos, deletePedidos, getAllPedidos, getPedidos, updatePedidos
 } from '../controllers/pedidos.js';
 import {
-    createEmpleado, deleteEmpleado, getAllEmpleado, getEmpleado, updateEmpleado
+    createEmpleado, deleteEmpleado, getAllEmpleado, getEmpleado, loginEmpleado, updateEmpleado
 } from '../controllers/empleado.js';
 import {
     createAdministrador, deleteAdministrador, getAdministrador, getAllAdministrador, updateAdministrador,loginAdministrador
@@ -32,6 +32,7 @@ router.delete('/pedidos/:id', deletePedidos);
 router.get('/empleado', getAllEmpleado);
 router.get('/empleado/:id_Empleado', getEmpleado);
 router.post('/empleado', createEmpleado);
+router.post('/empleado/login', loginEmpleado)
 router.put('/empleado/:id_Empleado', updateEmpleado);
 router.delete('/empleado/:id_Empleado', deleteEmpleado);  
 

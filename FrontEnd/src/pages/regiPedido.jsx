@@ -59,11 +59,11 @@ function RPedidos() {
     };
 
     return (
-        <div className="bg-slate-400 p-10 flex justify-center items-center min-h-screen ">
-            <div className=" bg-slate-900 p-10 rounded-lg shadow-lg max-w-2xl w-full">
-                <h2 className="text-3xl font-bold mb-10 text-center text-white">Registro de Pedido</h2>
+        <div className="bg-slate-400 p-4 sm:p-10 flex justify-center items-center min-h-screen">
+            <div className="bg-slate-900 p-6 sm:p-10 rounded-lg shadow-lg w-full max-w-2xl">
+                <h2 className="text-3xl font-bold mb-8 text-center text-white">Registro de Pedido</h2>
                 <form onSubmit={store}>
-                    <div className="grid grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {/* Primera columna */}
                         <div className="space-y-6">
                             <div>
@@ -73,12 +73,12 @@ function RPedidos() {
                                     id="Cliente"
                                     value={Cliente}
                                     onChange={(e) => setCliente(e.target.value)}
-                                    className="w-full max-w-[250px] px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="w-full px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                     required
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-white mb-2" htmlFor="Cantidad">Cantidad</label>
                                     <input
@@ -109,7 +109,7 @@ function RPedidos() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-white mb-2" htmlFor="Tela">Tela</label>
                                     <select
@@ -158,7 +158,7 @@ function RPedidos() {
 
                         {/* Segunda columna */}
                         <div className="space-y-6">
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-white mb-2" htmlFor="Talla">Talla</label>
                                     <select
@@ -192,7 +192,7 @@ function RPedidos() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-white mb-2" htmlFor="PInicial">Precio Inicial</label>
                                     <input
@@ -246,25 +246,24 @@ function RPedidos() {
                             </div>
                         </div>
                     </div>
-                    <div className="text-center mt-6">
-                    <button
-                        type="button"
-                        onClick={() => navigate('/app/ipedidos')} 
-                        className="px-6 py-3 bg-gray-500 text-white font-semibold  rounded-md mr-2 hover:bg-gray-700 transition duration-300"
-                        >
-                        Cancelar
-                    </button>
 
-                    <button
-                        type="submit"
-                        className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
-                    >
-                        Registrar Pedido
-                    </button>
+                    <div className="text-center mt-6">
+                        <button
+                            type="button"
+                            onClick={() => navigate('/app/ipedidos')} 
+                            className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-md mr-2 hover:bg-gray-700 transition duration-300"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button
+                            type="submit"
+                            className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
+                        >
+                            Registrar Pedido
+                        </button>
                     </div>
-                    
                 </form>
-                
             </div>
         </div>
     );

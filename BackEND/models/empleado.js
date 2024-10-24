@@ -11,6 +11,7 @@ const Empleado = db.define('empleado', {
     FechaN: {  type: DataTypes.DATE, allowNull: false },
     Correo: { type: DataTypes.STRING, allowNull: false },
     celular: { type: DataTypes.STRING, allowNull: true },
+    contraseña:{type: DataTypes.STRING, allowNull: false},
     id_administrador: { type: DataTypes.INTEGER, allowNull: false }
 }, {
     tableName: 'empleado',

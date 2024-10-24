@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import {
-  FaClipboardList, FaBoxOpen, FaUserTie, FaBell, FaLock, FaCog, FaHome
+  FaClipboardList, FaBoxOpen, FaUserTie, FaBell, FaLock, FaCog, FaHome, FaBars, FaTimes
 } from 'react-icons/fa'; // Importamos los iconos
 import LogoCTXY from '../img/LogoCTXY.jpg'; // Asegúrate de que esta ruta sea correcta
 
@@ -9,6 +9,7 @@ const Sidebar = () => {
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false); // Para abrir el menú de configuración
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Para abrir/cerrar sidebar en pantallas pequeñas
   const location = useLocation(); // Para manejar el estado activo del menú
   const [notifications] = useState({ pedidos: 2, productos: 1 }); // Simulamos notificaciones para mostrar en los menús
 
@@ -24,10 +25,26 @@ const Sidebar = () => {
     setIsSettingsOpen(!isSettingsOpen);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className=" flex ">
+    <div className="flex">
+      {/* Botón de hamburguesa (sólo en móviles) */}
+      <button
+        onClick={toggleSidebar}
+        className="p-4 text-white bg-violet-900 focus:outline-none md:hidden"
+      >
+        {isSidebarOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+      </button>
+
       {/* Sidebar */}
-      <aside className="w-64 bg-violet-900 text-white flex flex-col">
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-violet-900 text-white transition-transform duration-300 transform ${
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        } md:translate-x-0 md:relative md:flex md:flex-col`}
+      >
         {/* Logo */}
         <div className="p-6">
           <h2 className="text-3xl font-bold text-purple-500">
@@ -205,6 +222,9 @@ const Sidebar = () => {
           </div>
         </nav>
       </aside>
+
+      {/* Overlay (solo se muestra en móviles cuando el sidebar está abierto) */}
+      {isSidebarOpen && <div className="fixed inset-0 bg-black opacity-50 md:hidden" onClick={toggleSidebar}></div>}
     </div>
   );
 };

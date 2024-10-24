@@ -71,13 +71,14 @@ function REmpleados() {
     };
 
     return (
-        <div className="bg-slate-400 p-10 flex justify-center items-center min-h-screen">
-            <div className="p-8 bg-slate-900 rounded-lg shadow-lg max-w-2xl mx-auto">
-                <h2 className="text-3xl font-bold mb-8 text-center text-white">
+        <div className="bg-slate-400 p-4 sm:p-10 flex justify-center items-center min-h-screen">
+            <div className="p-6 sm:p-8 bg-slate-900 rounded-lg shadow-lg w-full max-w-3xl mx-auto">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center text-white">
                     Registro Empleado
                 </h2>
                 <form onSubmit={store}>
-                    <div className="grid grid-cols-2 gap-6">
+                    {/* Grid responsive */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                             <label className="block text-white mb-2" htmlFor="Nombre">
                                 Nombre
@@ -173,7 +174,7 @@ function REmpleados() {
                         </div>
 
                         {/* Celular y Administrador juntos */}
-                        <div className="col-span-2 grid grid-cols-2 gap-6">
+                        <div className="col-span-1 sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-white mb-2" htmlFor="celular">
                                     Celular

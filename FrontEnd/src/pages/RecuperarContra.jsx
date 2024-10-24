@@ -8,11 +8,11 @@ const PasswordResetForm = ({ setModalVisible }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center"
+      className="fixed inset-0 bg-slate bg-opacity-60 flex justify-center items-center"
       onClick={closeModal} 
     >
       <div
-        className="bg-white p-8 rounded-lg shadow-lg max-w-2xl w-full"
+        className="bg-slate-400 p-8 rounded-lg shadow-lg max-w-2xl w-full"
         onClick={(e) => e.stopPropagation()} 
       >
         <h2 className="text-3xl font-bold text-center mb-8 text-purple-600">

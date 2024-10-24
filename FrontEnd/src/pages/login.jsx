@@ -50,7 +50,7 @@ function Registro() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-slate-500 ">
+    <div className="flex justify-center items-center h-screen bg-slate-400 ">
       <div className="w-full max-w-md bg-gray-700 p-4 rounded-lg shadow-2xl shadow-purple-600/100"> {/* Cambiado a max-w-md y padding reducido */}
       <img src={LogoCTXY} alt="LogoCTXY" className="h-8 mx-auto" />        
 

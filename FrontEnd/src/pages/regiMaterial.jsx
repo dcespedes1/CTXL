@@ -8,7 +8,7 @@ function Rproductos() {
     const [CantidadR, setCantidad] = useState('');
     const [Material, setMaterial] = useState('');
     const [Colores, setColor] = useState('');
-    const [id_administrador] = useState('Juan Perez');
+    const [id_administrador] = useState('Juan Perez'); // Administrador fijo
     const [id_Empleado, setid_Empleado] = useState('');
     const [empleados, setEmpleados] = useState([]);
     const [materiales, setMateriales] = useState([]);
@@ -18,6 +18,7 @@ function Rproductos() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        // Cargar empleados y materiales simulados
         const empleadosCargados = [
             { id: 1, nombre: 'Juan Perez' },
             { id: 2, nombre: 'Maria Rodriguez' },
@@ -42,7 +43,7 @@ function Rproductos() {
             setMostrarColores(true);
         } else {
             setMostrarColores(false);
-            setColor('');
+            setColor(''); // Resetear el color si el material cambia
         }
     };
 
@@ -88,22 +89,23 @@ function Rproductos() {
                 CantidadR,
                 Material,
                 Colores,
-                id_administrador,
+                id_administrador, // Administrador fijo enviado al servidor
                 id_Empleado,
             });
             console.log('Respuesta del servidor:', response.data);
-            navigate('/app/iproducto');
+            navigate('/app/iproducto'); // Redirigir a la página de productos
         } catch (error) {
             console.error('Error al registrar el producto:', error);
         }
     };
 
     return (
-        <div className="bg-slate-400  p-10 flex justify-center items-center min-h-screen">
+        <div className="bg-slate-400 p-10 flex justify-center items-center min-h-screen">
             <div className="bg-slate-900 p-8 rounded-lg shadow-lg max-w-2xl w-full">
                 <h2 className="text-3xl font-bold mb-8 text-center text-white">Registrar Material</h2>
                 <form onSubmit={store}>
                     <div className="grid grid-cols-2 gap-4 mb-6">
+                        {/* Selección de empleado */}
                         <div className="col-span-2 md:col-span-1">
                             <label className="block text-white mb-2" htmlFor="id_Empleado">Empleado</label>
                             <select
@@ -123,6 +125,7 @@ function Rproductos() {
                             {errors.id_Empleado && <p className="text-red-500 text-sm mt-1">{errors.id_Empleado}</p>}
                         </div>
 
+                        {/* Cantidad */}
                         <div className="col-span-2 md:col-span-1">
                             <label className="block text-white mb-2" htmlFor="Cantidad">Cantidad</label>
                             <input
@@ -136,6 +139,7 @@ function Rproductos() {
                             {errors.CantidadR && <p className="text-red-500 text-sm mt-1">{errors.CantidadR}</p>}
                         </div>
 
+                        {/* Material */}
                         <div className="col-span-2 md:col-span-1">
                             <label className="block text-white mb-2" htmlFor="Material">Material</label>
                             <select
@@ -155,6 +159,7 @@ function Rproductos() {
                             {errors.Material && <p className="text-red-500 text-sm mt-1">{errors.Material}</p>}
                         </div>
 
+                        {/* Colores (solo si se selecciona "Lana" o "Poliéster") */}
                         {mostrarColores && (
                             <div className="col-span-2 md:col-span-1">
                                 <label className="block text-white mb-2" htmlFor="Color">Color</label>
@@ -177,11 +182,22 @@ function Rproductos() {
                         )}
                     </div>
 
+                    {/* Administrador fijo al final */}
+                    <div className="mb-6">
+                        <label className="block text-white mb-2">Administrador</label>
+                        <input
+                            type="text"
+                            value={id_administrador}
+                            readOnly
+                            className="w px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none"
+                        />
+                    </div>
+
                     <div className="text-center mt-6">
                         <button
                             type="button"
-                            className="px-6 py-3 bg-gray-500 text-white font-semibold  rounded-md mr-2 hover:bg-gray-700 transition duration-300"
-                            onClick={() => navigate(-1)} // Cambiar de dirección en lugar de cerrar el modal
+                            className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-md mr-2 hover:bg-gray-700 transition duration-300"
+                            onClick={() => navigate(-1)} // Navegar hacia atrás
                         >
                             Cancelar
                         </button>

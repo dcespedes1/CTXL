@@ -1,5 +1,6 @@
 import Empleado from "../models/empleado.js";
 
+//traer todos los empleados
 export const getAllEmpleado = async (req, res) => {
     try {
         const empleado = await Empleado.findAll();
@@ -8,6 +9,7 @@ export const getAllEmpleado = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+// traer un empleado
 export const getEmpleado = async (req, res) => {
     try {
         const { id_Empleado } = req.params;
@@ -36,6 +38,33 @@ export const createEmpleado = async (req, res) => {
         res.json({ message: error.message });
     }
 };
+// Ruta en tu backend para el login de empleado
+export const loginEmpleado = async (req, res) => {
+    const { correo, contraseña } = req.body;
+
+    if (!correo || !contraseña) {
+        return res.status(400).json({ message: 'Correo y contraseña son requeridos.' });
+    }
+
+    try {
+        const empleado = await Empleado.findOne({ where: { correo } });
+        if (!empleado) {
+            return res.status(404).json({ message: 'empleado no encontrado.' });
+        }
+
+        // Comparación directa de contraseñas en texto plano
+        if (contraseña !== empleado.contraseña) {
+            return res.status(401).json({ message: 'Contraseña incorrecta.' });
+        }
+
+        // Aquí puedes generar el token o hacer lo que necesites al iniciar sesión
+        res.json({ message: 'Login exitoso', empleado: { id: empleado.id_Empleado, correo: empleado.correo } });
+    } catch (error) {
+        console.error('Error en el login:', error);
+        res.status(500).json({ message: 'Error del servidor.' });
+    }
+};
+//Actualizar empleado
 export const updateEmpleado = async (req, res) => {
     const { id_Empleado } = req.params; 
 
@@ -44,10 +73,10 @@ export const updateEmpleado = async (req, res) => {
         return res.status(400).json({ message: "ID no proporcionado" });
     }
 
-    const { Nombre, TipoD, NumeroD, FechaN, Correo, celular, id_administrador } = req.body;
+    const { Nombre, TipoD, NumeroD, FechaN, Correo, celular, contraseña, id_administrador } = req.body;
     
     // Validaciones de los campos requeridos
-    if (!Nombre || !TipoD || !NumeroD || !FechaN || !Correo || !celular || !id_administrador) {
+    if (!Nombre || !TipoD || !NumeroD || !FechaN || !Correo || !celular ||!contraseña || !id_administrador) {
         return res.status(400).json({ message: "Todos los campos son requeridos" });
     }
 
