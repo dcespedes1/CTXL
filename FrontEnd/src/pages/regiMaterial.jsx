@@ -193,17 +193,16 @@ function Rproductos() {
                         />
                     </div>
 
-                    <div className="text-center mt-6">
+                    <div className="flex justify-center space-x-4 mt-6">
                         <button
-                            type="button"
-                            className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-md mr-2 hover:bg-gray-700 transition duration-300"
-                            onClick={() => navigate(-1)} // Navegar hacia atrás
+                            onClick={() =>('/admin/iproductos')}
+                            className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
-                            className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
+                            className="px-4 sm:px-6 py-2 sm:py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
                         >
                             Registrar Material
                         </button>

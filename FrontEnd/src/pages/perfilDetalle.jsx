@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../index.css';
-import  Perfil  from '../pages/perfilEditar'; 
+import Perfil from '../pages/perfilEditar'; 
 import LogoCTXY from '../img/LogoCTXY.jpg';
 
 const PerfilDetalle = () => {
@@ -15,15 +15,15 @@ const PerfilDetalle = () => {
   };
 
   return (
-    <div className="flex h-screen bg-slate-400">
+    <div className="flex flex-col min-h-screen bg-slate-400">
       {/* Main Content */}
-      <main className="flex-1 flex flex-col p-10">
+      <main className="flex-1 flex flex-col p-6 md:p-10">
         {/* Content */}
         <div className="w-full rounded-lg shadow-2xl shadow-purple-600/100">
           <div className="bg-slate-900 p-6 rounded-t-lg">
             <div className="flex flex-col items-center gap-4 md:flex-row">
               <div className="h-16 w-16 rounded-full bg-gray-500 overflow-hidden">
-              <img src={LogoCTXY} alt="LogoCTXY" className="h-10" />
+                <img src={LogoCTXY} alt="LogoCTXY" className="h-full w-full object-cover" />
               </div>
               <div className="grid gap-1 text-center md:text-left flex-grow">
                 <h2 className="text-2xl font-bold text-white">Paco Gertes</h2>
@@ -31,14 +31,14 @@ const PerfilDetalle = () => {
               </div>
               <button
                 onClick={openModal}
-                className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700"
+                className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700 transition duration-300"
               >
                 Editar
               </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 p-8 bg-slate-900 rounded-b-lg md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 p-6 md:p-8 bg-slate-900 rounded-b-lg md:grid-cols-2">
             <div className="grid gap-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="grid gap-2">
@@ -103,7 +103,7 @@ const PerfilDetalle = () => {
                     <td className="text-white p-2">Bogota, COL</td>
                     <td className="text-white p-2">MacBook Pro</td>
                   </tr>
-                  <tr className="bg-black hover:bg-slate-400 ">
+                  <tr className="bg-black hover:bg-slate-400">
                     <td className="text-white p-2">2023-04-05 8:20 AM</td>
                     <td className="text-white p-2">Bogota, COL</td>
                     <td className="text-white p-2">Samsung Galaxy S22</td>
@@ -111,17 +111,17 @@ const PerfilDetalle = () => {
                 </tbody>
               </table>
             </div>
-            <div className="mx-auto flex items-center flex-col gap-2 p-6 bg-slate-900 rounded-b-lg md:flex-row md:justify-">
-            <button className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700">
-              Cambiar Contraseña
-            </button>
-            <button className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700">
-              Guardar Cambios
-            </button>
-          </div>
-          </div>
 
-          
+            {/* Botones Responsivos */}
+            <div className="mx-auto flex flex-col gap-2 p-6 bg-slate-900 rounded-b-lg md:flex-row md:justify-start">
+              <button className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700 transition duration-300">
+                Cambiar Contraseña
+              </button>
+              <button className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700 transition duration-300">
+                Guardar Cambios
+              </button>
+            </div>
+          </div>
         </div>
       </main>
 
@@ -132,7 +132,7 @@ const PerfilDetalle = () => {
           onClick={closeModal}
         >
           <div
-            className="bg-slate-900 p-8 rounded-lg shadow-lg max-w-2xl w-full"
+            className="bg-slate-900 p-8 rounded-lg shadow-lg max-w-full md:max-w-2xl w-full mx-4 md:mx-0"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-3xl font-bold mb-8 text-center text-white">Editar Perfil</h2>

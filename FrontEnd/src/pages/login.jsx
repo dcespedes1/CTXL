@@ -50,14 +50,12 @@ function Registro() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-slate-400 ">
-      <div className="w-full max-w-md bg-gray-700 p-4 rounded-lg shadow-2xl shadow-purple-600/100"> {/* Cambiado a max-w-md y padding reducido */}
-      <img src={LogoCTXY} alt="LogoCTXY" className="h-8 mx-auto" />        
-
-        <h2 className="text-3xl font-bold mb-8 text-center text-white">Registro</h2>
-
-        <form onSubmit={store}>
-          <div className="grid grid-cols-2 gap-4 mb-6">
+    <div className="flex justify-center items-center min-h-screen bg-slate-400">
+    <div className="w-full max-w-md bg-gray-700 p-6 rounded-lg shadow-2xl shadow-purple-600">
+      <img src={LogoCTXY} alt="LogoCTXY" className="h-8 mx-auto" />
+      <h2 className="text-3xl font-bold mb-8 text-center text-white">Registro</h2>
+      <form onSubmit={store}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div className="col-span-2 md:col-span-1">
               <label className="block text-white mb-2" htmlFor="nombre">Nombre</label>
               <input

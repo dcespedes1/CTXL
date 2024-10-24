@@ -247,21 +247,19 @@ function RPedidos() {
                         </div>
                     </div>
 
-                    <div className="text-center mt-6">
-                        <button
-                            type="button"
-                            onClick={() => navigate('/app/ipedidos')} 
-                            className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-md mr-2 hover:bg-gray-700 transition duration-300"
-                        >
-                            Cancelar
-                        </button>
-
-                        <button
-                            type="submit"
-                            className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
-                        >
-                            Registrar Pedido
-                        </button>
+                    <div className="flex justify-center space-x-4 mt-6">
+                <button
+                    onClick={() => navigate('/admin/ipedidos')}
+                    className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
+                >
+                    Cancelar
+                </button>
+                <button
+                    type="submit"
+                    className="px-4 sm:px-6 py-2 sm:py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
+                >
+                    Registrar Pedido
+                </button>
                     </div>
                 </form>
             </div>

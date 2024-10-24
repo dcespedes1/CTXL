@@ -20,7 +20,6 @@ const Perfil = ({ setModalVisible }) => {
   const validate = () => {
     const newErrors = {};
 
-    // Validaciones de los campos
     if (!nombre) {
       newErrors.nombre = 'El nombre es requerido.';
     } else if (!/^[a-zA-Z\s]+$/.test(nombre)) {
@@ -73,10 +72,10 @@ const Perfil = ({ setModalVisible }) => {
       onClick={closeModal}
     >
       <div
-        className="bg-black p-6 md:p-8 rounded-lg shadow-lg max-w-lg md:max-w-2xl w-full"
+        className="bg-black p-6 md:p-8 rounded-lg shadow-lg max-w-full md:max-w-2xl w-full mx-4 sm:mx-0 max-h-screen overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-3xl font-bold mb-6 text-center text-white">Perfil Usuario</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-white">Perfil Usuario</h2>
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleUpdate}>
           {/** Input Fields */}
           {[
@@ -116,17 +115,17 @@ const Perfil = ({ setModalVisible }) => {
           </div>
 
           {/** Buttons */}
-          <div className="mx-auto flex justify-end space-x-2 col-span-full">
+          <div className="flex justify-end space-x-2 col-span-full">
             <button
               type="button"
               onClick={closeModal}
-              className="px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-300"
+              className="px-4 md:px-6 py-2 md:py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-300"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration=300"
+              className="px-4 md:px-6 py-2 md:py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
             >
               Actualizar
             </button>

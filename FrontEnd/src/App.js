@@ -26,6 +26,9 @@ import EmpleadoPedidos from './pages/EpedidoR';
 import EmpleadoMaterial from './pages/EmRegiProduct'; 
 import EmpleadoIpedido from './pages/ipedidosE';
 import EmpleadoIproduct from './pages/iproductosE';
+import ConfigNotificaciones from './pages/notificaciones';
+import ConfigSeguridad from './pages/seguridad';
+import ConfigGeneral from './pages/general';
 
 function App() {
   const [modalVisible, setModalVisible] = useState(false); // Estado para controlar el modal
@@ -60,6 +63,9 @@ function App() {
                   <Route path="regiMaterial" element={<Rproductos />} />
                   <Route path="regiPedido" element={<RPedidos />} />
                   <Route path="regiEmpleado" element={<REmpleados />} />
+                  <Route path="configNotificaciones" element={<ConfigNotificaciones />} />
+                  <Route path="configSeguridad" element={<ConfigSeguridad />} />
+                  <Route path="configGeneral" element={<ConfigGeneral />} />
                 </Routes>
               </div>
             </div>

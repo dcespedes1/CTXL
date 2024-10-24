@@ -11,6 +11,9 @@ import {
 import {
     createAdministrador, deleteAdministrador, getAdministrador, getAllAdministrador, updateAdministrador,loginAdministrador
 } from '../controllers/administrador.js';
+import {
+    stock
+} from '../controllers/stock.js'
 
 const router = express.Router();
 
@@ -44,6 +47,7 @@ router.post('/administrador/login', loginAdministrador);
 router.put('/administrador/:id_administrador', updateAdministrador);
 router.delete('/administrador/:id_administrador', deleteAdministrador);  // Corregido: id_administrador
 
-
+//ruta para stock
+router.get('/stock', stock);
 
 export default router;

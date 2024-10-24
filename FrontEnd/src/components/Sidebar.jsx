@@ -201,19 +201,19 @@ const Sidebar = () => {
               style={{ maxHeight: isSettingsOpen ? '300px' : '0px' }}
             >
               <Link
-                to="/admin/config/notificaciones"
+                to="/admin/configNotificaciones"
                 className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
               >
                 <FaBell className="mr-2" /> Notificaciones
               </Link>
               <Link
-                to="/admin/config/seguridad"
+                to="/admin/configSeguridad"
                 className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
               >
                 <FaLock className="mr-2" /> Seguridad
               </Link>
               <Link
-                to="/admin/config/general"
+                to="/admin/configGeneral"
                 className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
               >
                 <FaCog className="mr-2" /> General

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const URI = 'http://localhost:8000/api/pedidos/';
 
-function RPedidosE({ setModalVisible }) { 
+function RPedidos({ setModalVisible }) { 
     const [Cliente, setCliente] = useState('');
     const [Cantidad, setCantidad] = useState(1);
     const [Prenda, setPrenda] = useState('Uniformes');
@@ -67,14 +67,15 @@ function RPedidosE({ setModalVisible }) {
             className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center"
             onClick={closeModal} 
         >
-            <div
-                className="bg-black p-10 rounded-lg shadow-lg max-w-2xl w-full"
-                onClick={(e) => e.stopPropagation()} 
-            >
-                <h2 className="text-3xl font-bold mb-10 text-center text-white">Registro de Pedido</h2>
-                <form onSubmit={store}>
-                    <div className="grid grid-cols-2 gap-8">
-                        {/* Primera columna */}
+        <div
+            className="bg-black p-6 sm:p-10 rounded-lg shadow-lg max-w-full sm:max-w-2xl w-full mx-4 sm:mx-0 max-h-screen overflow-y-auto"
+            onClick={(e) => e.stopPropagation()} 
+        >
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 text-center text-white">Registro de Pedido</h2>
+        <form onSubmit={store}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+               
+                {/* Primera columna */}
                         <div className="space-y-6">
                             <div>
                                 <label className="block text-white mb-2" htmlFor="Cliente">Cliente</label>
@@ -256,25 +257,26 @@ function RPedidosE({ setModalVisible }) {
                             </div>
                         </div>
                     </div>
-                    <div className="text-center mt-6">
-                    <button
+
+                    {/* Botones */}
+                    <div className="flex justify-center space-x-4 mt-6">
+                <button
                     onClick={closeModal}
-                    className="px-6 py-3 bg-gray-500 text-white font-semibold  rounded-md mr-2 hover:bg-gray-700 transition duration-300"
-                    >
+                    className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
+                >
                     Cancelar
-                    </button>
-                    <button
-                        type="submit"
-                        className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
-                    >
-                        Registrar Pedido
-                    </button>
+                </button>
+                <button
+                    type="submit"
+                    className="px-4 sm:px-6 py-2 sm:py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
+                >
+                    Registrar Pedido
+                </button>
                     </div>
                 </form>
-                
             </div>
         </div>
     );
 }
 
-export default RPedidosE;
+export default RPedidos;

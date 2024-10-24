@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa'; // Icono de alerta
 import '../index.css';
+import axios from 'axios'; // Asegúrate de tener axios instalado
 
-const HomeE= () => {
-    // Simulando datos de tareas y niveles de stock
+const URI = "http://localhost:8000/api/stock/";
+
+function Home() {
     const [tasks, setTasks] = useState([
         { id: 1, description: 'Revisar inventario de pedidos', completed: false },
-        { id: 2, description: 'Atender solicitud del cliente Juan Perez', completed: false },
+        { id: 2, description: 'Atender solicitud del cliente Juan Pérez', completed: false },
         { id: 3, description: 'Actualizar precios de nuevos productos', completed: false },
         { id: 4, description: 'Enviar cotización a proveedor', completed: false },
     ]);
 
     const [stockAlerts, setStockAlerts] = useState({
-        pedidos: 10, // Por ejemplo, quedan 10 pedidos en stock
-        materiales: 5, // Por ejemplo, quedan 5 unidades de material en stock
+        pedidos: 0,
+        materiales: 0,
     });
 
-    // Efecto para simular cambios en el stock
     useEffect(() => {
-        const interval = setInterval(() => {
-            setStockAlerts((prev) => ({
-                pedidos: Math.max(0, prev.pedidos - 1),
-                materiales: Math.max(0, prev.materiales - 1),
-            }));
-        }, 5000); // Simula que cada 5 segundos se reduce el stock
+        const fetchStockAlerts = async () => {
+            try {
+                const response = await axios.get(URI);
+                setStockAlerts(response.data);
+            } catch (error) {
+                console.error('Error al obtener alertas de stock:', error);
+            }
+        };
 
-        return () => clearInterval(interval);
+        fetchStockAlerts();
     }, []);
 
-    // Lógica para completar una tarea
     const completeTask = (id) => {
         setTasks((prevTasks) =>
             prevTasks.map((task) =>
@@ -39,10 +41,9 @@ const HomeE= () => {
 
     return (
         <div className="min-h-screen bg-slate-500">
-            {/* Main Content */}
-            <div className=" flex-grow ml-4 bg-slate-500 text-gray-300 p-8">
+            <div className="flex-grow ml-4 bg-slate-500 text-gray-300 p-8">
                 <h2 className="text-3xl mb-6 text-black text-center">Panel de Control</h2>
-                
+
                 {/* Sección de Tareas */}
                 <section className="mb-8">
                     <h3 className="text-2xl mb-4 text-black">Tareas Pendientes</h3>
@@ -69,23 +70,32 @@ const HomeE= () => {
                 </section>
 
                 {/* Sección de Alertas de Inventario */}
-                <section className="mb-8">
-                    <h3 className="text-2xl mb-4 text-red-500">Alertas de Inventario</h3>
-                    <div className="space-y-4">
-                        {stockAlerts.pedidos <= 5 && (
-                            <div className="flex items-center p-4 bg-red-600 text-white rounded-md">
-                                <FaExclamationTriangle className="mr-2" />
-                                <span>Alerta: Quedan solo {stockAlerts.pedidos} pedidos en el inventario.</span>
-                            </div>
-                        )}
-                        {stockAlerts.materiales <= 5 && (
-                            <div className="flex items-center p-4 bg-yellow-600 text-white rounded-md">
-                                <FaExclamationTriangle className="mr-2" />
-                                <span>Alerta: Stock de materiales está bajo ({stockAlerts.materiales} unidades restantes).</span>
-                            </div>
-                        )}
-                    </div>
-                </section>
+                {stockAlerts.pedidos <= 5 || stockAlerts.materiales <= 5 ? (
+                    <section className="mb-8">
+                        <h3 className="text-2xl mb-4 text-red-500">Alertas de Inventario</h3>
+                        <div className="space-y-4">
+                            {stockAlerts.pedidos <= 5 && (
+                                <div className="flex items-center p-4 bg-red-600 text-white rounded-md">
+                                    <FaExclamationTriangle className="mr-2" />
+                                    <span>Alerta: Solo quedan {stockAlerts.pedidos} pedidos en el inventario.</span>
+                                </div>
+                            )}
+                            {stockAlerts.materiales <= 5 && (
+                                <div className="flex items-center p-4 bg-yellow-600 text-white rounded-md">
+                                    <FaExclamationTriangle className="mr-2" />
+                                    <span>Alerta: Stock de materiales bajo ({stockAlerts.materiales} unidades restantes).</span>
+                                </div>
+                            )}
+                        </div>
+                    </section>
+                ) : (
+                    <section className="mb-8">
+                        <h3 className="text-2xl mb-4 text-green-500">Todo en orden</h3>
+                        <div className="flex items-center p-4 bg-green-600 text-white rounded-md">
+                            <span>No hay alertas de stock. ¡Todo está funcionando bien!</span>
+                        </div>
+                    </section>
+                )}
 
                 {/* Sección de resumen de negocio */}
                 <section>
@@ -101,4 +111,4 @@ const HomeE= () => {
     );
 };
 
-export default HomeE;
+export default Home;
