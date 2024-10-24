@@ -12,7 +12,7 @@ const PasswordResetForm = ({ setModalVisible }) => {
       onClick={closeModal} 
     >
       <div
-        className="bg-gray-500 p-8 rounded-lg shadow-lg max-w-2xl w-full"
+        className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-2xl w-full"
         onClick={(e) => e.stopPropagation()} 
       >
         <h2 className="text-3xl font-bold text-center mb-8 text-purple-600">
@@ -22,7 +22,7 @@ const PasswordResetForm = ({ setModalVisible }) => {
         <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Email */}
           <div className="flex flex-col">
-            <label htmlFor="email" className="mb-2 font-semibold text-gray-700">
+            <label htmlFor="email" className="mb-2 font-semibold text-white">
               Correo Electrónico
             </label>
             <input
@@ -36,7 +36,7 @@ const PasswordResetForm = ({ setModalVisible }) => {
 
           {/* Nueva contraseña */}
           <div className="flex flex-col">
-            <label htmlFor="password" className="mb-2 font-semibold text-gray-700">
+            <label htmlFor="password" className="mb-2 font-semibold text-white">
               Nueva Contraseña
             </label>
             <input
@@ -50,7 +50,7 @@ const PasswordResetForm = ({ setModalVisible }) => {
 
           {/* Confirmar contraseña */}
           <div className="flex flex-col">
-            <label htmlFor="confirmPassword" className="mb-2 font-semibold text-gray-700">
+            <label htmlFor="confirmPassword" className="mb-2 font-semibold text-white">
               Confirmar Contraseña
             </label>
             <input
@@ -82,7 +82,7 @@ const PasswordResetForm = ({ setModalVisible }) => {
 
         {/* Enlace a iniciar sesión */}
         <div className="text-center mt-6">
-          <p className="text-gray-600">
+          <p className="text-white">
             ¿Recuerdas tu contraseña?{' '}
             <Link to="/singin" onClick={closeModal} className="ml-2 text-purple-500 hover:underline">Inicia sesión</Link>             
             
