@@ -3,12 +3,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/productos/';
+const URI_ADMIN = 'http://localhost:8000/api/administrador';
 
 function Rproductos({ setModalVisible }) { // Asegúrate de recibir setModalVisible como prop
     const [CantidadR, setCantidad] = useState('');
     const [Material, setMaterial] = useState('');
     const [Colores, setColor] = useState('');
-    const [id_administrador] = useState('Juan Perez');
+    const [id_administrador, setid_administrador] = useState('');
     const [id_Empleado, setid_Empleado] = useState('');
     const [empleados, setEmpleados] = useState([]);
     const [materiales, setMateriales] = useState([]);
@@ -16,6 +17,20 @@ function Rproductos({ setModalVisible }) { // Asegúrate de recibir setModalVisi
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
+    const [administrador, setAdministrador] = useState([]);
+
+    useEffect(() => {
+        const fetchAdministrador = async () => {
+            try {
+                const response = await axios.get(URI_ADMIN); // Suponiendo que esta es la ruta para obtener administradores
+                setAdministrador(response.data); // Guardar la lista de administradores en el estado
+            } catch (error) {
+                console.error('Error al obtener administradores:', error);
+            }
+        };
+
+        fetchAdministrador();
+    }, []);
 
     useEffect(() => {
         const empleadosCargados = [
@@ -134,7 +149,7 @@ function Rproductos({ setModalVisible }) { // Asegúrate de recibir setModalVisi
                         </div>
 
                         <div className="col-span-2 md:col-span-1">
-                            <label className="block text-white mb-2" htmlFor="Cantidad">Cantidad</label>
+                            <label className=" text-white mb-2" htmlFor="Cantidad">Cantidad</label>
                             <input
                                 type="number"
                                 id="Cantidad"

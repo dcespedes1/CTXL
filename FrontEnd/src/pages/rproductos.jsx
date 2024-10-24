@@ -147,7 +147,7 @@ function Rproductos({ setModalVisible }) { // Asegúrate de recibir setModalVisi
                                         ))}
                                     </select>
                                 </div>
-                            <label className="block text-white mb-2" htmlFor="id_Empleado">Empleado</label>
+                            <label className=" text-white mb-2" htmlFor="id_Empleado">Empleado</label>
                             <select
                                 id="id_Empleado"
                                 value={id_Empleado}

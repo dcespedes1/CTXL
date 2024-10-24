@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const URI = 'http://localhost:8000/api/pedidos/';
+const URI_ADMIN = 'http://localhost:8000/api/administrador';
 
 function RPedidos() { 
     const [Cliente, setCliente] = useState('');
@@ -16,13 +17,26 @@ function RPedidos() {
     const [PInicial, setPInicial] = useState(0);
     const [PFinal, setPFinal] = useState(8000);
     const [id_Empleado, setid_Empleado] = useState('');
-    const [id_administrador] = useState('Juan Perez');
+    const [id_administrador, setid_administrador] = useState('');
     const [empleados] = useState([
         { id: 1, nombre: 'Juan' },
         { id: 2, nombre: 'María' },
         { id: 3, nombre: 'Pedro' },
     ]);
     const navigate = useNavigate();
+    const [administrador, setAdministrador] = useState([]);
+    useEffect(() => {
+        const fetchAdministrador = async () => {
+            try {
+                const response = await axios.get(URI_ADMIN); // Suponiendo que esta es la ruta para obtener administradores
+                setAdministrador(response.data); // Guardar la lista de administradores en el estado
+            } catch (error) {
+                console.error('Error al obtener administradores:', error);
+            }
+        };
+
+        fetchAdministrador();
+    }, []);
 
     useEffect(() => {
         const precioBase = 8000;
@@ -236,13 +250,20 @@ function RPedidos() {
 
                             <div>
                                 <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
-                                <input
-                                    type="text"
-                                    id="id_administrador"
-                                    value={id_administrador}
-                                    className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                    readOnly
-                                />
+                                <select
+                                        id="id_administrador"
+                                        value={id_administrador}
+                                        onChange={(e) => setid_administrador(e.target.value)}
+                                        className="w-full px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        required
+                                    >
+                                        <option value="">Selecciona un administrador</option>
+                                        {administrador.map((admin) => (
+                                            <option key={admin.id} value={admin.id}>
+                                                {admin.nombre}
+                                            </option>
+                                        ))}
+                                    </select>
                             </div>
                         </div>
                     </div>
