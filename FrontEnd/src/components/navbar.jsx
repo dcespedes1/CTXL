@@ -38,7 +38,7 @@ const Navbar = () => {
                                         Mi Cuenta
                                     </li>
                                 </Link>
-                                <Link to="/index" onClick={closeDropdown}>
+                                <Link to="/salida/salida" onClick={closeDropdown}>
                                     <li className="flex items-center px-4 py-2 hover:bg-purple-200 cursor-pointer rounded-b-lg">
                                         <RiLogoutCircleRLine className="mr-2" />
                                         Cerrar Sesión

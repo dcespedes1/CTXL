@@ -29,6 +29,7 @@ import EmpleadoIproduct from './pages/iproductosE';
 import ConfigNotificaciones from './pages/notificaciones';
 import ConfigSeguridad from './pages/seguridad';
 import ConfigGeneral from './pages/general';
+import Salida from './pages/salida';
 
 function App() {
   const [modalVisible, setModalVisible] = useState(false); // Estado para controlar el modal
@@ -89,6 +90,15 @@ function App() {
               </div>
             </div>
           } />
+
+          <Route path="/salida/*" element={
+            <div className="flex flex-grow">
+              <Routes>
+              <Route path="salida" element={<Salida />} />
+              </Routes>
+            </div>
+             
+          }/>
 
           {/* Ruta de contacto */}
           <Route path="/contact" element={<Contact />} />
