@@ -1,52 +1,42 @@
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import {
-  FaClipboardList, FaBoxOpen,  FaHome, FaBars, FaTimes
-} from 'react-icons/fa'; // Importamos los iconos
-import LogoCTXY from '../img/LogoCTXY.jpg'; // Asegúrate de que esta ruta sea correcta
+  FaClipboardList, FaBoxOpen, FaHome, FaBars, FaTimes
+} from 'react-icons/fa';
+import LogoCTXY from '../img/LogoCTXY.jpg';
 
 const Sidebar = () => {
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Para abrir/cerrar sidebar en pantallas pequeñas
-  const location = useLocation(); // Para manejar el estado activo del menú
-  const [notifications] = useState({ pedidos: 2, productos: 1 }); // Simulamos notificaciones para mostrar en los menús
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const location = useLocation();
+  const [notifications] = useState({ pedidos: 2, productos: 1 });
 
-  const toggleInventory = () => {
-    setIsInventoryOpen(!isInventoryOpen);
-  };
-
-  const toggleRegister = () => {
-    setIsRegisterOpen(!isRegisterOpen);
-  };
-
-
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const toggleInventory = () => setIsInventoryOpen(!isInventoryOpen);
+  const toggleRegister = () => setIsRegisterOpen(!isRegisterOpen);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
     <div className="flex">
       {/* Botón de hamburguesa (sólo en móviles) */}
       <button
         onClick={toggleSidebar}
-        className="p-4 text-white bg-violet-900 focus:outline-none md:hidden"
+        className="p-4 text-white bg-gray-800 focus:outline-none md:hidden rounded-lg" // Bordes redondeados
       >
         {isSidebarOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
       </button>
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-violet-900 text-white transition-transform duration-300 transform ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-800 text-white transition-transform duration-300 transform rounded-r-lg ${ // Bordes redondeados en el lado derecho del sidebar
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0 md:relative md:flex md:flex-col`}
       >
         {/* Logo */}
         <div className="p-6">
-          <h2 className="text-3xl font-bold text-purple-500">
+          <h2 className="text-3xl font-bold text-purple-400">
             <Link to="/empleado/homeE">
-              <img src={LogoCTXY} alt="LogoCTXY" className="h-10" />
+              <img src={LogoCTXY} alt="LogoCTXY" className="h-10 rounded-lg" /> {/* Logo con bordes redondeados */}
             </Link>
           </h2>
         </div>
@@ -62,6 +52,7 @@ const Sidebar = () => {
             <FaHome className="mr-2" /> Inicio
           </Link>
 
+          {/* Menú Inventarios */}
           <div>
             <button
               onClick={toggleInventory}
@@ -114,10 +105,10 @@ const Sidebar = () => {
                   </span>
                 )}
               </Link>
-              
             </div>
           </div>
 
+          {/* Menú Registros */}
           <div>
             <button
               onClick={toggleRegister}
@@ -156,7 +147,6 @@ const Sidebar = () => {
               >
                 Registro Material
               </Link>
-             
             </div>
           </div>
         </nav>

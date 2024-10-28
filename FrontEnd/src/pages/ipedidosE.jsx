@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
+import { FaUserAlt, FaTshirt, FaRuler, FaPalette, FaBoxes, FaDollarSign, FaTags } from "react-icons/fa";
 import RPedidos from './rpedidos'; 
 import { Link } from 'react-router-dom';
 
@@ -12,10 +13,9 @@ function IPedidosE() {
   const [showTooltip, setShowTooltip] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [hoveredPedido, setHoveredPedido] = useState(null); // Estado para mostrar detalles del pedido al pasar el cursor
-
-  // Nuevo estado para controlar el número de registros a mostrar
+  
   const [numRecords, setNumRecords] = useState(5); // Default 5 registros a mostrar
+  const [currentPage, setCurrentPage] = useState(1); // Página actual
 
   useEffect(() => {
     getPedidos();
@@ -30,15 +30,22 @@ function IPedidosE() {
     }
   };
 
-  // Filtra por cualquier coincidencia de números, texto, fechas, etc.
   const filteredPedidos = pedidos.filter(pedido =>
     Object.values(pedido).some(value =>
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
 
+  const totalPages = Math.ceil(filteredPedidos.length / numRecords);
+  const startIndex = (currentPage - 1) * numRecords;
+  const currentPedidos = filteredPedidos.slice(startIndex, startIndex + numRecords);
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
-    <div className=" bg-slate-500 flex h-screen  overflow-hidden">
+    <div className="bg-slate-500 flex h-screen overflow-hidden">
       <main className="flex-1 flex flex-col p-10 bg-slate-500 text-white">
         <div className="w-3/4 mt-20">
           <h1 className="text-4xl font-bold text-white">Inventario de Pedidos</h1>
@@ -53,7 +60,6 @@ function IPedidosE() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
 
-          {/* Botón para agregar un nuevo pedido, con un icono más pequeño */}
           <div className="relative">
             <button
               onClick={() => setModalVisible(true)} 
@@ -71,6 +77,27 @@ function IPedidosE() {
         </div>
 
         <div className="overflow-x-auto bg-gray-900 border border-purple-200 shadow-lg shadow-purple-600/100 rounded-lg">
+          <div className="flex justify-between items-center p-4 bg-gray-900 text-white">
+            <span className="text-sm">Mostrando {Math.min(numRecords, filteredPedidos.length)} de {filteredPedidos.length} pedidos</span>
+            <div className="flex items-center space-x-2">
+              <label htmlFor="numRecords" className="text-sm">Registros por página:</label>
+              <select
+                id="numRecords"
+                value={numRecords}
+                onChange={(e) => {
+                  setNumRecords(parseInt(e.target.value));
+                  setCurrentPage(1); 
+                }}
+                className="p-2 bg-gray-800 text-white rounded-md border border-purple-500"
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+          </div>
+
           <table className="min-w-full text-sm text-left text-gray-400">
             <thead className="bg-purple-700 text-white uppercase">
               <tr>
@@ -87,23 +114,21 @@ function IPedidosE() {
               </tr>
             </thead>
             <tbody>
-              {filteredPedidos.length > 0 ? (
-                filteredPedidos.slice(0, numRecords).map((pedido) => (
+              {currentPedidos.length > 0 ? (
+                currentPedidos.map((pedido) => (
                   <tr 
                     key={pedido.id_Pedido} 
-                    className="bg-gray-800 border-b border-gray-700 hover:bg-gray-700 relative"
-                    onMouseEnter={() => setHoveredPedido(pedido)}  // Mostrar detalles del pedido
-                    onMouseLeave={() => setHoveredPedido(null)}
+                    className="bg-gray-800 border-b border-gray-700 hover:bg-gray-700"
                   >
-                    <td className="px-6 py-4">{pedido.Cliente}</td>
-                    <td className="px-6 py-4">{pedido.Prenda}</td>
-                    <td className="px-6 py-4">{pedido.Tela}</td>
-                    <td className="px-6 py-4">{pedido.Estampado}</td>
-                    <td className="px-6 py-4">{pedido.Cantidad}</td>
-                    <td className="px-6 py-4">{pedido.Talla}</td>
-                    <td className="px-6 py-4">{pedido.Bordado}</td>
-                    <td className="px-6 py-4">{pedido.PInicial}</td>
-                    <td className="px-6 py-4">{pedido.PFinal}</td>
+                    <td className="px-6 py-4"><FaUserAlt className="inline-block mr-2 text-blue-400" />{pedido.Cliente}</td>
+                    <td className="px-6 py-4"><FaTshirt className="inline-block mr-2 text-green-400" />{pedido.Prenda}</td>
+                    <td className="px-6 py-4"><FaPalette className="inline-block mr-2 text-red-400" />{pedido.Tela}</td>
+                    <td className="px-6 py-4"><FaTags className="inline-block mr-2 text-yellow-400" />{pedido.Estampado}</td>
+                    <td className="px-6 py-4"><FaBoxes className="inline-block mr-2 text-orange-400" />{pedido.Cantidad}</td>
+                    <td className="px-6 py-4"><FaRuler className="inline-block mr-2 text-purple-400" />{pedido.Talla}</td>
+                    <td className="px-6 py-4"><FaTags className="inline-block mr-2 text-teal-400" />{pedido.Bordado}</td>
+                    <td className="px-6 py-4"><FaDollarSign className="inline-block mr-2 text-green-400" />{pedido.PInicial}</td>
+                    <td className="px-6 py-4"><FaDollarSign className="inline-block mr-2 text-green-400" />{pedido.PFinal}</td>
                     <td className="px-6 py-4">
                       <Link
                         to={`/app/apedido/${pedido.id_Pedido}`}
@@ -112,20 +137,6 @@ function IPedidosE() {
                         <VscEdit />
                       </Link>
                     </td>
-
-                    {/* Tooltip con detalles del pedido */}
-                    {hoveredPedido && hoveredPedido.id_Pedido === pedido.id_Pedido && (
-                      <div className="absolute left-0 top-full mt-2 w-full p-4 bg-gray-700 text-white rounded-lg shadow-lg z-10">
-                        <h4 className="font-bold text-lg">Detalles del Pedido</h4>
-                        <p><strong>Cliente:</strong> {pedido.Cliente}</p>
-                        <p><strong>Prenda:</strong> {pedido.Prenda}</p>
-                        <p><strong>Tela:</strong> {pedido.Tela}</p>
-                        <p><strong>Estampado:</strong> {pedido.Estampado}</p>
-                        <p><strong>Cantidad:</strong> {pedido.Cantidad}</p>
-                        <p><strong>Talla:</strong> {pedido.Talla}</p>
-                        <p><strong>Precio Final:</strong> {pedido.PFinal}</p>
-                      </div>
-                    )}
                   </tr>
                 ))
               ) : (
@@ -138,29 +149,22 @@ function IPedidosE() {
             </tbody>
           </table>
 
-          {/* Mostrar selector en la parte inferior de la tabla */}
-          <div className="flex justify-between items-center p-4 bg-gray-900 text-white">
-            <span className="text-sm">Mostrando {Math.min(numRecords, filteredPedidos.length)} de {filteredPedidos.length} pedidos</span>
-            <div className="flex items-center space-x-2">
-              <label htmlFor="numRecords" className="text-sm">Registros por página:</label>
-              <select
-                id="numRecords"
-                value={numRecords}
-                onChange={(e) => setNumRecords(parseInt(e.target.value))}
-                className="p-2 bg-gray-800 text-white rounded-md border border-purple-500"
+          {/* Paginación con números de página */}
+          <div className="flex justify-center items-center p-4 bg-gray-900 text-white">
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
+              <button
+                key={pageNumber}
+                className={`mx-1 px-3 py-2 rounded-md ${currentPage === pageNumber ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-purple-500 hover:text-white'} transition duration-300`}
+                onClick={() => handlePageClick(pageNumber)}
               >
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-              </select>
-            </div>
+                {pageNumber}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Modal para registrar un nuevo pedido */}
         {modalVisible && (
-          <RPedidos setModalVisible={setModalVisible} /> 
+          <RPedidos setModalVisible={setModalVisible} />
         )}
       </main>
     </div>
@@ -168,4 +172,3 @@ function IPedidosE() {
 }
 
 export default IPedidosE;
-  

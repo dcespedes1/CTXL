@@ -34,14 +34,14 @@ const Sidebar = () => {
       {/* Botón de hamburguesa (sólo en móviles) */}
       <button
         onClick={toggleSidebar}
-        className="p-4 text-white bg-violet-900 focus:outline-none md:hidden"
+        className="p-4 text-white bg-gray-800focus:outline-none md:hidden"
       >
         {isSidebarOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
       </button>
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-violet-900 text-white transition-transform duration-300 transform ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-800 text-white transition-transform duration-300 transform ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0 md:relative md:flex md:flex-col`}
       >

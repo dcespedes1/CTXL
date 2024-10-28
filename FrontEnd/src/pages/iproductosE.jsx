@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
+import { FaBoxes, FaCogs, FaPalette } from "react-icons/fa"; // Íconos agregados
 import Rproductos from './rproductos'; 
 
 const URI = 'http://localhost:8000/api/productos/';
@@ -71,9 +72,9 @@ function IProductosE() {
           <table className="min-w-full text-sm text-left text-white-400">
             <thead className="bg-purple-700 text-white-300 uppercase">
               <tr>
-                <th className="px-6 py-3">Cantidad</th>
-                <th className="px-6 py-3">Material</th>
-                <th className="px-6 py-3">Color</th>
+                <th className="px-6 py-3"><FaBoxes className="inline-block text-orange-400" /> Cantidad</th>
+                <th className="px-6 py-3"><FaCogs className="inline-block text-teal-400" /> Material</th>
+                <th className="px-6 py-3"><FaPalette className="inline-block text-yellow-400" /> Color</th>
                 <th className="px-6 py-3">Acciones</th>
               </tr>
             </thead>
@@ -84,9 +85,9 @@ function IProductosE() {
                     key={producto.id_producto} 
                     className="bg-gray-800 border-b border-gray-700 hover:bg-gray-700"
                   >
-                    <td className="px-6 py-4">{producto.CantidadR}</td>
-                    <td className="px-6 py-4">{producto.Material}</td>
-                    <td className="px-6 py-4">{producto.Colores}</td>
+                    <td className="px-6 py-4"><FaBoxes className="inline-block mr-2 text-orange-400" />{producto.CantidadR}</td>
+                    <td className="px-6 py-4"><FaCogs className="inline-block mr-2 text-teal-400" />{producto.Material}</td>
+                    <td className="px-6 py-4"><FaPalette className="inline-block mr-2 text-yellow-400" />{producto.Colores}</td>
                     <td className="px-6 py-4">
                       <Link
                         to={`/app/aproducto/${producto.id_producto}`}

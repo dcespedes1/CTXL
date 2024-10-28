@@ -17,7 +17,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-violet-900 p-4">
+        <nav className="bg-gray-800 p-4">
             <div className="container mx-auto flex justify-end items-center">
                 <div className="relative">
                     <button

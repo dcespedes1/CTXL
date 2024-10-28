@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaSignInAlt, FaUserPlus, FaBars, FaTimes } from 'react-icons/fa'; // FaBars y FaTimes para el menú hamburguesa
+import { FaSignInAlt, FaUserPlus, FaBars, FaTimes } from 'react-icons/fa';
 import '../index.css'; 
 import LogoCTXY from '../img/LogoCTXY.jpg';
 
@@ -12,7 +12,7 @@ const Navbar2 = () => {
     };
 
     return (
-        <nav className="bg-violet-950 p-4">
+        <nav className="bg-gray-800 p-4">
             <div className="container mx-auto flex justify-between items-center">
                 {/* Logo e ícono */}
                 <div className="flex items-center">
@@ -44,10 +44,10 @@ const Navbar2 = () => {
 
             {/* Menú desplegable para móviles */}
             {isOpen && (
-                <div className="md:hidden">
+                <div className="md:hidden bg-gray-900">
                     <Link
                         to="/SingIn"
-                        className="block text-white hover:bg-violet-800 p-2"
+                        className="block text-white hover:bg-purple-600 p-2"
                         onClick={toggleMenu}
                     >
                         <FaSignInAlt className="mr-1" />
@@ -55,7 +55,7 @@ const Navbar2 = () => {
                     </Link>
                     <Link
                         to="/Login"
-                        className="block text-white hover:bg-violet-800 p-2"
+                        className="block text-white hover:bg-purple-600 p-2"
                         onClick={toggleMenu}
                     >
                         <FaUserPlus className="mr-1" />
