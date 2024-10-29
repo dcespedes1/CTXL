@@ -115,7 +115,7 @@ function Rproductos() {
     };
 
     return (
-        <div className="bg-slate-400 p-10 flex justify-center items-center min-h-screen">
+        <div className="bg-slate-300 p-10 flex justify-center items-center min-h-screen">
             <div className="bg-slate-900 p-8 rounded-lg shadow-lg max-w-2xl w-full">
                 <h2 className="text-3xl font-bold mb-8 text-center text-white">Registrar Material</h2>
                 <form onSubmit={store}>

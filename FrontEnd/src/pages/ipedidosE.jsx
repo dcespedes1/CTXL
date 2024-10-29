@@ -45,10 +45,10 @@ function IPedidosE() {
   };
 
   return (
-    <div className="bg-slate-500 flex h-screen overflow-hidden">
-      <main className="flex-1 flex flex-col p-10 bg-slate-500 text-white">
+    <div className="bg-slate-300 flex h-screen overflow-hidden">
+      <main className="flex-1 flex flex-col p-10 bg-slate-300 text-white">
         <div className="w-3/4 mt-20">
-          <h1 className="text-4xl font-bold text-white">Inventario de Pedidos</h1>
+          <h1 className="text-4xl font-bold text-black">Inventario de Pedidos</h1>
         </div>
 
         <div className="my-8 flex justify-between items-center space-x-4">

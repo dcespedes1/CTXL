@@ -35,10 +35,10 @@ function IProductosE() {
   );
 
   return (
-    <div className="flex h-screen bg-slate-500 ">
-      <main className="flex-1 flex flex-col p-10 bg-slate-500 text-white">
+    <div className="flex h-screen bg-slate-300 ">
+      <main className="flex-1 flex flex-col p-10 bg-slate-300 text-white">
         <div className="w-3/4 mt-20">
-          <h1 className="text-4xl font-bold text-white">Inventario de Material</h1>
+          <h1 className="text-4xl font-bold text-black">Inventario de Material</h1>
         </div>
         
         <div className="my-8 flex justify-between items-center space-x-4">

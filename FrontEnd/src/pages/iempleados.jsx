@@ -35,7 +35,7 @@ function IEmpleados() {
 
   return (
     <div className="flex h-screen bg-gray-800">
-      <main className="flex-1 flex flex-col p-10 text-white  bg-slate-400 ">
+      <main className="flex-1 flex flex-col p-10 text-white  bg-slate-300 ">
         <div className="w-3/4 mt-20">
           <div className="w-full flex justify-between">
             <h1 className="text-4xl font-bold text-black">
