@@ -76,107 +76,101 @@ function RPedidos() {
 
     return (
         <div className="flex h-screen">
-            <main className="flex-1 p-6 bg-gray-800 text-white bg-cover bg-no-repeat">
+            <main className="flex-1 p-6 bg-gradient-to-r from-slate-200 to-slate-400 text-white bg-cover bg-no-repeat">
                 <div className="flex justify-center items-center h-full">
-                    <div className="w-full max-w-4xl bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
-                        <h2 className="text-3xl font-bold mb-8 text-center">Registro de Pedido</h2>
-                        <form onSubmit={store} className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block mb-2" htmlFor="Cliente">Cliente</label>
-                                    <input
-                                        type="text"
-                                        id="Cliente"
-                                        value={Cliente}
-                                        onChange={(e) => setCliente(e.target.value)}
-                                        className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block mb-2" htmlFor="Cantidad">Cantidad</label>
-                                    <input
-                                        type="number"
-                                        id="Cantidad"
-                                        value={Cantidad}
-                                        onChange={(e) => setCantidad(Math.max(1, e.target.value))}
-                                        className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                        required
-                                    />
-                                </div>
+                    <div className="w-full max-w-4xl bg-gray-900 p-8 rounded-lg shadow-lg">
+                        <h2 className="text-2xl font-semibold mb-6 text-center text-white">Registro de Pedido</h2>
+                        <form onSubmit={store} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block mb-2 text-sm" htmlFor="Cliente">Cliente</label>
+                                <input
+                                    type="text"
+                                    id="Cliente"
+                                    value={Cliente}
+                                    onChange={(e) => setCliente(e.target.value)}
+                                    className="w-full px-3 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    required
+                                />
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block mb-2" htmlFor="Prenda">Prenda</label>
-                                    <select
-                                        id="Prenda"
-                                        value={Prenda}
-                                        onChange={(e) => setPrenda(e.target.value)}
-                                        className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                        required
-                                    >
-                                        <option value="Uniformes">Uniformes</option>
-                                        <option value="Camisetas">Camisetas</option>
-                                        <option value="Chalecos">Chalecos</option>
-                                        <option value="Chaquetas">Chaquetas</option>
-                                        <option value="Afines">Afines</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block mb-2" htmlFor="Tela">Tela</label>
-                                    <select
-                                        id="Tela"
-                                        value={Tela}
-                                        onChange={(e) => setTela(e.target.value)}
-                                        className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                        required
-                                    >
-                                        {fabricOptions.map((fabric) => (
-                                            <option key={fabric} value={fabric}>{fabric}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                            <div>
+                                <label className="block mb-2 text-sm" htmlFor="Cantidad">Cantidad</label>
+                                <input
+                                    type="number"
+                                    id="Cantidad"
+                                    value={Cantidad}
+                                    onChange={(e) => setCantidad(Math.max(1, e.target.value))}
+                                    className="w-full px-3 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    required
+                                />
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block mb-2" htmlFor="FechaEntrega">Fecha de Entrega</label>
-                                    <input
-                                        type="date"
-                                        id="FechaEntrega"
-                                        value={FechaEntrega}
-                                        onChange={(e) => setFechaEntrega(e.target.value)}
-                                        className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block mb-2" htmlFor="DireccionEntrega">Dirección de Entrega</label>
-                                    <select
-                                        id="DireccionEntrega"
-                                        value={DireccionEntrega}
-                                        onChange={(e) => setDireccionEntrega(e.target.value)}
-                                        className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                        required
-                                    >
-                                        {deliveryOptions.map((option) => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                            <div>
+                                <label className="block mb-2 text-sm" htmlFor="Prenda">Prenda</label>
+                                <select
+                                    id="Prenda"
+                                    value={Prenda}
+                                    onChange={(e) => setPrenda(e.target.value)}
+                                    className="w-full px-3 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    required
+                                >
+                                    <option value="Uniformes">Uniformes</option>
+                                    <option value="Camisetas">Camisetas</option>
+                                    <option value="Chalecos">Chalecos</option>
+                                    <option value="Chaquetas">Chaquetas</option>
+                                    <option value="Afines">Afines</option>
+                                </select>
                             </div>
-                            <div className="flex justify-between">
+                            <div>
+                                <label className="block mb-2 text-sm" htmlFor="Tela">Tela</label>
+                                <select
+                                    id="Tela"
+                                    value={Tela}
+                                    onChange={(e) => setTela(e.target.value)}
+                                    className="w-full px-3 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    required
+                                >
+                                    {fabricOptions.map((fabric) => (
+                                        <option key={fabric} value={fabric}>{fabric}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block mb-2 text-sm" htmlFor="FechaEntrega">Fecha de Entrega</label>
+                                <input
+                                    type="date"
+                                    id="FechaEntrega"
+                                    value={FechaEntrega}
+                                    onChange={(e) => setFechaEntrega(e.target.value)}
+                                    className="w-full px-3 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label className="block mb-2 text-sm" htmlFor="DireccionEntrega">Dirección de Entrega</label>
+                                <select
+                                    id="DireccionEntrega"
+                                    value={DireccionEntrega}
+                                    onChange={(e) => setDireccionEntrega(e.target.value)}
+                                    className="w-full px-3 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    required
+                                >
+                                    {deliveryOptions.map((option) => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="col-span-1 md:col-span-2 flex justify-end space-x-3">
                                 <button
                                     type="button"
                                     onClick={() => navigate('/admin/ipedidos')}
-                                    className="w-1/2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
+                                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700 transition duration-200"
                                 >
                                     Cancelar
                                 </button>
                                 <button
                                     type="submit"
-                                    className="w-1/2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
+                                    className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-green-700 transition duration-200"
                                 >
-                                    Guardar Pedido
+                                    Guardar
                                 </button>
                             </div>
                         </form>

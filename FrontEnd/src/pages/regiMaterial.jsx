@@ -15,37 +15,33 @@ function Rproductos() {
     const [materiales, setMateriales] = useState([]);
     const [mostrarColores, setMostrarColores] = useState(false);
     const [errors, setErrors] = useState({});
+    const [administrador, setAdministrador] = useState([]);
 
     const navigate = useNavigate();
-    const [administrador, setAdministrador] = useState([]);
 
     useEffect(() => {
         const fetchAdministrador = async () => {
             try {
-                const response = await axios.get(URI_ADMIN); // Suponiendo que esta es la ruta para obtener administradores
-                setAdministrador(response.data); // Guardar la lista de administradores en el estado
+                const response = await axios.get(URI_ADMIN);
+                setAdministrador(response.data);
             } catch (error) {
                 console.error('Error al obtener administradores:', error);
             }
         };
-
         fetchAdministrador();
     }, []);
 
     useEffect(() => {
-        // Cargar empleados y materiales simulados
         const empleadosCargados = [
             { id: 1, nombre: 'Juan Perez' },
             { id: 2, nombre: 'Maria Rodriguez' },
             { id: 3, nombre: 'Carlos Sanchez' },
         ];
-
         const materialesCargados = [
             { id: 1, tipo: 'Algodón' },
             { id: 2, tipo: 'Poliéster' },
             { id: 3, tipo: 'Lana' },
         ];
-
         setEmpleados(empleadosCargados);
         setMateriales(materialesCargados);
     }, []);
@@ -53,62 +49,39 @@ function Rproductos() {
     const handleMaterialChange = (e) => {
         const selectedMaterial = e.target.value;
         setMaterial(selectedMaterial);
-
-        if (selectedMaterial === 'Lana' || selectedMaterial === 'Poliéster') {
-            setMostrarColores(true);
-        } else {
-            setMostrarColores(false);
-            setColor(''); // Resetear el color si el material cambia
-        }
+        setMostrarColores(selectedMaterial === 'Lana' || selectedMaterial === 'Poliéster');
+        if (selectedMaterial !== 'Lana' && selectedMaterial !== 'Poliéster') setColor('');
     };
 
     const handleCantidadChange = (e) => {
         const value = e.target.value;
-        if (value >= 0) {
-            setCantidad(value);
-        }
+        if (value >= 0) setCantidad(value);
     };
 
     const validate = () => {
         const newErrors = {};
-
-        if (!CantidadR || CantidadR <= 0) {
-            newErrors.CantidadR = 'La cantidad debe ser un número positivo.';
-        }
-
-        if (!Material) {
-            newErrors.Material = 'Selecciona un material.';
-        }
-
-        if ((Material === 'Lana' || Material === 'Poliéster') && !Colores) {
-            newErrors.Colores = 'Selecciona un color.';
-        }
-
-        if (!id_Empleado) {
-            newErrors.id_Empleado = 'Selecciona un empleado.';
-        }
-
+        if (!CantidadR || CantidadR <= 0) newErrors.CantidadR = 'La cantidad debe ser un número positivo.';
+        if (!Material) newErrors.Material = 'Selecciona un material.';
+        if ((Material === 'Lana' || Material === 'Poliéster') && !Colores) newErrors.Colores = 'Selecciona un color.';
+        if (!id_Empleado) newErrors.id_Empleado = 'Selecciona un empleado.';
+        if (!id_administrador) newErrors.id_administrador = 'Selecciona un administrador.';
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
     const store = async (e) => {
         e.preventDefault();
-
-        if (!validate()) {
-            return;
-        }
-
+        if (!validate()) return;
         try {
             const response = await axios.post(URI, {
                 CantidadR,
                 Material,
                 Colores,
-                id_administrador, // Administrador fijo enviado al servidor
+                id_administrador,
                 id_Empleado,
             });
             console.log('Respuesta del servidor:', response.data);
-            navigate('/admin/iproducto'); // Redirigir a la página de productos
+            navigate('/admin/iproducto');
         } catch (error) {
             console.error('Error al registrar el producto:', error);
         }
@@ -128,7 +101,6 @@ function Rproductos() {
                                 value={id_Empleado}
                                 onChange={(e) => setid_Empleado(e.target.value)}
                                 className="w-full px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                required
                             >
                                 <option value="">Selecciona un empleado</option>
                                 {empleados.map((empleado) => (
@@ -174,7 +146,7 @@ function Rproductos() {
                             {errors.Material && <p className="text-red-500 text-sm mt-1">{errors.Material}</p>}
                         </div>
 
-                        {/* Colores (solo si se selecciona "Lana" o "Poliéster") */}
+                        {/* Colores */}
                         {mostrarColores && (
                             <div className="col-span-2 md:col-span-1">
                                 <label className="block text-white mb-2" htmlFor="Color">Color</label>
@@ -197,39 +169,39 @@ function Rproductos() {
                         )}
                     </div>
 
-                    {/* Administrador fijo al final */}
+                    {/* Administrador */}
                     <div className="mb-6">
-                        <label className=" text-white mb-2">Administrador</label>
+                        <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
                         <select
-                                        id="id_administrador"
-                                        value={id_administrador}
-                                        onChange={(e) => setid_administrador(e.target.value)}
-                                        className="w  px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                        required
-                                    >
-                                        <option value="">Selecciona un administrador</option>
-                                        {administrador.map((admin) => (
-                                            <option key={admin.id} value={admin.id}>
-                                                {admin.nombre}
-                                            </option>
-                                        ))}
-                                    </select>
+                            id="id_administrador"
+                            value={id_administrador}
+                            onChange={(e) => setid_administrador(e.target.value)}
+                            className="w px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            required
+                        >
+                            <option value="">Selecciona un administrador</option>
+                            {administrador.map((admin) => (
+                                <option key={admin.id} value={admin.id}>
+                                    {admin.nombre}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.id_administrador && <p className="text-red-500 text-sm mt-1">{errors.id_administrador}</p>}
                     </div>
 
+                    {/* Buttons */}
                     <div className="flex justify-center space-x-4 mt-6">
                         <button
                             onClick={() => navigate('/admin/iproductos')}
-                            className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
+                            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-gray-500 text-white hover:bg-gray-600"
                         >
                             Cancelar
                         </button>
-                        
                         <button
-                            
                             type="submit"
-                            className="px-4 sm:px-6 py-2 sm:py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
+                            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-indigo-500 text-white hover:bg-purple-600"
                         >
-                            Registrar Material
+                            Guardar
                         </button>
                     </div>
                 </form>
