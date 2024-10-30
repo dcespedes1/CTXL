@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
-import { FaUser, FaIdCard, FaBirthdayCake, FaEnvelope, FaMobileAlt } from "react-icons/fa"; // New Icons for Title
+import { FaUser, FaIdCard, FaBirthdayCake, FaEnvelope, FaMobileAlt } from "react-icons/fa";
 import REmpleados from '../pages/rempleados';
 
 const URI = 'http://localhost:8000/api/Empleado/';
@@ -14,6 +14,7 @@ function IEmpleados() {
   const [searchTerm, setSearchTerm] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [numRecords, setNumRecords] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     getEmpleados();
@@ -33,6 +34,13 @@ function IEmpleados() {
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
+  const totalPages = Math.ceil(filteredEmpleados.length / numRecords);
+  const currentEmpleados = filteredEmpleados.slice((currentPage - 1) * numRecords, currentPage * numRecords);
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="flex h-screen bg-gray-800">
@@ -84,8 +92,8 @@ function IEmpleados() {
               </tr>
             </thead>
             <tbody className="text-center text-white">
-              {filteredEmpleados.length > 0 ? (
-                filteredEmpleados.slice(0, numRecords).map((Empleado) => (
+              {currentEmpleados.length > 0 ? (
+                currentEmpleados.map((Empleado) => (
                   <tr key={Empleado.id_Empleado} className="bg-gray-800 border-b border-gray-700 hover:bg-gray-700">
                     <td className="p-3"><FaUser className="inline-block mr-2 text-orange-400" />{Empleado.Nombre}</td>
                     <td className="p-3"><FaIdCard className="inline-block mr-2 text-teal-400" />{Empleado.TipoD}</td>
@@ -118,15 +126,17 @@ function IEmpleados() {
               )}
             </tbody>
           </table>
-
           <div className="flex justify-between items-center p-4 bg-gray-900 text-white">
-            <span className="text-sm">Mostrando {Math.min(numRecords, filteredEmpleados.length)} de {filteredEmpleados.length} empleados</span>
+            <span className="text-sm">Mostrando {currentEmpleados.length} de {filteredEmpleados.length} empleados</span>
             <div className="flex items-center space-x-2">
               <label htmlFor="numRecords" className="text-sm">Registros por página:</label>
               <select
                 id="numRecords"
                 value={numRecords}
-                onChange={(e) => setNumRecords(parseInt(e.target.value))}
+                onChange={(e) => {
+                  setNumRecords(parseInt(e.target.value));
+                  setCurrentPage(1); // Reiniciar a la primera página al cambiar el número de registros
+                }}
                 className="p-2 bg-gray-800 text-white rounded-md border border-purple-500"
               >
                 <option value="5">5</option>
@@ -135,6 +145,17 @@ function IEmpleados() {
                 <option value="20">20</option>
               </select>
             </div>
+          </div>
+          <div className="flex justify-center items-center p-4 bg-gray-900 text-white">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                className={`mx-1 px-3 py-2 rounded-md ${currentPage === index + 1 ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-purple-500 hover:text-white'} transition duration-300`}
+                onClick={() => handlePageClick(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
           </div>
         </div>
 

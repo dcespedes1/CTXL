@@ -25,7 +25,7 @@ function RPedidos() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const precioBase = 8000;
+        const precioBase = 30000;
         const nuevoPrecioFinal = Cantidad * precioBase;
         setPFinal(nuevoPrecioFinal);
     }, [Cantidad]);
@@ -128,7 +128,7 @@ function RPedidos() {
                                         <option value="Camisetas">Camisetas</option>
                                         <option value="Chalecos">Chalecos</option>
                                         <option value="Chaquetas">Chaquetas</option>
-                                        <option value="Afines">Afines</option>
+                                        
                                     </select>
                                 </div>
                             </div>

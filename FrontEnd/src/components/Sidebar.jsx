@@ -64,6 +64,14 @@ const Sidebar = () => {
           >
             <FaHome className="mr-2" /> Inicio
           </Link>
+          <Link
+            to="/admin/catalogo"
+            className={`flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300 ${
+              location.pathname === '/admin/home' ? 'bg-purple-600' : ''
+            }`}
+          >
+            <FaHome className="mr-2" /> Catalogo Precio
+          </Link>
 
           <div>
             <button

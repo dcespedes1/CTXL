@@ -32,6 +32,7 @@ import ConfigNotificaciones from './pages/notificaciones';
 import ConfigSeguridad from './pages/seguridad';
 import ConfigGeneral from './pages/general';
 import Salida from './pages/salida';
+import Catalogo from './pages/catalogo';
 
 function App() {
   const [modalVisible, setModalVisible] = useState(false); // Estado para controlar el modal
@@ -55,6 +56,7 @@ function App() {
                 <Navbar />
                 <Routes>
                   <Route path="home" element={<Home />} />
+                  <Route path="catalogo" element={<Catalogo />} />
                   <Route path="perfilDetalle" element={<PerfilDetalle />} />
                   <Route path="perfilEditar" element={<PerfilEditar />} />
                   <Route path="ipedidos" element={<IPedidos />} />
@@ -82,6 +84,7 @@ function App() {
                 <Navbar />
                 <Routes>
                   <Route path="homeE" element={<EmpleadoHome />} />
+                  <Route path="catalogo" element={<Catalogo />} />
                   <Route path="perfilDetalle" element={<PerfilDetalle />} />
                   <Route path="perfilEditar" element={<PerfilEditar />} />
                   <Route path="ipedidosE" element={<EmpleadoIpedido />} />

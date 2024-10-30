@@ -139,7 +139,7 @@
                                             <option value="Camisetas">Camisetas</option>
                                             <option value="Chalecos">Chalecos</option>
                                             <option value="Chaquetas">Chaquetas</option>
-                                            <option value="Afines">Afines</option>
+                                           
                                         </select>
                                     </div>
                                 </div>

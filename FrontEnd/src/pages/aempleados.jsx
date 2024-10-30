@@ -38,7 +38,7 @@ function AEmpleados() {
     const updateEmpleado = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`${URI}${id_Empleado}`, {
+            await axios.post(`${URI}${id_Empleado}`, {
                 Nombre,
                 TipoD,
                 NumeroD,
