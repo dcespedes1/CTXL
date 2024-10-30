@@ -258,7 +258,7 @@ function RPedidos() {
 
                         <button
                             type="submit"
-                            className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
+                            className="px-6 py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
                         >
                             Registrar Pedido
                         </button>

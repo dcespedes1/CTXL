@@ -49,10 +49,10 @@ function AProductos() {
 
   return (
     <div className="flex h-screen">
-      <main className="flex-1 flex flex-col p-10 bg-gray-800 text-white bg-cover bg-no-repeat">
+        <main className="flex-1 p-6 bg-gradient-to-r from-slate-200 to-slate-400 text-white bg-cover bg-no-repeat">
         
         <div className="flex justify-center items-center h-full">
-          <div className="w-full max-w-md bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
+          <div className="w-full max-w-md bg-gray-900 p-8 rounded-lg shadow-2xl ">
             <h2 className="text-3xl font-bold mb-8 text-center">Actualizar Producto</h2>
             <form onSubmit={updateProduct}>
               <div className="space-y-6">
@@ -90,42 +90,21 @@ function AProductos() {
                       required
                     />
                   </div>
-                  <div className="w-full">
-                    <label className="block mb-2" htmlFor="id_administrador">Administrador</label>
-                    <input
-                      type="number"
-                      id="id_administrador"
-                      value={id_administrador}
-                      onChange={(e) => setIdAdministrador(e.target.value)}
-                      className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      required
-                    />
-                  </div>
-                  <div className="w-full">
-                    <label className="block mb-2" htmlFor="id_Empleado">Empleado</label>
-                    <input
-                      type="number"
-                      id="id_Empleado"
-                      value={id_Empleado}
-                      onChange={(e) => setIdEmpleado(e.target.value)}
-                      className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      required
-                    />
-                  </div>
+                 
                 </div>
-                <div className="flex space-x-4">
-                  <Link to="/admin/iproducto">
+                <div className="flex justify-center space-x-4 mt-6">
+                <Link to="/admin/iproducto">
                     <button
                       type="button"
-                      className="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
-                    >
+                      className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
+                      >
                       Cancelar
                     </button>
                   </Link>
                   <button
                     type="submit"
-                    className="w-1/2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
-                  >
+                    className="px-4 sm:px-6 py-2 sm:py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
+                    >
                     Actualizar
                   </button>
                 </div>

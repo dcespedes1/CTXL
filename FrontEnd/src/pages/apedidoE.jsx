@@ -76,9 +76,9 @@ function RPedidos() {
 
     return (
         <div className="flex h-screen">
-            <main className="flex-1 p-6 bg-gray-800 text-white bg-cover bg-no-repeat">
-                <div className="flex justify-center items-center h-full">
-                    <div className="w-full max-w-4xl bg-black p-8 rounded-lg shadow-2xl shadow-purple-600/100">
+            <main className="flex-1 p-6 bg-gradient-to-r from-slate-200 to-slate-400 text-white bg-cover bg-no-repeat">
+                 <div className="flex justify-center items-center h-full">
+                    <div className="w-full max-w-4xl bg-gray-900 p-8 rounded-lg shadow-2xl ">
                         <h2 className="text-3xl font-bold mb-8 text-center">Registro de Pedido</h2>
                         <form onSubmit={store} className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -164,18 +164,18 @@ function RPedidos() {
                                     </select>
                                 </div>
                             </div>
-                            <div className="flex justify-between">
-                                <button
+                            <div className="flex justify-center space-x-4 mt-6">
+                            <button
                                     type="button"
                                     onClick={() => navigate('/empleado/ipedidosE')}
-                                    className="w-1/2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
-                                >
+                                    className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
+                                    >
                                     Cancelar
                                 </button>
                                 <button
                                     type="submit"
-                                    className="w-1/2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
-                                >
+                                    className="px-4 sm:px-6 py-2 sm:py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
+                                    >
                                     Actualizar Pedido
                                 </button>
                             </div>

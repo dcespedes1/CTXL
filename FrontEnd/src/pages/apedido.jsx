@@ -79,7 +79,7 @@ function RPedidos() {
             <main className="flex-1 p-6 bg-gradient-to-r from-slate-200 to-slate-400 text-white bg-cover bg-no-repeat">
                 <div className="flex justify-center items-center h-full">
                     <div className="w-full max-w-4xl bg-gray-900 p-8 rounded-lg shadow-lg">
-                        <h2 className="text-2xl font-semibold mb-6 text-center text-white">Registro de Pedido</h2>
+                        <h2 className="text-2xl font-semibold mb-6 text-center text-white">Actualizar de Pedido</h2>
                         <form onSubmit={store} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label className="block mb-2 text-sm" htmlFor="Cliente">Cliente</label>
@@ -158,8 +158,8 @@ function RPedidos() {
                                     ))}
                                 </select>
                             </div>
-                            <div className="col-span-1 md:col-span-2 flex justify-end space-x-3">
-                                <button
+                            <div className="flex justify-center space-x-4 mt-6">
+                            <button
                                     type="button"
                                     onClick={() => navigate('/admin/ipedidos')}
                                     className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700 transition duration-200"
@@ -170,7 +170,7 @@ function RPedidos() {
                                     type="submit"
                                     className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-green-700 transition duration-200"
                                 >
-                                    Guardar
+                                    Actualizar
                                 </button>
                             </div>
                         </form>

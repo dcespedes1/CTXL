@@ -123,10 +123,10 @@ function Rproductos({ setModalVisible }) { // Asegúrate de recibir setModalVisi
             onClick={closeModal} 
         >
         <div
-            className="bg-black p-6 sm:p-10 rounded-lg shadow-lg max-w-full sm:max-w-2xl w-full mx-4 sm:mx-0 max-h-screen overflow-y-auto"
+            className="bg-slate-900 p-6 sm:p-10 rounded-lg shadow-lg max-w-full sm:max-w-2xl w-full mx-4 sm:mx-0 max-h-screen overflow-y-auto"
             onClick={(e) => e.stopPropagation()} 
         >
-        <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 text-center text-white">Registro de Pedido</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 text-center text-white">Registro de Material</h2>
         <form onSubmit={store}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div className="col-span-2 md:col-span-1">
@@ -228,7 +228,7 @@ function Rproductos({ setModalVisible }) { // Asegúrate de recibir setModalVisi
                 </button>
                 <button
                     type="submit"
-                    className="px-4 sm:px-6 py-2 sm:py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
+                    className="px-4 sm:px-6 py-2 sm:py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
                 >
                     Registrar Material
                 </button>

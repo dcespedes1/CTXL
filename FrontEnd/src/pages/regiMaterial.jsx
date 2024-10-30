@@ -199,7 +199,7 @@ function Rproductos() {
                         </button>
                         <button
                             type="submit"
-                            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-indigo-500 text-white hover:bg-purple-600"
+                            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-indigo-500 text-white hover:bg-indigo-700"
                         >
                             Guardar
                         </button>
