@@ -64,6 +64,29 @@ export const loginAdministrador = async (req, res) => {
         res.status(500).json({ message: 'Error del servidor.' });
     }
 };
+export const resetPassword = async (req, res) => {
+    const { correo, nuevaContraseña } = req.body;
+
+    if (!correo || !nuevaContraseña) {
+        return res.status(400).json({ success: false, message: 'Correo y nueva contraseña son requeridos.' });
+    }
+
+    try {
+        const administrador = await Administrador.findOne({ where: { correo } });
+        if (!administrador) {
+            return res.status(404).json({ success: false, message: 'Administrador no encontrado.' });
+        }
+
+        // Aquí deberías actualizar la contraseña
+        administrador.contraseña = nuevaContraseña; // Esto es solo un ejemplo, asegúrate de usar un método seguro.
+        await administrador.save();
+
+        return res.json({ success: true, message: 'Contraseña restablecida con éxito.' });
+    } catch (error) {
+        console.error('Error al restablecer la contraseña:', error);
+        return res.status(500).json({ success: false, message: 'Error del servidor.' });
+    }
+};
 
 //actualizar un administrador
 export const updateAdministrador = async (req, res) => {

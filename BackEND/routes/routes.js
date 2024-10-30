@@ -9,7 +9,7 @@ import {
     createEmpleado, deleteEmpleado, getAllEmpleado, getEmpleado, loginEmpleado, updateEmpleado
 } from '../controllers/empleado.js';
 import {
-    createAdministrador, deleteAdministrador, getAdministrador, getAllAdministrador, updateAdministrador,loginAdministrador
+    createAdministrador, deleteAdministrador, getAdministrador, getAllAdministrador, updateAdministrador,loginAdministrador, resetPassword
 } from '../controllers/administrador.js';
 import {
     stock
@@ -44,8 +44,10 @@ router.get('/administrador', getAllAdministrador);
 router.get('/administrador/:id_administrador', getAdministrador);
 router.post('/administrador', createAdministrador);
 router.post('/administrador/login', loginAdministrador);
+router.post('/administrador/reset-password', resetPassword);
 router.put('/administrador/:id_administrador', updateAdministrador);
-router.delete('/administrador/:id_administrador', deleteAdministrador);  // Corregido: id_administrador
+router.delete('/administrador/:id_administrador', deleteAdministrador);
+  // Corregido: id_administrador
 
 //ruta para stock
 router.get('/stock', stock);

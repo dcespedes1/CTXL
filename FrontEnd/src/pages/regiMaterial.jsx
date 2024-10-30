@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/productos/';
 const URI_ADMIN = 'http://localhost:8000/api/administrador';
+const URI_EMPLEADO = 'http://localhost:8000/api/empleado'; // Cambia a la ruta correcta de tu API para empleados
 
 function Rproductos() {
     const [CantidadR, setCantidad] = useState('');
@@ -13,10 +14,8 @@ function Rproductos() {
     const [id_Empleado, setid_Empleado] = useState('');
     const [empleados, setEmpleados] = useState([]);
     const [materiales, setMateriales] = useState([]);
-    const [mostrarColores, setMostrarColores] = useState(false);
     const [errors, setErrors] = useState({});
     const [administrador, setAdministrador] = useState([]);
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,25 +31,26 @@ function Rproductos() {
     }, []);
 
     useEffect(() => {
-        const empleadosCargados = [
-            { id: 1, nombre: 'Juan Perez' },
-            { id: 2, nombre: 'Maria Rodriguez' },
-            { id: 3, nombre: 'Carlos Sanchez' },
-        ];
+        const fetchEmpleados = async () => {
+            try {
+                const response = await axios.get(URI_EMPLEADO);
+                setEmpleados(response.data);
+            } catch (error) {
+                console.error('Error al obtener empleados:', error);
+            }
+        };
+        fetchEmpleados();
+
         const materialesCargados = [
             { id: 1, tipo: 'Algodón' },
             { id: 2, tipo: 'Poliéster' },
             { id: 3, tipo: 'Lana' },
         ];
-        setEmpleados(empleadosCargados);
         setMateriales(materialesCargados);
     }, []);
 
     const handleMaterialChange = (e) => {
-        const selectedMaterial = e.target.value;
-        setMaterial(selectedMaterial);
-        setMostrarColores(selectedMaterial === 'Lana' || selectedMaterial === 'Poliéster');
-        if (selectedMaterial !== 'Lana' && selectedMaterial !== 'Poliéster') setColor('');
+        setMaterial(e.target.value);
     };
 
     const handleCantidadChange = (e) => {
@@ -62,7 +62,7 @@ function Rproductos() {
         const newErrors = {};
         if (!CantidadR || CantidadR <= 0) newErrors.CantidadR = 'La cantidad debe ser un número positivo.';
         if (!Material) newErrors.Material = 'Selecciona un material.';
-        if ((Material === 'Lana' || Material === 'Poliéster') && !Colores) newErrors.Colores = 'Selecciona un color.';
+        if (!Colores) newErrors.Colores = 'Selecciona un color.';
         if (!id_Empleado) newErrors.id_Empleado = 'Selecciona un empleado.';
         if (!id_administrador) newErrors.id_administrador = 'Selecciona un administrador.';
         setErrors(newErrors);
@@ -104,8 +104,8 @@ function Rproductos() {
                             >
                                 <option value="">Selecciona un empleado</option>
                                 {empleados.map((empleado) => (
-                                    <option key={empleado.id} value={empleado.id}>
-                                        {empleado.nombre}
+                                    <option key={empleado.id_Empleado} value={empleado.id_Empleado}>
+                                        {empleado.Nombre}
                                     </option>
                                 ))}
                             </select>
@@ -147,45 +147,44 @@ function Rproductos() {
                         </div>
 
                         {/* Colores */}
-                        {mostrarColores && (
-                            <div className="col-span-2 md:col-span-1">
-                                <label className="block text-white mb-2" htmlFor="Color">Color</label>
-                                <select
-                                    id="Color"
-                                    value={Colores}
-                                    onChange={(e) => setColor(e.target.value)}
-                                    className="w-full px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                    required
-                                >
-                                    <option value="">Selecciona un color</option>
-                                    <option value="Rojo">Rojo</option>
-                                    <option value="Azul">Azul</option>
-                                    <option value="Verde">Verde</option>
-                                    <option value="Amarillo">Amarillo</option>
-                                    <option value="Negro">Negro</option>
-                                </select>
-                                {errors.Colores && <p className="text-red-500 text-sm mt-1">{errors.Colores}</p>}
-                            </div>
-                        )}
+                        <div className="col-span-2 md:col-span-1">
+                            <label className="block text-white mb-2" htmlFor="Color">Color</label>
+                            <select
+                                id="Color"
+                                value={Colores}
+                                onChange={(e) => setColor(e.target.value)}
+                                className="w-full px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                required
+                            >
+                                <option value="">Selecciona un color</option>
+                                <option value="Rojo">Rojo</option>
+                                <option value="Azul">Azul</option>
+                                <option value="Verde">Verde</option>
+                                <option value="Amarillo">Amarillo</option>
+                                <option value="Negro">Negro</option>
+                            </select>
+                            {errors.Colores && <p className="text-red-500 text-sm mt-1">{errors.Colores}</p>}
+                        </div>
                     </div>
 
                     {/* Administrador */}
                     <div className="mb-6">
                         <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
                         <select
-                            id="id_administrador"
-                            value={id_administrador}
-                            onChange={(e) => setid_administrador(e.target.value)}
-                            className="w px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                            required
-                        >
-                            <option value="">Selecciona un administrador</option>
-                            {administrador.map((admin) => (
-                                <option key={admin.id} value={admin.id}>
-                                    {admin.nombre}
-                                </option>
-                            ))}
-                        </select>
+    id="id_administrador"
+    value={id_administrador}
+    onChange={(e) => setid_administrador(e.target.value)}
+    className="w px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+    required
+>
+    <option value="">Selecciona un administrador</option>
+    {administrador.map((admin) => (
+        <option key={admin.id_administrador} value={admin.id_administrador}>
+            {admin.nombre}
+        </option>
+    ))}
+</select>
+
                         {errors.id_administrador && <p className="text-red-500 text-sm mt-1">{errors.id_administrador}</p>}
                     </div>
 

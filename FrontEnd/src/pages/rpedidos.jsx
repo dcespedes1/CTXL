@@ -4,6 +4,7 @@
 
     const URI = 'http://localhost:8000/api/pedidos/';
     const URI_ADMIN = 'http://localhost:8000/api/administrador';
+    const URI_EMPLEADO = 'http://localhost:8000/api/empleado';
 
     function RPedidos({ setModalVisible }) { 
         const [Cliente, setCliente] = useState('');
@@ -18,13 +19,16 @@
         const [PFinal, setPFinal] = useState(8000);
         const [id_Empleado, setid_Empleado] = useState('');
         const [id_administrador, setid_administrador] = useState('');
-        const [empleados] = useState([
-            { id: 1, nombre: 'Juan' },
-            { id: 2, nombre: 'María' },
-            { id: 3, nombre: 'Pedro' },
-        ]);
-        const navigate = useNavigate();
+        const [empleados, setEmpleados] = useState([]);
         const [administrador, setAdministrador] = useState([]);
+
+        const navigate = useNavigate();
+
+        useEffect(() => {
+            const precioBase = 8000;
+            const nuevoPrecioFinal = Cantidad * precioBase;
+            setPFinal(nuevoPrecioFinal);
+        }, [Cantidad]);
 
         useEffect(() => {
             const fetchAdministrador = async () => {
@@ -35,16 +39,21 @@
                     console.error('Error al obtener administradores:', error);
                 }
             };
-
             fetchAdministrador();
         }, []);
 
         useEffect(() => {
-            const precioBase = 8000;
-            const nuevoPrecioFinal = Cantidad * precioBase;
-            setPFinal(nuevoPrecioFinal);
-        }, [Cantidad]);
-
+            const fetchEmpleados = async () => {
+                try {
+                    const response = await axios.get(URI_EMPLEADO);
+                    setEmpleados(response.data);
+                } catch (error) {
+                    console.error('Error al obtener empleados:', error);
+                }
+            };
+            fetchEmpleados();
+            },[]);
+    
         const formatCOP = (valor) => {
             return valor.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
         };
@@ -249,12 +258,12 @@
                                         id="id_Empleado"
                                         value={id_Empleado}
                                         onChange={(e) => setid_Empleado(e.target.value)}
-                                        className="w-full px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                        required
-                                    >
+                                        className="w-full px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        >
+                                        <option value="">Selecciona un empleado</option>
                                         {empleados.map((empleado) => (
-                                            <option key={empleado.id} value={empleado.id}>
-                                                {empleado.nombre}
+                                            <option key={empleado.id_Empleado} value={empleado.id_Empleado}>
+                                                {empleado.Nombre}
                                             </option>
                                         ))}
                                     </select>
@@ -266,12 +275,12 @@
                                         id="id_administrador"
                                         value={id_administrador}
                                         onChange={(e) => setid_administrador(e.target.value)}
-                                        className="w-full px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                         required
-                                    >
+                                        >
                                         <option value="">Selecciona un administrador</option>
                                         {administrador.map((admin) => (
-                                            <option key={admin.id} value={admin.id}>
+                                            <option key={admin.id_administrador} value={admin.id_administrador}>
                                                 {admin.nombre}
                                             </option>
                                         ))}
@@ -281,20 +290,22 @@
                         </div>
 
                         {/* Botones */}
-                        <div className="flex justify-center space-x-4 mt-6">
-                    <button
-                        onClick={closeModal}
-                        className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
-                    >
-                        Cancelar
-                    </button>
-                    <button
-                        type="submit"
-                        className="px-4 sm:px-6 py-2 sm:py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
-                    >
-                        Registrar Pedido
-                    </button>
-                        </div>
+                        <div className="text-center mt-6">
+                            <button
+                                type="button"
+                                onClick={() => navigate('/admin/ipedidos')} 
+                                className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-md mr-2 hover:bg-gray-700 transition duration-300"
+                                >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="px-6 py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
+                                >
+                                Registrar Pedido
+                            </button>
+                    </div>
                     </form>
                 </div>
             </div>

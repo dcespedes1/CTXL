@@ -7,7 +7,7 @@ const URI_ADMIN = 'http://localhost:8000/api/administrador';
 
 function REmpleados() {
     const [Nombre, setNombre] = useState('');
-    const [Apellido, setApellido] = useState('');
+    const [contraseña, setcontraseña] = useState('');
     const [TipoD, setTipoD] = useState('');
     const [NumeroD, setNumeroD] = useState('');
     const [FechaN, setFechaN] = useState('');
@@ -36,15 +36,16 @@ function REmpleados() {
         const newErrors = {};
         const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const minPassLength = 6; // Cambié el nombre de la constante para mayor claridad
         const phoneRegex = /^[0-9]{10,}$/;
         const selectedDate = new Date(FechaN);
         const maxDate = new Date('2025-01-01');
-
+    
         if (!Nombre || !nameRegex.test(Nombre)) {
             newErrors.Nombre = 'El nombre solo puede contener letras.';
         }
-        if (!Apellido || !nameRegex.test(Apellido)) {
-            newErrors.Apellido = 'El apellido solo puede contener letras.';
+        if (!contraseña || contraseña.length < minPassLength) { // Verificación de longitud mínima
+            newErrors.contraseña = 'La contraseña debe tener un mínimo de 6 dígitos.';
         }
         if (!Correo || !emailRegex.test(Correo) || !Correo.endsWith('.com')) {
             newErrors.Correo = 'Por favor ingresa un correo válido que termine en ".com".';
@@ -55,7 +56,7 @@ function REmpleados() {
         if (!FechaN || selectedDate >= maxDate) {
             newErrors.FechaN = 'La fecha de nacimiento no puede ser posterior a 2025.';
         }
-
+    
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -70,7 +71,7 @@ function REmpleados() {
         try {
             const response = await axios.post(URI, {
                 Nombre,
-                Apellido,
+                contraseña,
                 TipoD,
                 NumeroD,
                 FechaN,
@@ -79,7 +80,7 @@ function REmpleados() {
                 id_administrador,
             });
             console.log('Respuesta del servidor:', response.data);
-            navigate('/app/iempleado');
+            navigate('/admin/iempleado');
         } catch (error) {
             console.error('Error al registrar el empleado:', error);
         }
@@ -110,18 +111,18 @@ function REmpleados() {
                         </div>
 
                         <div>
-                            <label className="block text-white mb-2" htmlFor="Apellido">
-                                Apellido
+                            <label className="block text-white mb-2" htmlFor="contraseña">
+                                contraseña
                             </label>
                             <input
                                 type="text"
                                 id="Apellido"
-                                value={Apellido}
-                                onChange={(e) => setApellido(e.target.value)}
+                                value={contraseña}
+                                onChange={(e) => setcontraseña(e.target.value)}
                                 className={`w-full px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${errors.Apellido ? 'border-red-500' : ''}`}
                                 required
                             />
-                            {errors.Apellido && <p className="text-red-500 text-sm mt-1">{errors.Apellido}</p>}
+                            {errors.contraseña && <p className="text-red-500 text-sm mt-1">{errors.contraseña}</p>}
                         </div>
 
                         <div>
@@ -218,7 +219,7 @@ function REmpleados() {
                                     >
                                         <option value="">Selecciona un administrador</option>
                                         {administrador.map((admin) => (
-                                            <option key={admin.id} value={admin.id}>
+                                            <option key={admin.id_administrador} value={admin.id_administrador}>
                                                 {admin.nombre}
                                             </option>
                                         ))}
@@ -229,16 +230,16 @@ function REmpleados() {
 
                     <div className="flex justify-center space-x-4 mt-6">
                         <button
-                            onClick={() => navigate('/admin/iempleado')}
-                            className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
+                            onClick={() => navigate('/admin/iempleados')}
+                            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-gray-500 text-white hover:bg-gray-600"
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
-                            className="px-4 sm:px-6 py-2 sm:py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
+                            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-indigo-500 text-white hover:bg-indigo-700"
                         >
-                            Registrar Empleado
+                            registrar
                         </button>
                     </div>
                 </form>

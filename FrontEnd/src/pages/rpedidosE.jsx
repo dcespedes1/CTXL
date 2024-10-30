@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const URI = 'http://localhost:8000/api/pedidos/';
+const URI_ADMIN = 'http://localhost:8000/api/administrador';
+const URI_EMPLEADO = 'http://localhost:8000/api/empleado';
 
 function RPedidos({ setModalVisible }) { 
     const [Cliente, setCliente] = useState('');
@@ -16,12 +18,10 @@ function RPedidos({ setModalVisible }) {
     const [PInicial, setPInicial] = useState(0);
     const [PFinal, setPFinal] = useState(8000);
     const [id_Empleado, setid_Empleado] = useState('');
-    const [id_administrador] = useState('Juan Perez');
-    const [empleados] = useState([
-        { id: 1, nombre: 'Juan' },
-        { id: 2, nombre: 'María' },
-        { id: 3, nombre: 'Pedro' },
-    ]);
+    const [id_administrador, setid_administrador] = useState('');
+    const [empleados, setEmpleados] = useState([]);
+    const [administrador, setAdministrador] = useState([]);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,6 +29,30 @@ function RPedidos({ setModalVisible }) {
         const nuevoPrecioFinal = Cantidad * precioBase;
         setPFinal(nuevoPrecioFinal);
     }, [Cantidad]);
+
+    useEffect(() => {
+        const fetchAdministrador = async () => {
+            try {
+                const response = await axios.get(URI_ADMIN); // Suponiendo que esta es la ruta para obtener administradores
+                setAdministrador(response.data); // Guardar la lista de administradores en el estado
+            } catch (error) {
+                console.error('Error al obtener administradores:', error);
+            }
+        };
+        fetchAdministrador();
+    }, []);
+
+    useEffect(() => {
+        const fetchEmpleados = async () => {
+            try {
+                const response = await axios.get(URI_EMPLEADO);
+                setEmpleados(response.data);
+            } catch (error) {
+                console.error('Error al obtener empleados:', error);
+            }
+        };
+        fetchEmpleados();
+        },[]);
 
     const formatCOP = (valor) => {
         return valor.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
@@ -52,7 +76,7 @@ function RPedidos({ setModalVisible }) {
                 id_Empleado,
             });
             console.log('Respuesta de la API:', response.data);
-            navigate('//ipedidosE');
+            navigate('/empleado/ipedidosE');
         } catch (error) {
             console.error('Error al registrar el pedido:', error);
         }
@@ -74,7 +98,7 @@ function RPedidos({ setModalVisible }) {
         <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 text-center text-white">Registro de Pedido</h2>
         <form onSubmit={store}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-               
+            
                 {/* Primera columna */}
                         <div className="space-y-6">
                             <div>
@@ -234,12 +258,12 @@ function RPedidos({ setModalVisible }) {
                                     id="id_Empleado"
                                     value={id_Empleado}
                                     onChange={(e) => setid_Empleado(e.target.value)}
-                                    className="w-full px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                    required
-                                >
+                                    className="w-full px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    >
+                                    <option value="">Selecciona un empleado</option>
                                     {empleados.map((empleado) => (
-                                        <option key={empleado.id} value={empleado.id}>
-                                            {empleado.nombre}
+                                        <option key={empleado.id_Empleado} value={empleado.id_Empleado}>
+                                            {empleado.Nombre}
                                         </option>
                                     ))}
                                 </select>
@@ -247,32 +271,41 @@ function RPedidos({ setModalVisible }) {
 
                             <div>
                                 <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
-                                <input
-                                    type="text"
+                                <select
                                     id="id_administrador"
                                     value={id_administrador}
-                                    className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                    readOnly
-                                />
+                                    onChange={(e) => setid_administrador(e.target.value)}
+                                    className="w px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    required
+                                    >
+                                    <option value="">Selecciona un administrador</option>
+                                    {administrador.map((admin) => (
+                                        <option key={admin.id_administrador} value={admin.id_administrador}>
+                                            {admin.nombre}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
                     </div>
 
                     {/* Botones */}
-                    <div className="flex justify-center space-x-4 mt-6">
-                <button
-                    onClick={closeModal}
-                    className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
-                >
-                    Cancelar
-                </button>
-                <button
-                    type="submit"
-                    className="px-4 sm:px-6 py-2 sm:py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
-                >
-                    Registrar Pedido
-                </button>
-                    </div>
+                    <div className="text-center mt-6">
+                        <button
+                            type="button"
+                            onClick={() => navigate('/empleado/ipedidosE')} 
+                            className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-md mr-2 hover:bg-gray-700 transition duration-300"
+                            >
+                            Cancelar
+                        </button>
+
+                        <button
+                            type="submit"
+                            className="px-6 py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
+                            >
+                            Registrar Pedido
+                        </button>
+                </div>
                 </form>
             </div>
         </div>

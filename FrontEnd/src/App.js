@@ -101,7 +101,6 @@ function App() {
               <Route path="salida" element={<Salida />} />
               </Routes>
             </div>
-             
           }/>
 
           {/* Ruta de contacto */}
