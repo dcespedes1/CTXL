@@ -68,7 +68,7 @@ function RPedidos() {
                 id_administrador,
                 id_Empleado,
             });
-            navigate('/admin/ipedidos');
+            navigate('/empleado/ipedidos');
         } catch (error) {
             console.error('Error al registrar el pedido:', error);
         }
@@ -167,7 +167,7 @@ function RPedidos() {
                             <div className="flex justify-between">
                                 <button
                                     type="button"
-                                    onClick={() => navigate('/admin/ipedidos')}
+                                    onClick={() => navigate('/empleado/ipedidos')}
                                     className="w-1/2 bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"
                                 >
                                     Cancelar

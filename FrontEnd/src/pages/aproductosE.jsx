@@ -41,7 +41,7 @@ function AProductos() {
         id_administrador,
         id_Empleado,
       });
-      navigate("/admin/iproducto");
+      navigate("/empleado/iproducto");
     } catch (error) {
       console.error("Error updating product:", error);
     }
@@ -114,7 +114,7 @@ function AProductos() {
                   </div>
                 </div>
                 <div className="flex space-x-4">
-                  <Link to="/admin/iproducto">
+                  <Link to="/empleado/iproducto">
                     <button
                       type="button"
                       className="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"

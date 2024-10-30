@@ -107,7 +107,7 @@ function Rproductos({ setModalVisible }) { // Asegúrate de recibir setModalVisi
                 id_Empleado,
             });
             console.log('Respuesta del servidor:', response.data);
-            navigate('/app/iproducto');
+            navigate('/admin/iproducto');
         } catch (error) {
             console.error('Error al registrar el producto:', error);
         }

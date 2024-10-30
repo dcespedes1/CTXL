@@ -4,6 +4,7 @@ import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
 import { FaUserAlt, FaTshirt, FaRuler, FaPalette, FaBoxes, FaDollarSign, FaTags } from "react-icons/fa";
 import RPedidos from './rpedidos'; 
+import Apedidos from './apedido'; // Asegúrate de que esta línea está presente
 import { Link } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/pedidos/';
@@ -13,6 +14,7 @@ function IPedidosE() {
   const [showTooltip, setShowTooltip] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false); // Estado para el modal de Apedidos
   
   const [numRecords, setNumRecords] = useState(5); // Default 5 registros a mostrar
   const [currentPage, setCurrentPage] = useState(1); // Página actual
@@ -131,8 +133,9 @@ function IPedidosE() {
                     <td className="px-6 py-4"><FaDollarSign className="inline-block mr-2 text-green-400" />{pedido.PFinal}</td>
                     <td className="px-6 py-4">
                       <Link
-                        to={`/app/apedido/${pedido.id_Pedido}`}
+                        to={`/admin/apedido/${pedido.id_Pedido}`}
                         className="text-2xl text-purple-600 hover:text-purple-400 transition duration-300"
+                        onClick={() => setEditModalVisible(true)}
                       >
                         <VscEdit />
                       </Link>
@@ -165,6 +168,10 @@ function IPedidosE() {
 
         {modalVisible && (
           <RPedidos setModalVisible={setModalVisible} />
+        )}
+        
+        {editModalVisible && ( 
+          <Apedidos setModalVisible={setEditModalVisible} />
         )}
       </main>
     </div>

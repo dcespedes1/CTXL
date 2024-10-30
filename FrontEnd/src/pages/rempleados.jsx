@@ -79,7 +79,7 @@ function REmpleados({ setModalVisible }) {
                 id_administrador,
             });
             console.log('Respuesta del servidor:', response.data);
-            navigate('/app/iempleado'); 
+            navigate('/admin/iempleado'); 
         } catch (error) {
             console.error('Error al registrar el empleado:', error);
         }
@@ -239,7 +239,6 @@ function REmpleados({ setModalVisible }) {
                     {/* Botones */}
                     <div className="flex justify-center space-x-4 mt-6">
                         <button
-                            onClick={closeModal}
                             className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
                         >
                             Cancelar

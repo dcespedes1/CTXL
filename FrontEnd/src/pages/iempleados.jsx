@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
-import REmpleados from '../pages/rempleados'; // Asegúrate de importar el componente modal
+import REmpleados from '../pages/rempleados'; 
 
 const URI = 'http://localhost:8000/api/Empleado/';
 
@@ -96,7 +96,7 @@ function IEmpleados() {
                     <td className="p-3">{Empleado.celular}</td>
                     <td className="p-3">
                       <Link
-                        to={`/app/aempleados/${Empleado.id_Empleado}`}
+                        to={`/admin/aempleados/${Empleado.id_Empleado}`}
                         onMouseEnter={() => setShowTooltip(Empleado.id_Empleado)}
                         onMouseLeave={() => setShowTooltip(null)}
                         className="text-2xl text-purple-600 hover:text-purple-400 transition duration-300"

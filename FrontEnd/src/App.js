@@ -26,6 +26,8 @@ import EmpleadoPedidos from './pages/EpedidoR';
 import EmpleadoMaterial from './pages/EmRegiProduct'; 
 import EmpleadoIpedido from './pages/ipedidosE';
 import EmpleadoIproduct from './pages/iproductosE';
+import EmpleadoActualizarPedido from './pages/apedidoE' ;
+import EmpleadoActualizarMaterial from './pages/aproductosE';
 import ConfigNotificaciones from './pages/notificaciones';
 import ConfigSeguridad from './pages/seguridad';
 import ConfigGeneral from './pages/general';
@@ -56,11 +58,11 @@ function App() {
                   <Route path="perfilDetalle" element={<PerfilDetalle />} />
                   <Route path="perfilEditar" element={<PerfilEditar />} />
                   <Route path="ipedidos" element={<IPedidos />} />
-                  <Route path="apedido/:id_Pedido" element={<EditarPedido />} />
                   <Route path="iproducto" element={<Iproducto />} />
                   <Route path="aproducto/:id" element={<EditarProducto />} />
-                  <Route path="iempleado" element={<IEmpleados />} />
+                  <Route path="apedido/:id_Pedido" element={<EditarPedido />} />
                   <Route path="aempleados/:id_Empleado" element={<EditarEmpleados />} />
+                  <Route path="iempleado" element={<IEmpleados />} />
                   <Route path="regiMaterial" element={<Rproductos />} />
                   <Route path="regiPedido" element={<RPedidos />} />
                   <Route path="regiEmpleado" element={<REmpleados />} />
@@ -84,8 +86,10 @@ function App() {
                   <Route path="perfilEditar" element={<PerfilEditar />} />
                   <Route path="ipedidosE" element={<EmpleadoIpedido />} />
                   <Route path="iproductoE" element={<EmpleadoIproduct />} />
-                  <Route path="regiMaterial" element={<EmpleadoMaterial />} />  
-                  <Route path="regiPedido" element={<EmpleadoPedidos />} />      
+                  <Route path="EmpleadoMaterial" element={<EmpleadoMaterial />} />  
+                  <Route path="EmpleadoPedido" element={<EmpleadoPedidos />} />  
+                  <Route path="ActualizarPedido" element={<EmpleadoActualizarPedido />} />  
+                  <Route path="ActualizarMaterial" element={<EmpleadoActualizarMaterial />} />  
                 </Routes>
               </div>
             </div>

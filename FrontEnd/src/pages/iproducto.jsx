@@ -90,7 +90,7 @@ function IProductosE() {
                     <td className="px-6 py-4"><FaPalette className="inline-block mr-2 text-yellow-400" />{producto.Colores}</td>
                     <td className="px-6 py-4">
                       <Link
-                        to={`/app/aproducto/${producto.id_producto}`}
+                        to={`/admin/aproducto/${producto.id_producto}`}
                         className="text-2xl text-purple-600 hover:text-purple-400 transition duration-300"
                         onMouseEnter={() => setShowTooltip(producto.id_producto)}
                         onMouseLeave={() => setShowTooltip(null)}

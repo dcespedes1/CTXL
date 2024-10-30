@@ -229,7 +229,7 @@ function REmpleados() {
 
                     <div className="flex justify-center space-x-4 mt-6">
                         <button
-                            onClick={() =>('/admin/iempleados')}
+                            onClick={() => navigate('/admin/iempleado')}
                             className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
                         >
                             Cancelar

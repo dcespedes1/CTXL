@@ -108,7 +108,7 @@ function Rproductos() {
                 id_Empleado,
             });
             console.log('Respuesta del servidor:', response.data);
-            navigate('/app/iproducto'); // Redirigir a la página de productos
+            navigate('/admin/iproducto'); // Redirigir a la página de productos
         } catch (error) {
             console.error('Error al registrar el producto:', error);
         }
@@ -218,12 +218,14 @@ function Rproductos() {
 
                     <div className="flex justify-center space-x-4 mt-6">
                         <button
-                            onClick={() =>('/admin/iproductos')}
+                            onClick={() => navigate('/admin/iproductos')}
                             className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
                         >
                             Cancelar
                         </button>
+                        
                         <button
+                            
                             type="submit"
                             className="px-4 sm:px-6 py-2 sm:py-3 bg-purple-500 text-white font-semibold rounded-md hover:bg-purple-600 transition duration-300"
                         >

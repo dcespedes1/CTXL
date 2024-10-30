@@ -59,7 +59,7 @@ const Sidebar = () => {
           <Link
             to="/admin/home"
             className={`flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300 ${
-              location.pathname === '/app/home' ? 'bg-purple-600' : ''
+              location.pathname === '/admin/home' ? 'bg-purple-600' : ''
             }`}
           >
             <FaHome className="mr-2" /> Inicio
@@ -69,7 +69,7 @@ const Sidebar = () => {
             <button
               onClick={toggleInventory}
               className={`w-full text-left p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 flex justify-between items-center ${
-                location.pathname.startsWith('/app/ipedidos') || location.pathname.startsWith('/app/iproducto') || location.pathname.startsWith('/app/iempleado') ? 'bg-purple-600' : ''
+                location.pathname.startsWith('/admin/ipedidos') || location.pathname.startsWith('/admin/iproducto') || location.pathname.startsWith('/app/iempleado') ? 'bg-purple-600' : ''
               }`}
             >
               Inventarios
@@ -94,7 +94,7 @@ const Sidebar = () => {
               <Link
                 to="/admin/ipedidos"
                 className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
-                  location.pathname === '/app/ipedidos' ? 'bg-purple-600' : ''
+                  location.pathname === '/admin/ipedidos' ? 'bg-purple-600' : ''
                 }`}
               >
                 <FaClipboardList className="mr-2" /> Inventario Pedidos
@@ -107,7 +107,7 @@ const Sidebar = () => {
               <Link
                 to="/admin/iproducto"
                 className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
-                  location.pathname === '/app/iproducto' ? 'bg-purple-600' : ''
+                  location.pathname === '/admin/iproducto' ? 'bg-purple-600' : ''
                 }`}
               >
                 <FaBoxOpen className="mr-2" /> Inventario Material
@@ -120,7 +120,7 @@ const Sidebar = () => {
               <Link
                 to="/admin/iempleado"
                 className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
-                  location.pathname === '/app/iempleado' ? 'bg-purple-600' : ''
+                  location.pathname === '/admin/iempleado' ? 'bg-purple-600' : ''
                 }`}
               >
                 <FaUserTie className="mr-2" /> Inventario Empleados
@@ -132,7 +132,7 @@ const Sidebar = () => {
             <button
               onClick={toggleRegister}
               className={`w-full text-left p-3 rounded-lg hover:bg-purple-600 transition duration-300 flex justify-between items-center ${
-                location.pathname.startsWith('/app/rpedidos') || location.pathname.startsWith('/app/rproductos') || location.pathname.startsWith('/app/rempleado') ? 'bg-purple-600' : ''
+                location.pathname.startsWith('/admin/rpedidos') || location.pathname.startsWith('/app/rproductos') || location.pathname.startsWith('/app/rempleado') ? 'bg-purple-600' : ''
               }`}
             >
               Registros
