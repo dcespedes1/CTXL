@@ -1,26 +1,15 @@
-CREATE TABLE Administrador (
-    id_administrador INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+CREATE TABLE Usuario (
+    id_Usuario INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     Nombre VARCHAR(28) NOT NULL,
     FechaNacimiento VARCHAR(20) NOT NULL,
     TipoDoc VARCHAR(30) NOT NULL,
     NumeroDoc VARCHAR(28) NOT NULL,
     Correo VARCHAR(28) NOT NULL,
     celular VARCHAR(30) NOT NULL,
-    Contraseña CHAR(100)  NOT NULL
+    Contraseña VARCHAR(100)  NOT NULL,
+    rol VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE Empleado (
-    id_Empleado INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    Nombre VARCHAR(28) NOT NULL,
-    TipoD VARCHAR(30) NOT NULL,
-    NumeroD VARCHAR(29) NOT NULL,
-    FechaN VARCHAR(50) NOT NULL,
-    Correo VARCHAR(39) NOT NULL,
-    celular VARCHAR(30) NOT NULL,
-    contraseña VARCHAR(100) NOT NULL,
-    id_administrador INT NOT NULL,
-    FOREIGN KEY (id_administrador) REFERENCES Administrador(id_administrador)
-);
 
 CREATE TABLE pedidos (
     id_Pedido INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -34,10 +23,8 @@ CREATE TABLE pedidos (
     Bordado VARCHAR(30) NOT NULL,
     PInicial INT NOT NULL,
     PFinal INT NOT NULL,
-    id_administrador INT NOT NULL,
-    id_Empleado INT NOT NULL,
-    FOREIGN KEY (id_administrador) REFERENCES Administrador(id_administrador),
-    FOREIGN KEY (id_Empleado) REFERENCES Empleado(id_Empleado)
+    id_Usuario INT NOT NULL,
+    FOREIGN KEY (id_Usuario) REFERENCES Administrador(id_Usuario)
 );
 
 CREATE TABLE Productos (
@@ -45,55 +32,39 @@ CREATE TABLE Productos (
     CantidadR INT NOT NULL,
     Material VARCHAR(30) NOT NULL,
     Colores VARCHAR(30) NOT NULL,
-    id_administrador INT NOT NULL,
-    id_Empleado INT NOT NULL,
-    FOREIGN KEY (id_administrador) REFERENCES Administrador(id_administrador),
-    FOREIGN KEY (id_Empleado) REFERENCES Empleado(id_Empleado)
+    id_Usuario INT NOT NULL,
+    FOREIGN KEY (id_Usuario) REFERENCES Administrador(id_Usuario)
 );
 
 /* INSERTS */
-INSERT INTO Administrador (Nombre, FechaNacimiento, TipoDoc, NumeroDoc, Correo, celular,Contraseña)
+INSERT INTO Usuario (Nombre, FechaNacimiento, TipoDoc, NumeroDoc, Correo, celular,Contraseña, rol)
 VALUES
-( 'Carlos Gómez', '1980-05-12', 'Cédula', '12345678', 'carlos.gomez@example.com', '3001234567','contraseña1'),
-( 'Ana Pérez', '1975-08-21', 'Cédula', '23456789', 'ana.perez@example.com', '3002345678','contraseña');
+( 'Carlos Gómez', '1980-05-12', 'Cédula', '12345678', 'carlos.gomez@example.com', '3001234567','contraseña1','administrador'),
+( 'Ana Pérez', '1975-08-21', 'Cédula', '23456789', 'ana.perez@example.com', '3002345678','contraseña', 'empleado');
 
 
-INSERT INTO Empleado (Nombre, TipoD, NumeroD, FechaN, Correo, celular, contraseña, id_administrador)
+INSERT INTO pedidos (Cliente, Cantidad, Empleado, Prenda, Tela, Estampado, Talla, Bordado, PInicial, PFinal, id_Usuario)
 VALUES
-( 'María Gómez', 'Cédula', '34567891', '1995-03-12', 'maria.gomez@example.com', '3101234567', 'password123', 1),
-( 'Jorge Martínez', 'Cédula', '45678902', '1990-05-23', 'jorge.martinez@example.com', '3102345678', 'securePass456', 2),
-( 'Isabel Rodríguez', 'Cédula', '56789013', '1988-07-30', 'isabel.rodriguez@example.com', '3103456789', 'isabel789', 1),
-( 'David Sánchez', 'Cédula', '67890124', '1992-09-14', 'david.sanchez@example.com', '3104567890', 'davidS@123', 2),
-( 'Valentina Gómez', 'Cédula', '78901235', '1994-12-01', 'valentina.gomez@example.com', '3105678901', 'valentinaG12', 1),
-( 'Sebastián Torres', 'Cédula', '89012346', '1986-04-22', 'sebastian.torres@example.com', '3106789012', 'sebastianT34', 2),
-( 'Natalia Jiménez', 'Cédula', '90123457', '1989-06-17', 'natalia.jimenez@example.com', '3107890123', 'natJime2023', 1),
-( 'Héctor Fernández', 'Cédula', '01234568', '1987-11-09', 'hector.fernandez@example.com', '3108901234', 'hectorF!88', 2),
-( 'Laura Moreno', 'Cédula', '12345679', '1991-01-26', 'laura.moreno@example.com', '3109012345', 'lauraM1991', 1),
-( 'Andrés Castro', 'Cédula', '23456780', '1985-08-30', 'andres.castro@example.com', '3100123456', 'andresC#85', 2);
+('Juan Pérez', '10', 'María López', 'Camisa', 'Algodón', 'Rayas', 'M', 'No', 100, 150, 1),
+('Ana García', '5', 'Carlos Ruiz', 'Pantalón', 'Lana', 'Liso', 'L', 'Sí', 200, 250, 2),
+('Luis Torres', '15', 'Sofía Márquez', 'Chaqueta', 'Poliéster', 'Cuadros', 'XL', 'No', 300, 400, 1),
+('Marta Jiménez', '20', 'Pedro Sánchez', 'Falda', 'Seda', 'Floral', 'S', 'Sí', 120, 170, 2),
+('Ricardo Díaz', '8', 'Carmen Fernández', 'Blusa', 'Lino', 'Puntos', 'M', 'No', 180, 230, 1),
+('Gabriela Morales', '12', 'José Ramírez', 'Vestido', 'Algodón', 'Liso', 'L', 'Sí', 220, 300, 2),
+('Miguel Ángel', '7', 'Laura González', 'Camisa', 'Poliéster', 'Rayas', 'S', 'No', 150, 200, 1),
+('Lucía Martínez', '3', 'Raúl Gutiérrez', 'Pantalón', 'Mezclilla', 'Liso', 'M', 'Sí', 140, 190, 2),
+('Daniel Castillo', '10', 'Elena Vargas', 'Chaqueta', 'Lana', 'Cuadros', 'L', 'No', 250, 350, 1),
+('Isabel Ortiz', '6', 'Fernando Aguilar', 'Blusa', 'Seda', 'Floral', 'S', 'Sí', 160, 210, 2);
 
-
-INSERT INTO pedidos (Cliente, Cantidad, Empleado, Prenda, Tela, Estampado, Talla, Bordado, PInicial, PFinal, id_administrador, id_Empleado)
+INSERT INTO Productos (CantidadR, Material, Colores, id_Usuario)
 VALUES
-('Juan Pérez', '10', 'María López', 'Camisa', 'Algodón', 'Rayas', 'M', 'No', 100, 150, 1, 1),
-('Ana García', '5', 'Carlos Ruiz', 'Pantalón', 'Lana', 'Liso', 'L', 'Sí', 200, 250, 2, 2),
-('Luis Torres', '15', 'Sofía Márquez', 'Chaqueta', 'Poliéster', 'Cuadros', 'XL', 'No', 300, 400, 1, 3),
-('Marta Jiménez', '20', 'Pedro Sánchez', 'Falda', 'Seda', 'Floral', 'S', 'Sí', 120, 170, 2, 4),
-('Ricardo Díaz', '8', 'Carmen Fernández', 'Blusa', 'Lino', 'Puntos', 'M', 'No', 180, 230, 1, 5),
-('Gabriela Morales', '12', 'José Ramírez', 'Vestido', 'Algodón', 'Liso', 'L', 'Sí', 220, 300, 2, 6),
-('Miguel Ángel', '7', 'Laura González', 'Camisa', 'Poliéster', 'Rayas', 'S', 'No', 150, 200, 1, 7),
-('Lucía Martínez', '3', 'Raúl Gutiérrez', 'Pantalón', 'Mezclilla', 'Liso', 'M', 'Sí', 140, 190, 2, 8),
-('Daniel Castillo', '10', 'Elena Vargas', 'Chaqueta', 'Lana', 'Cuadros', 'L', 'No', 250, 350, 1, 9),
-('Isabel Ortiz', '6', 'Fernando Aguilar', 'Blusa', 'Seda', 'Floral', 'S', 'Sí', 160, 210, 2, 10);
-
-INSERT INTO Productos (CantidadR, Material, Colores, id_administrador, id_Empleado)
-VALUES
-( 100, 'Algodón', 'Rojo', 1, 1),
-( 200, 'Poliéster', 'Azul', 2, 2),
-( 150, 'Lana', 'Verde', 1, 3),
-( 250, 'Seda', 'Negro', 2, 4),
-( 300, 'Rayón', 'Blanco', 1, 5),
-( 180, 'Nylon', 'Amarillo', 1, 6),
-( 120, 'Lino', 'Gris', 1, 7),
-( 80, 'Sarga', 'Marrón', 2, 8),
-( 90, 'Microfibra', 'Rosa', 1, 9),
-( 110, 'Elastano', 'Naranja', 2, 10);
+( 100, 'Algodón', 'Rojo', 1),
+( 200, 'Poliéster', 'Azul', 2),
+( 150, 'Lana', 'Verde', 1),
+( 250, 'Seda', 'Negro', 2),
+( 300, 'Rayón', 'Blanco', 1),
+( 180, 'Nylon', 'Amarillo', 1),
+( 120, 'Lino', 'Gris', 1),
+( 80, 'Sarga', 'Marrón', 2),
+( 90, 'Microfibra', 'Rosa', 1),
+( 110, 'Elastano', 'Naranja', 2);
