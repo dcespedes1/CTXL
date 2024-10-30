@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
-import { FaUserAlt, FaTshirt, FaRuler, FaPalette, FaBoxes, FaDollarSign, FaTags } from "react-icons/fa";
+import { FaBoxes, FaUserAlt, FaTshirt, FaPalette, FaTags, FaRuler, FaDollarSign } from "react-icons/fa"; // Iconos para el título y filas
 import RPedidos from './rpedidos'; 
-import Apedidos from './apedido'; // Asegúrate de que esta línea está presente
+import Apedidos from './apedido'; 
 import { Link } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/pedidos/';
 
-function IPedidosE() {
+function IPedidos() {
   const [pedidos, setPedidos] = useState([]);
   const [showTooltip, setShowTooltip] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [editModalVisible, setEditModalVisible] = useState(false); // Estado para el modal de Apedidos
+  const [editModalVisible, setEditModalVisible] = useState(false);
   
-  const [numRecords, setNumRecords] = useState(5); // Default 5 registros a mostrar
-  const [currentPage, setCurrentPage] = useState(1); // Página actual
+  const [numRecords, setNumRecords] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     getPedidos();
@@ -50,7 +50,11 @@ function IPedidosE() {
     <div className="bg-slate-500 flex h-screen overflow-hidden">
       <main className="flex-1 flex flex-col p-10 bg-slate-300 text-white">
         <div className="w-3/4 mt-20">
-          <h1 className="text-4xl font-bold text-black">Inventario de Pedidos</h1>
+          {/* Título con icono */}
+          <h1 className="text-4xl font-bold text-black flex items-center space-x-2">
+            <FaBoxes className="text-orange-500" />
+            <span>Inventario de Pedidos</span>
+          </h1>
         </div>
 
         <div className="my-8 flex justify-between items-center space-x-4">
@@ -178,4 +182,4 @@ function IPedidosE() {
   );
 }
 
-export default IPedidosE;
+export default IPedidos;

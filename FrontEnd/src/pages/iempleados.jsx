@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CgAdd } from "react-icons/cg";
 import { VscEdit } from "react-icons/vsc";
-import REmpleados from '../pages/rempleados'; 
+import { FaUser, FaIdCard, FaBirthdayCake, FaEnvelope, FaMobileAlt } from "react-icons/fa"; // New Icons for Title
+import REmpleados from '../pages/rempleados';
 
 const URI = 'http://localhost:8000/api/Empleado/';
 
@@ -11,8 +12,8 @@ function IEmpleados() {
   const [Empleados, setEmpleados] = useState([]);
   const [showTooltip, setShowTooltip] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [modalVisible, setModalVisible] = useState(false); // Estado para el modal
-  const [numRecords, setNumRecords] = useState(5); // Estado para controlar el número de registros por página
+  const [modalVisible, setModalVisible] = useState(false);
+  const [numRecords, setNumRecords] = useState(5);
 
   useEffect(() => {
     getEmpleados();
@@ -35,32 +36,29 @@ function IEmpleados() {
 
   return (
     <div className="flex h-screen bg-gray-800">
-      <main className="flex-1 flex flex-col p-10 text-white  bg-slate-300 ">
+      <main className="flex-1 flex flex-col p-10 text-white bg-slate-300">
         <div className="w-3/4 mt-20">
           <div className="w-full flex justify-between">
-            <h1 className="text-4xl font-bold text-black">
-              Inventario Empleados
+            <h1 className="text-4xl font-bold text-black flex items-center space-x-2">
+              <FaUser className="text-orange-500" />
+              <span>Inventario Empleados</span>
             </h1>
           </div>
         </div>
 
         <div className="flex justify-between items-center mt-6 space-x-4">
-          <div className="flex items-center w-full">
-            {/* Campo de búsqueda más amplio */}
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="w-full max-w-xs p-3 rounded-lg border-2 border-purple-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Buscar..."
+            className="w-full max-w-xs p-3 rounded-lg border-2 border-purple-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
 
           <div className="relative">
-            {/* Botón más pequeño para registrar un nuevo empleado */}
-            <button 
-              onClick={() => setModalVisible(true)} // Mostrar el modal al hacer clic
-              onMouseEnter={() => setShowTooltip('add')} 
+            <button
+              onClick={() => setModalVisible(true)}
+              onMouseEnter={() => setShowTooltip('add')}
               onMouseLeave={() => setShowTooltip(null)}
             >
               <CgAdd className="text-4xl text-purple-600 hover:text-purple-700 transition duration-300" />
@@ -89,11 +87,11 @@ function IEmpleados() {
               {filteredEmpleados.length > 0 ? (
                 filteredEmpleados.slice(0, numRecords).map((Empleado) => (
                   <tr key={Empleado.id_Empleado} className="bg-gray-800 border-b border-gray-700 hover:bg-gray-700">
-                    <td className="p-3">{Empleado.Nombre}</td>
-                    <td className="p-3">{Empleado.TipoD}</td>
-                    <td className="p-3">{Empleado.FechaN}</td>
-                    <td className="p-3">{Empleado.Correo}</td>
-                    <td className="p-3">{Empleado.celular}</td>
+                    <td className="p-3"><FaUser className="inline-block mr-2 text-orange-400" />{Empleado.Nombre}</td>
+                    <td className="p-3"><FaIdCard className="inline-block mr-2 text-teal-400" />{Empleado.TipoD}</td>
+                    <td className="p-3"><FaBirthdayCake className="inline-block mr-2 text-yellow-400" />{Empleado.FechaN}</td>
+                    <td className="p-3"><FaEnvelope className="inline-block mr-2 text-blue-400" />{Empleado.Correo}</td>
+                    <td className="p-3"><FaMobileAlt className="inline-block mr-2 text-green-400" />{Empleado.celular}</td>
                     <td className="p-3">
                       <Link
                         to={`/admin/aempleados/${Empleado.id_Empleado}`}
@@ -121,7 +119,6 @@ function IEmpleados() {
             </tbody>
           </table>
 
-          {/* Mostrar selector de registros en la parte inferior de la tabla */}
           <div className="flex justify-between items-center p-4 bg-gray-900 text-white">
             <span className="text-sm">Mostrando {Math.min(numRecords, filteredEmpleados.length)} de {filteredEmpleados.length} empleados</span>
             <div className="flex items-center space-x-2">
@@ -141,7 +138,7 @@ function IEmpleados() {
           </div>
         </div>
 
-        {modalVisible && <REmpleados setModalVisible={setModalVisible} />} {/* Mostrar el modal */}
+        {modalVisible && <REmpleados setModalVisible={setModalVisible} />}
       </main>
     </div>
   );
