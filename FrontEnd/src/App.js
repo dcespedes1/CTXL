@@ -86,10 +86,10 @@ function App() {
                   <Route path="perfilEditar" element={<PerfilEditar />} />
                   <Route path="ipedidosE" element={<EmpleadoIpedido />} />
                   <Route path="iproductoE" element={<EmpleadoIproduct />} />
-                  <Route path="EmpleadoMaterial" element={<EmpleadoMaterial />} />  
+                  <Route path="EmpleadoMaterial/" element={<EmpleadoMaterial />} />  
                   <Route path="EmpleadoPedido" element={<EmpleadoPedidos />} />  
-                  <Route path="ActualizarPedido" element={<EmpleadoActualizarPedido />} />  
-                  <Route path="ActualizarMaterial" element={<EmpleadoActualizarMaterial />} />  
+                  <Route path="ActualizarPedido/:id_Pedido" element={<EmpleadoActualizarPedido />} />  
+                  <Route path="ActualizarMaterial/:id" element={<EmpleadoActualizarMaterial />} />  
                 </Routes>
               </div>
             </div>

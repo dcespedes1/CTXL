@@ -41,7 +41,7 @@ function AProductos() {
         id_administrador,
         id_Empleado,
       });
-      navigate("/empleado/iproducto");
+      navigate("/empleado/iproductoE");
     } catch (error) {
       console.error("Error updating product:", error);
     }
@@ -90,31 +90,10 @@ function AProductos() {
                       required
                     />
                   </div>
-                  <div className="w-full">
-                    <label className="block mb-2" htmlFor="id_administrador">Administrador</label>
-                    <input
-                      type="number"
-                      id="id_administrador"
-                      value={id_administrador}
-                      onChange={(e) => setIdAdministrador(e.target.value)}
-                      className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      required
-                    />
-                  </div>
-                  <div className="w-full">
-                    <label className="block mb-2" htmlFor="id_Empleado">Empleado</label>
-                    <input
-                      type="number"
-                      id="id_Empleado"
-                      value={id_Empleado}
-                      onChange={(e) => setIdEmpleado(e.target.value)}
-                      className="w-full px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      required
-                    />
-                  </div>
+                  
                 </div>
                 <div className="flex space-x-4">
-                  <Link to="/empleado/iproducto">
+                  <Link to="/empleado/iproductoE">
                     <button
                       type="button"
                       className="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-900 transition duration-200"

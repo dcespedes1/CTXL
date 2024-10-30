@@ -137,7 +137,7 @@ function IPedidos() {
                     <td className="px-6 py-4"><FaDollarSign className="inline-block mr-2 text-green-400" />{pedido.PFinal}</td>
                     <td className="px-6 py-4">
                       <Link
-                        to={`/admin/apedido/${pedido.id_Pedido}`}
+                        to={`/empleado/ActualizarPedido/${pedido.id_Pedido}`}
                         className="text-2xl text-purple-600 hover:text-purple-400 transition duration-300"
                         onClick={() => setEditModalVisible(true)}
                       >

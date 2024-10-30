@@ -52,7 +52,7 @@ function RPedidos() {
                 id_Empleado,
             });
             console.log('Respuesta de la API:', response.data);
-            navigate('/empleado/ipedidos');
+            navigate('/empleado/ipedidosE');
         } catch (error) {
             console.error('Error al registrar el pedido:', error);
         }
