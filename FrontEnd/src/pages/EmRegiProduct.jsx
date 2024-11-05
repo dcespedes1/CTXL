@@ -16,7 +16,9 @@ function Rproductos() {
     const [materiales, setMateriales] = useState([]);
     const [errors, setErrors] = useState({});
     const [administrador, setAdministrador] = useState([]);
-
+    const [showDropdown, setShowDropdown] = useState(false); 
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredMateriales, setFilteredMateriales] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -46,9 +48,25 @@ function Rproductos() {
             { id: 1, tipo: 'Algodón' },
             { id: 2, tipo: 'Poliéster' },
             { id: 3, tipo: 'Lana' },
+            { id: 4, tipo: 'Seda' },
+            { id: 5, tipo: 'Nylon' },
+            { id: 6, tipo: 'Rayon' },
+            { id: 7, tipo: 'Lino' },
+            { id: 8, tipo: 'Sarga' },
+            { id: 9, tipo: 'Microfibra' },
+            { id: 10, tipo: 'Elestano' }
         ];
         setMateriales(materialesCargados);
     }, []);
+
+    useEffect(() => {
+
+        const filtered = materiales.filter(material => 
+            material.tipo.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredMateriales(filtered);
+        setShowDropdown(filtered.length > 0 && searchTerm.length > 0); 
+    }, [searchTerm, materiales]);
 
     const handleMaterialChange = (e) => {
         setMaterial(e.target.value);
@@ -130,23 +148,31 @@ function Rproductos() {
                         {/* Material */}
                         <div className="col-span-2 md:col-span-1">
                             <label className="block text-white mb-2" htmlFor="Material">Material</label>
-                            <select
-                                id="Material"
-                                value={Material}
-                                onChange={handleMaterialChange}
-                                className="w-full px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                required
-                            >
-                                <option value="">Seleccionar material</option>
-                                {materiales.map((material) => (
-                                    <option key={material.id} value={material.tipo}>
-                                        {material.tipo}
-                                    </option>
-                                ))}
-                            </select>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    placeholder="Buscar material"
+                                    className="w-full px-4 py-3 mb-2 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                />
+                             
+                                {showDropdown && (
+                                    <ul className="absolute left-0 right-0 bg-gray-800 text-white rounded-md mt-1 max-h-48 overflow-y-auto z-10">
+                                        {filteredMateriales.map((material) => (
+                                            <li
+                                                key={material.id}
+                                                onClick={() => handleMaterialChange({ target: { value: material.tipo } })}
+                                                className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                                            >
+                                                {material.tipo}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
                             {errors.Material && <p className="text-red-500 text-sm mt-1">{errors.Material}</p>}
                         </div>
-
                         {/* Colores */}
                         <div className="col-span-2 md:col-span-1">
                             <label className="block text-white mb-2" htmlFor="Color">Color</label>
@@ -199,7 +225,7 @@ function Rproductos() {
                             type="submit"
                             className="px-4 sm:px-6 py-2 sm:py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
                         >
-                            Registrar Material
+                            Registrar
                         </button>
                     </div>
                 </form>

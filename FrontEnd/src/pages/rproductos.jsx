@@ -14,16 +14,19 @@ function Rproductos({ setModalVisible }) {
     const [id_Empleado, setid_Empleado] = useState('');
     const [empleados, setEmpleados] = useState([]);
     const [materiales, setMateriales] = useState([]);
+    const [filteredMateriales, setFilteredMateriales] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [errors, setErrors] = useState({});
     const [administrador, setAdministrador] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(false); 
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAdministrador = async () => {
             try {
-                const response = await axios.get(URI_ADMIN); // Suponiendo que esta es la ruta para obtener administradores
-                setAdministrador(response.data); // Guardar la lista de administradores en el estado
+                const response = await axios.get(URI_ADMIN);
+                setAdministrador(response.data); 
             } catch (error) {
                 console.error('Error al obtener administradores:', error);
             }
@@ -46,12 +49,30 @@ function Rproductos({ setModalVisible }) {
             { id: 1, tipo: 'Algodón' },
             { id: 2, tipo: 'Poliéster' },
             { id: 3, tipo: 'Lana' },
+            { id: 4, tipo: 'Seda' },
+            { id: 5, tipo: 'Nylon' },
+            { id: 6, tipo: 'Rayon' },
+            { id: 7, tipo: 'Lino' },
+            { id: 8, tipo: 'Sarga' },
+            { id: 9, tipo: 'Microfibra' },
+            { id: 10, tipo: 'Elestano' }
         ];
         setMateriales(materialesCargados);
     }, []);
 
+    useEffect(() => {
+
+        const filtered = materiales.filter(material => 
+            material.tipo.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredMateriales(filtered);
+        setShowDropdown(filtered.length > 0 && searchTerm.length > 0); 
+    }, [searchTerm, materiales]);
+
     const handleMaterialChange = (e) => {
         setMaterial(e.target.value);
+        setSearchTerm(e.target.value); 
+        setShowDropdown(false); 
     };
 
     const handleCantidadChange = (e) => {
@@ -73,7 +94,7 @@ function Rproductos({ setModalVisible }) {
     const store = async (e) => {
         e.preventDefault();
 
-        if (!validate())  return;
+        if (!validate()) return;
         try {
             const response = await axios.post(URI, {
                 CantidadR,
@@ -90,7 +111,7 @@ function Rproductos({ setModalVisible }) {
     };
 
     const closeModal = () => {
-        setModalVisible(false); // Cerrar el modal usando la función de props
+        setModalVisible(false); 
     };
 
     return (
@@ -98,21 +119,22 @@ function Rproductos({ setModalVisible }) {
             className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center"
             onClick={closeModal} 
         >
-        <div
-            className="bg-slate-900 p-6 sm:p-10 rounded-lg shadow-lg max-w-full sm:max-w-2xl w-full mx-4 sm:mx-0 max-h-screen overflow-y-auto"
-            onClick={(e) => e.stopPropagation()} 
-        >
-        <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 text-center text-white">Registro de Pedido</h2>
-        <form onSubmit={store}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-            <div className="col-span-2 md:col-span-1">
+            <div
+                className="bg-slate-900 p-6 sm:p-10 rounded-lg shadow-lg max-w-full sm:max-w-2xl w-full mx-4 sm:mx-0 max-h-screen overflow-y-auto"
+                onClick={(e) => e.stopPropagation()} 
+            >
+                <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 text-center text-white">Registro de Material</h2>
+                <form onSubmit={store}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                        {/* Empleado */}
+                        <div className="col-span-2 md:col-span-1">
                             <label className="block text-white mb-2" htmlFor="id_Empleado">Empleado</label>
                             <select
                                 id="id_Empleado"
                                 value={id_Empleado}
                                 onChange={(e) => setid_Empleado(e.target.value)}
                                 className="w-full px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                >
+                            >
                                 <option value="">Selecciona un empleado</option>
                                 {empleados.map((empleado) => (
                                     <option key={empleado.id_Empleado} value={empleado.id_Empleado}>
@@ -140,20 +162,28 @@ function Rproductos({ setModalVisible }) {
                         {/* Material */}
                         <div className="col-span-2 md:col-span-1">
                             <label className="block text-white mb-2" htmlFor="Material">Material</label>
-                            <select
-                                id="Material"
-                                value={Material}
-                                onChange={handleMaterialChange}
-                                className="w-full px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                required
-                            >
-                                <option value="">Seleccionar material</option>
-                                {materiales.map((material) => (
-                                    <option key={material.id} value={material.tipo}>
-                                        {material.tipo}
-                                    </option>
-                                ))}
-                            </select>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    placeholder="Buscar material"
+                                    className="w-full px-4 py-3 mb-2 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                />
+                                {showDropdown && (
+                                    <ul className="absolute left-0 right-0 bg-gray-800 text-white rounded-md mt-1 max-h-48 overflow-y-auto z-10">
+                                        {filteredMateriales.map((material) => (
+                                            <li
+                                                key={material.id}
+                                                onClick={() => handleMaterialChange({ target: { value: material.tipo } })}
+                                                className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                                            >
+                                                {material.tipo}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
                             {errors.Material && <p className="text-red-500 text-sm mt-1">{errors.Material}</p>}
                         </div>
 
@@ -177,6 +207,7 @@ function Rproductos({ setModalVisible }) {
                             {errors.Colores && <p className="text-red-500 text-sm mt-1">{errors.Colores}</p>}
                         </div>
                     </div>
+
                     {/* Administrador */}
                     <div className="mb-6">
                         <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
@@ -186,7 +217,7 @@ function Rproductos({ setModalVisible }) {
                             onChange={(e) => setid_administrador(e.target.value)}
                             className="w px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                             required
-                            >
+                        >
                             <option value="">Selecciona un administrador</option>
                             {administrador.map((admin) => (
                                 <option key={admin.id_administrador} value={admin.id_administrador}>
@@ -196,23 +227,25 @@ function Rproductos({ setModalVisible }) {
                         </select>
                         {errors.id_administrador && <p className="text-red-500 text-sm mt-1">{errors.id_administrador}</p>}
                     </div>
-                <div className="flex justify-center space-x-4 mt-6">
-                    <button
-                        onClick={closeModal}
-                        className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
+
+                    <div className="flex justify-center space-x-4 mt-6">
+                        <button
+                            onClick={closeModal}
+                            className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-300"
                         >
-                        Cancelar
-                    </button>
-                    <button
-                        type="submit"
-                        className="px-4 sm:px-6 py-2 sm:py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
+                            Cancelar
+                        </button>
+                        <button
+                            type="submit"
+                            className="px-4 sm:px-6 py-2 sm:py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
                         >
-                        Registrar Material
-                    </button>
-                </div>
-            </form>
+                            Registrar Material
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-);}
+    );
+}
 
 export default Rproductos;

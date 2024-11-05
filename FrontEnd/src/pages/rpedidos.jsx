@@ -293,7 +293,7 @@
                         <div className="text-center mt-6">
                             <button
                                 type="button"
-                                onClick={() => navigate('/admin/ipedidos')} 
+                                onClick={closeModal} 
                                 className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-md mr-2 hover:bg-gray-700 transition duration-300"
                                 >
                                 Cancelar
