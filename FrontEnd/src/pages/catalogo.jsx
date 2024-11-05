@@ -31,8 +31,8 @@ function Catalogo() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-500 flex flex-col items-center justify-center p-8">
-            <h2 className="text-4xl font-bold text-white mb-14 text-center flex items-center">
+        <div className="min-h-screen bg-slate-300 flex flex-col items-center justify-center p-8">
+            <h2 className="text-4xl font-bold text-black mb-14 text-center flex items-center">
                 <FaThList className="mr-2 text-purple-600" /> {/* Icono de catálogo */}
                 Catálogo y precios
             </h2>

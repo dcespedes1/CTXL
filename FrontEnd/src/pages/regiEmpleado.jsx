@@ -15,8 +15,8 @@ function REmpleados() {
     const [celular, setcelular] = useState('');
     const [id_administrador, setid_administrador] = useState('');
     const [errors, setErrors] = useState({});
-
-    const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate(); 
     const [administrador, setAdministrador] = useState([]);
 
     useEffect(() => {
@@ -112,16 +112,33 @@ function REmpleados() {
 
                         <div>
                             <label className="block text-white mb-2" htmlFor="contraseña">
-                                contraseña
+                                Contraseña
                             </label>
-                            <input
-                                type="text"
-                                id="Apellido"
-                                value={contraseña}
-                                onChange={(e) => setcontraseña(e.target.value)}
-                                className={`w-full px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${errors.Apellido ? 'border-red-500' : ''}`}
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? 'text' : 'password'} // Aquí cambiamos el tipo de input dependiendo del estado
+                                    id="contraseña"
+                                    value={contraseña}
+                                    onChange={(e) => setcontraseña(e.target.value)}
+                                    className={`w-full px-4 py-2 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${errors.contraseña ? 'border-red-500' : ''}`}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)} // Alternamos el estado de showPassword
+                                    className="absolute right-3 top-3 text-gray-400"
+                                >
+                                    {showPassword ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12l-3 3m0 0l-3-3m3 3V4m-6 9l-3-3m0 0l-3 3m3-3v10" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12l-3 3m0 0l-3-3m3 3V4m-6 9l-3-3m0 0l-3 3m3-3v10" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
                             {errors.contraseña && <p className="text-red-500 text-sm mt-1">{errors.contraseña}</p>}
                         </div>
 
@@ -150,7 +167,7 @@ function REmpleados() {
                                 Número Documento
                             </label>
                             <input
-                                type="text"
+                                type="number"
                                 id="NumeroD"
                                 value={NumeroD}
                                 onChange={(e) => setNumeroD(e.target.value)}
@@ -196,7 +213,7 @@ function REmpleados() {
                                     Celular
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     id="celular"
                                     value={celular}
                                     onChange={(e) => setcelular(e.target.value)}
