@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Perfil = ({ setModalVisible }) => {
+  const [rol, setRol] = useState('');
+
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [correo, setCorreo] = useState('');
@@ -85,6 +87,8 @@ const Perfil = ({ setModalVisible }) => {
             { id: 'contrasena', label: 'Contraseña', type: 'password', value: contrasena, setter: setContrasena },
             { id: 'telefono', label: 'Teléfono', type: 'tel', value: telefono, setter: setTelefono },
             { id: 'direccion', label: 'Dirección', type: 'text', value: direccion, setter: setDireccion },
+            { id: 'rol', label: 'Rol', type: 'text', value: rol, setter: setRol },
+
           ].map(({ id, label, type, value, setter }) => (
             <div className="space-y-2" key={id}>
               <label htmlFor={id} className="text-white">{label}</label>

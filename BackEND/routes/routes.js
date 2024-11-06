@@ -1,4 +1,6 @@
 import express from 'express';
+
+
 import {
     createProductos, deleteProductos, getAllProductos, getProductos, updateProductos
 } from '../controllers/productos.js';
@@ -30,6 +32,7 @@ router.get('/pedidos/:id_pedido', getPedidos);
 router.post('/pedidos', createPedidos);
 router.put('/pedidos/:id_Pedido', updatePedidos);
 router.delete('/pedidos/:id', deletePedidos); 
+
 
 // Rutas para Empleados
 router.get('/empleado', getAllEmpleado);

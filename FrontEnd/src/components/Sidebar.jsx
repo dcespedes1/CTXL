@@ -11,7 +11,18 @@ const Sidebar = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false); // Para abrir el menú de configuración
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Para abrir/cerrar sidebar en pantallas pequeñas
   const location = useLocation(); // Para manejar el estado activo del menú
-  const [notifications] = useState({ pedidos: 2, productos: 1 }); // Simulamos notificaciones para mostrar en los menús
+
+  // Notificaciones con estado mutable
+  const [notifications, setNotifications] = useState({ pedidos: 2, productos: 1 });
+
+  // Función para manejar clic en las notificaciones
+  const handleNotificationClick = (type) => {
+    // Actualiza el estado de las notificaciones, poniendo a cero el contador de ese tipo
+    setNotifications((prevNotifications) => ({
+      ...prevNotifications,
+      [type]: 0,
+    }));
+  };
 
   const toggleInventory = () => {
     setIsInventoryOpen(!isInventoryOpen);
@@ -34,7 +45,7 @@ const Sidebar = () => {
       {/* Botón de hamburguesa (sólo en móviles) */}
       <button
         onClick={toggleSidebar}
-        className="p-4 text-white bg-gray-800focus:outline-none md:hidden"
+        className="p-4 text-white bg-gray-800 focus:outline-none md:hidden"
       >
         {isSidebarOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
       </button>
@@ -67,10 +78,10 @@ const Sidebar = () => {
           <Link
             to="/admin/catalogo"
             className={`flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300 ${
-              location.pathname === '/admin/home' ? 'bg-purple-600' : ''
+              location.pathname === '/admin/catalogo' ? 'bg-purple-600' : ''
             }`}
           >
-            <FaHome className="mr-2" /> Catalogo Precio
+            <FaHome className="mr-2" /> Catálogo Precio
           </Link>
 
           <div>
@@ -104,6 +115,7 @@ const Sidebar = () => {
                 className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
                   location.pathname === '/admin/ipedidos' ? 'bg-purple-600' : ''
                 }`}
+                onClick={() => handleNotificationClick('pedidos')}
               >
                 <FaClipboardList className="mr-2" /> Inventario Pedidos
                 {notifications.pedidos > 0 && (
@@ -117,6 +129,7 @@ const Sidebar = () => {
                 className={`flex items-center p-3 rounded-lg hover:bg-purple-600 hover:text-white transition duration-300 ${
                   location.pathname === '/admin/iproducto' ? 'bg-purple-600' : ''
                 }`}
+                onClick={() => handleNotificationClick('productos')}
               >
                 <FaBoxOpen className="mr-2" /> Inventario Material
                 {notifications.productos > 0 && (

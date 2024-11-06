@@ -54,7 +54,16 @@ function Rproductos() {
             { id: 7, tipo: 'Lino' },
             { id: 8, tipo: 'Sarga' },
             { id: 9, tipo: 'Microfibra' },
-            { id: 10, tipo: 'Elastano' }
+            { id: 10, tipo: 'Elastano' },
+            { id: 11, tipo: 'Lino' },  // Similar a Algodón
+            { id: 12, tipo: 'Rayon' }, // Similar a Algodón
+            { id: 13, tipo: 'Nylon' }, // Similar a Poliéster
+            { id: 14, tipo: 'Microfibra' }, // Similar a Poliéster
+            { id: 15, tipo: 'Rayon' }, // Similar a Lana
+            { id: 16, tipo: 'Algodón' }, // Similar a Seda
+            { id: 17, tipo: 'Poliéster' }, // Similar a Sarga
+            { id: 18, tipo: 'Elastano' }, // Similar a Microfibra
+            { id: 19, tipo: 'Nylon' }  // Similar a Elastano
         ];
         setMateriales(materialesCargados);
     }, []);
@@ -200,7 +209,17 @@ function Rproductos() {
                                 <option value="Azul">Azul</option>
                                 <option value="Verde">Verde</option>
                                 <option value="Amarillo">Amarillo</option>
-                                <option value="Negro">Negro</option>
+                                <option value="Negro">Morado</option>
+                                <option value="Negro">Violeta</option>
+                                <option value="Negro">Ocre</option>
+                                <option value="Negro">Cafe</option>
+                                <option value="Negro">Verde Oscuro</option>
+                                <option value="Negro">Blanco</option>
+                                <option value="Negro">Beige</option>
+                                <option value="Negro">Color hueso</option>
+                                <option value="Negro">Rosado</option>
+
+
                             </select>
                             {errors.Colores && <p className="text-red-500 text-sm mt-1">{errors.Colores}</p>}
                         </div>
@@ -231,7 +250,7 @@ function Rproductos() {
 
                     <button
                         type="submit"
-                        className="w-full bg-purple-700 text-white py-3 rounded-md font-semibold hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        className="w-full bg-indigo-500  text-white py-3 rounded-md font-semibold hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     >
                         Registrar Producto
                     </button>
