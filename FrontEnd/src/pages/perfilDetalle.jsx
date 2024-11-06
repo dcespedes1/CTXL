@@ -94,17 +94,17 @@ const PerfilDetalle = () => {
                 </thead>
                 <tbody>
                   <tr className="bg-black hover:bg-slate-400">
-                    <td className="text-white p-2">2023-04-15 10:30 AM</td>
+                    <td className="text-white p-2">2024-10-5 10:30 AM</td>
                     <td className="text-white p-2">Bogota, COL</td>
                     <td className="text-white p-2">iPhone 12</td>
                   </tr>
                   <tr className="bg-black hover:bg-slate-400">
-                    <td className="text-white p-2">2023-04-10 3:45 PM</td>
+                    <td className="text-white p-2">2024-11-05 3:45 PM</td>
                     <td className="text-white p-2">Bogota, COL</td>
                     <td className="text-white p-2">MacBook Pro</td>
                   </tr>
                   <tr className="bg-black hover:bg-slate-400">
-                    <td className="text-white p-2">2023-04-05 8:20 AM</td>
+                    <td className="text-white p-2">2024-11-06 2:20 AM</td>
                     <td className="text-white p-2">Bogota, COL</td>
                     <td className="text-white p-2">Samsung Galaxy S22</td>
                   </tr>
@@ -112,15 +112,7 @@ const PerfilDetalle = () => {
               </table>
             </div>
 
-            {/* Botones Responsivos */}
-            <div className="mx-auto flex flex-col gap-2 p-6 bg-slate-900 rounded-b-lg md:flex-row md:justify-start">
-              <button className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700 transition duration-300">
-                Cambiar Contraseña
-              </button>
-              <button className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700 transition duration-300">
-                Guardar Cambios
-              </button>
-            </div>
+            
           </div>
         </div>
       </main>
