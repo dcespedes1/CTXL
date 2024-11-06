@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const URI = 'http://localhost:8000/api/productos/';
 const URI_ADMIN = 'http://localhost:8000/api/administrador';
-const URI_EMPLEADO = 'http://localhost:8000/api/empleado'; // Cambia a la ruta correcta de tu API para empleados
+const URI_EMPLEADO = 'http://localhost:8000/api/empleado';
 
 function Rproductos() {
     const [CantidadR, setCantidad] = useState('');
@@ -20,7 +20,6 @@ function Rproductos() {
     const [showDropdown, setShowDropdown] = useState(false); 
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredMateriales, setFilteredMateriales] = useState([]);
-
 
     useEffect(() => {
         const fetchAdministrador = async () => {
@@ -55,13 +54,12 @@ function Rproductos() {
             { id: 7, tipo: 'Lino' },
             { id: 8, tipo: 'Sarga' },
             { id: 9, tipo: 'Microfibra' },
-            { id: 10, tipo: 'Elestano' }
+            { id: 10, tipo: 'Elastano' }
         ];
         setMateriales(materialesCargados);
     }, []);
 
     useEffect(() => {
-
         const filtered = materiales.filter(material => 
             material.tipo.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -80,20 +78,31 @@ function Rproductos() {
         if (value >= 0) setCantidad(value);
     };
 
-    const validate = () => {
+    const validate = async () => {
         const newErrors = {};
         if (!CantidadR || CantidadR <= 0) newErrors.CantidadR = 'La cantidad debe ser un número positivo.';
         if (!Material) newErrors.Material = 'Selecciona un material.';
         if (!Colores) newErrors.Colores = 'Selecciona un color.';
         if (!id_Empleado) newErrors.id_Empleado = 'Selecciona un empleado.';
         if (!id_administrador) newErrors.id_administrador = 'Selecciona un administrador.';
+
+        // Validación para verificar duplicados
+        try {
+            const response = await axios.get(`${URI}?Material=${Material}&Colores=${Colores}&id_administrador=${id_administrador}&id_Empleado=${id_Empleado}`);
+            if (response.data.length > 0) {
+                newErrors.duplicado = 'Este producto ya está registrado con el mismo material, color, administrador y empleado.';
+            }
+        } catch (error) {
+            console.error('Error al verificar duplicados:', error);
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
     const store = async (e) => {
         e.preventDefault();
-        if (!validate()) return;
+        if (!(await validate())) return;
         try {
             const response = await axios.post(URI, {
                 CantidadR,
@@ -195,44 +204,37 @@ function Rproductos() {
                             </select>
                             {errors.Colores && <p className="text-red-500 text-sm mt-1">{errors.Colores}</p>}
                         </div>
+
+                        {/* Administrador */}
+                        <div className="col-span-2 md:col-span-1">
+                            <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
+                            <select
+                                id="id_administrador"
+                                value={id_administrador}
+                                onChange={(e) => setid_administrador(e.target.value)}
+                                className="w-full px-4 py-3 border rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                required
+                            >
+                                <option value="">Selecciona un administrador</option>
+                                {administrador.map((admin) => (
+                                    <option key={admin.id_administrador} value={admin.id_administrador}>
+                                        {admin.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                            {errors.id_administrador && <p className="text-red-500 text-sm mt-1">{errors.id_administrador}</p>}
+                        </div>
                     </div>
 
-                    {/* Administrador */}
-                    <div className="mb-6">
-                        <label className="block text-white mb-2" htmlFor="id_administrador">Administrador</label>
-                        <select
-    id="id_administrador"
-    value={id_administrador}
-    onChange={(e) => setid_administrador(e.target.value)}
-    className="w px-4 py-3 border rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-    required
->
-    <option value="">Selecciona un administrador</option>
-    {administrador.map((admin) => (
-        <option key={admin.id_administrador} value={admin.id_administrador}>
-            {admin.nombre}
-        </option>
-    ))}
-</select>
+                    {/* Mensaje de error para duplicado */}
+                    {errors.duplicado && <p className="text-red-500 text-sm mt-2">{errors.duplicado}</p>}
 
-                        {errors.id_administrador && <p className="text-red-500 text-sm mt-1">{errors.id_administrador}</p>}
-                    </div>
-
-                    {/* Buttons */}
-                    <div className="flex justify-center space-x-4 mt-6">
-                        <button
-                            onClick={() => navigate('/admin/iproducto')}
-                            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-gray-500 text-white hover:bg-gray-600"
-                        >
-                            Cancelar
-                        </button>
-                        <button
-                            type="submit"
-                            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-indigo-500 text-white hover:bg-indigo-700"
-                        >
-                            Registrar
-                        </button>
-                    </div>
+                    <button
+                        type="submit"
+                        className="w-full bg-purple-700 text-white py-3 rounded-md font-semibold hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    >
+                        Registrar Producto
+                    </button>
                 </form>
             </div>
         </div>
