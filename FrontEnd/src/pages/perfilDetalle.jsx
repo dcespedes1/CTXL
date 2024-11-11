@@ -1,137 +1,176 @@
 import React, { useState } from 'react';
-import '../index.css';
-import Perfil from '../pages/perfilEditar'; 
-import LogoCTXY from '../img/LogoCTXY.jpg';
 
 const PerfilDetalle = () => {
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [formData, setFormData] = useState({
+    Nombres: 'Luiss',
+    Apellidos: 'Quintero',
+    Telefono: '+57 3227859837',
+    Correo: 'lquinteroramos684@gmail.com',
+    País: 'Colombia',
+    Ciudad: 'Bogotá',
+    CodigoPostal: '12005',
+    Tipo: '',
+  });
+  
+  const [profileImage, setProfileImage] = useState('https://via.placeholder.com/150'); // Imagen de perfil inicial
 
-  const openModal = () => {
-    setModalVisible(true);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const closeModal = () => {
-    setModalVisible(false);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result); // Actualiza la imagen de perfil con la nueva URL base64
+      };
+      reader.readAsDataURL(file); // Lee el archivo como URL base64
+    }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-400">
+    <div className="flex min-h-screen bg-slate-300">
       {/* Main Content */}
-      <main className="flex-1 flex flex-col p-6 md:p-10">
-        {/* Content */}
-        <div className="w-full rounded-lg shadow-2xl shadow-purple-600/100">
-          <div className="bg-slate-900 p-6 rounded-t-lg">
-            <div className="flex flex-col items-center gap-4 md:flex-row">
-              <div className="h-16 w-16 rounded-full bg-gray-500 overflow-hidden">
-                <img src={LogoCTXY} alt="LogoCTXY" className="h-full w-full object-cover" />
-              </div>
-              <div className="grid gap-1 text-center md:text-left flex-grow">
-                <h2 className="text-2xl font-bold text-white">Paco Gertes</h2>
-                <div className="text-gray-400">paco69@gmail.com</div>
-              </div>
-              <button
-                onClick={openModal}
-                className="bg-slate-400 text-white p-2 rounded hover:bg-purple-700 transition duration-300"
-              >
-                Editar
-              </button>
+      <main className="flex-1 p-8">
+        {/* Header */}
+        <div className="bg-gray-800 text-white rounded-lg mb-6 p-6 relative">
+          <h1 className="text-3xl font-bold">Perfil</h1>
+          
+        </div>
+
+        {/* Profile and Form */}
+        <div className="flex space-x-6">
+          {/* Profile Card */}
+          <div className="w-1/3 bg-white rounded-lg shadow p-4">
+            <img
+              src={profileImage} // Muestra la imagen de perfil seleccionada
+              alt="User"
+              className="rounded-full w-32 h-32 mx-auto mb-4"
+            />
+            <h2 className="text-center text-xl font-bold">{formData.Nombres} {formData.Apellidos}</h2>
+            <p className="text-center text-gray-500">{formData.Correo}</p>
+
+            {/* Botón de cambio de imagen de perfil */}
+            <div className="mt-4 w-full">
+              <label className="bg-gray-600 text-white rounded py-2 px-4 text-center cursor-pointer block">
+                Cambiar Foto de Perfil
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden" // Oculta el input de archivo
+                />
+              </label>
             </div>
+
+            <div className="mt-6 space-y-2">
+              <div className="flex justify-between text-gray-700">
+                <span>Prendas Recibidads:</span>
+                <span>30</span>
+              </div>
+              <div className="flex justify-between text-gray-700">
+                <span>Materiales Recibidos:</span>
+                <span>15</span>
+              </div>
+              <div className="flex justify-between text-gray-700">
+                <span>Horas Trabajadas:</span>
+                <span>5</span>
+              </div>
+            </div>
+          
           </div>
 
-          <div className="grid grid-cols-1 gap-8 p-6 md:p-8 bg-slate-900 rounded-b-lg md:grid-cols-2">
-            <div className="grid gap-6">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="grid gap-2">
-                  <label htmlFor="password" className="text-white">Contraseña</label>
-                  <input
-                    id="password"
-                    type="password"
-                    defaultValue="********"
-                    className="p-2 rounded bg-gray-800 text-white"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <label htmlFor="birthdate" className="text-white">Fecha Nacimiento</label>
-                  <input
-                    id="birthdate"
-                    type="date"
-                    defaultValue="2001-09-11"
-                    className="p-2 rounded bg-gray-800 text-white"
-                  />
-                </div>
+          {/* Profile Form */}
+          <div className="w-2/3 bg-white rounded-lg shadow p-6">
+            <h2 className="text-xl font-bold mb-4">Configuración de Cuenta</h2>
+            <form className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-gray-600 font-semibold">Nombres</label>
+                <input
+                  type="text"
+                  name="Nombres"
+                  value={formData.Nombres}
+                  onChange={handleInputChange}
+                  className="mt-1 w-full p-2 rounded bg-gray-100 border border-gray-300"
+                />
               </div>
-
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="grid gap-2">
-                  <label htmlFor="phone" className="text-white">Celular</label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    defaultValue="+57 3117275301"
-                    className="p-2 rounded bg-gray-800 text-white"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <label htmlFor="address" className="text-white">Dirección</label>
-                  <textarea
-                    id="address"
-                    defaultValue="Crr69 estes - 68"
-                    className="p-2 rounded bg-gray-800 text-white"
-                  />
-                </div>
+              <div>
+                <label className="text-gray-600 font-semibold">Apellidos</label>
+                <input
+                  type="text"
+                  name="Apellidos"
+                  value={formData.Apellidos}
+                  onChange={handleInputChange}
+                  className="mt-1 w-full p-2 rounded bg-gray-100 border border-gray-300"
+                />
               </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-white">Historial Inicio Sesión</h3>
-              <table className="table-auto w-full">
-                <thead>
-                  <tr className="bg-slate-400">
-                    <th className="text-white p-2">Fecha</th>
-                    <th className="text-white p-2">Ubicación</th>
-                    <th className="text-white p-2">Dispositivo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-black hover:bg-slate-400">
-                    <td className="text-white p-2">2024-10-5 10:30 AM</td>
-                    <td className="text-white p-2">Bogota, COL</td>
-                    <td className="text-white p-2">iPhone 12</td>
-                  </tr>
-                  <tr className="bg-black hover:bg-slate-400">
-                    <td className="text-white p-2">2024-11-05 3:45 PM</td>
-                    <td className="text-white p-2">Bogota, COL</td>
-                    <td className="text-white p-2">MacBook Pro</td>
-                  </tr>
-                  <tr className="bg-black hover:bg-slate-400">
-                    <td className="text-white p-2">2024-11-06 2:20 AM</td>
-                    <td className="text-white p-2">Bogota, COL</td>
-                    <td className="text-white p-2">Samsung Galaxy S22</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            
+              <div>
+                <label className="text-gray-600 font-semibold">Teléfono</label>
+                <input
+                  type="text"
+                  name="Telefono"
+                  value={formData.Telefono}
+                  onChange={handleInputChange}
+                  className="mt-1 w-full p-2 rounded bg-gray-100 border border-gray-300"
+                />
+              </div>
+              <div>
+                <label className="text-gray-600 font-semibold">Correo Electrónico</label>
+                <input
+                  type="email"
+                  name="Correo"
+                  value={formData.Correo}
+                  onChange={handleInputChange}
+                  className="mt-1 w-full p-2 rounded bg-gray-100 border border-gray-300"
+                />
+              </div>
+              <div>
+                <label className="text-gray-600 font-semibold">Ciudad</label>
+                <input
+                  type="text"
+                  name="Ciudad"
+                  value={formData.Ciudad}
+                  onChange={handleInputChange}
+                  className="mt-1 w-full p-2 rounded bg-gray-100 border border-gray-300"
+                />
+              </div>
+              <div>
+                <label className="text-gray-600 font-semibold">País</label>
+                <input
+                  type="text"
+                  name="País"
+                  value={formData.País}
+                  onChange={handleInputChange}
+                  className="mt-1 w-full p-2 rounded bg-gray-100 border border-gray-300"
+                />
+              </div>
+              <div>
+                <label className="text-gray-600 font-semibold">Código Postal</label>
+                <input
+                  type="text"
+                  name="CodigoPostal"
+                  value={formData.CodigoPostal}
+                  onChange={handleInputChange}
+                  className="mt-1 w-full p-2 rounded bg-gray-100 border border-gray-300"
+                />
+              </div>
+              <div>
+                <label className="text-gray-600 font-semibold">Tipo de Cuenta</label>
+                <input
+                  type="text"
+                  name="Tipo"
+                  value={formData.Tipo}
+                  onChange={handleInputChange}
+                  className="mt-1 w-full p-2 rounded bg-gray-100 border border-gray-300"
+                />
+              </div>
+            </form>
+            <button className="mt-6 bg-gray-600 text-white px-4 py-2 rounded">Actualizar</button>
           </div>
         </div>
       </main>
-
-      {/* Modal para editar perfil */}
-      {isModalVisible && (
-        <div
-          className="fixed inset-0 bg-slate-900 bg-opacity-60 flex justify-center items-center"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-slate-900 p-8 rounded-lg shadow-lg max-w-full md:max-w-2xl w-full mx-4 md:mx-0"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-3xl font-bold mb-8 text-center text-white">Editar Perfil</h2>
-            <Perfil setModalVisible={setModalVisible} />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
