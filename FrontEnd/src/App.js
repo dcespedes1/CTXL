@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LanguageProvider } from './pages/LanguageContext';
+
 import Navbar2 from './components/Navbar2';
 import Navbar from './components/navbar';
 import Sidebar from './components/Sidebar';
@@ -38,6 +40,7 @@ function App() {
   const [modalVisible, setModalVisible] = useState(false); // Estado para controlar el modal
 
   return (
+    <LanguageProvider>
     <Router>
       <div className="flex flex-col min-h-screen">
         
@@ -120,6 +123,7 @@ function App() {
         )}
       </div>
     </Router>
+    </LanguageProvider>
   );
 }
 

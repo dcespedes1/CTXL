@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import { RiNotification3Line } from 'react-icons/ri';
 import ConfigDesplegable from './ConfigDesplegable';
 import { MdSettings } from 'react-icons/md';
+import { useLanguage } from '../pages/LanguageContext'; 
 import '../index.css';
 
 const Navbar = () => {
     const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [configOpen, setConfigOpen] = useState(false); // Estado para el menú deslizable de configuración
     const [dropdownOpen, setDropdownOpen] = useState(false); // Estado para el dropdown del perfil
+
+    const { language, changeLanguage } = useLanguage();
 
     const toggleNotifications = () => setNotificationsOpen(prev => !prev);
     const closeNotifications = () => setNotificationsOpen(false);
@@ -78,6 +81,18 @@ const Navbar = () => {
                             </div>
                         )}
                     </div>
+                    {/* Selector de idioma */}
+                    <div className="relative">
+                        <select
+                            value={language}
+                            onChange={(e) => changeLanguage(e.target.value)}  // Cambia el idioma
+                            className="bg-gray-700 text-white p-2 rounded"
+                        >
+                            <option value="es">{language === 'es' ? 'Español' : 'Spanish'}</option>
+                            <option value="en">{language === 'es' ? 'Inglés' : 'English'}</option>
+                        </select>
+                    </div>
+
 
                     {/* Imagen de perfil con dropdown */}
                     <div className="relative">
