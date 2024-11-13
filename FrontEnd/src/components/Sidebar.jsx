@@ -1,23 +1,19 @@
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import {
-  FaClipboardList, FaBoxOpen, FaUserTie, FaBell, FaLock, FaCog, FaHome, FaBars, FaTimes
-} from 'react-icons/fa'; // Importamos los iconos
-import LogoCTXY from '../img/LogoCTXY.jpg'; // Asegúrate de que esta ruta sea correcta
+  FaClipboardList, FaBoxOpen, FaUserTie, FaHome, FaBars, FaTimes
+} from 'react-icons/fa';
+import LogoCTXY from '../img/LogoCTXY.jpg';
 
 const Sidebar = () => {
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false); // Para abrir el menú de configuración
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Para abrir/cerrar sidebar en pantallas pequeñas
-  const location = useLocation(); // Para manejar el estado activo del menú
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const location = useLocation();
 
-  // Notificaciones con estado mutable
   const [notifications, setNotifications] = useState({ pedidos: 2, productos: 1 });
 
-  // Función para manejar clic en las notificaciones
   const handleNotificationClick = (type) => {
-    // Actualiza el estado de las notificaciones, poniendo a cero el contador de ese tipo
     setNotifications((prevNotifications) => ({
       ...prevNotifications,
       [type]: 0,
@@ -32,17 +28,12 @@ const Sidebar = () => {
     setIsRegisterOpen(!isRegisterOpen);
   };
 
-  const toggleSettings = () => {
-    setIsSettingsOpen(!isSettingsOpen);
-  };
-
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
     <div className="flex">
-      {/* Botón de hamburguesa (sólo en móviles) */}
       <button
         onClick={toggleSidebar}
         className="p-4 text-white bg-gray-800 focus:outline-none md:hidden"
@@ -50,13 +41,11 @@ const Sidebar = () => {
         {isSidebarOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
       </button>
 
-      {/* Sidebar */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-800 text-white transition-transform duration-300 transform ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0 md:relative md:flex md:flex-col`}
       >
-        {/* Logo */}
         <div className="p-6">
           <h2 className="text-3xl font-bold text-purple-500">
             <Link to="/admin/home">
@@ -66,7 +55,6 @@ const Sidebar = () => {
         </div>
 
         <nav className="flex flex-col p-6 space-y-2">
-          {/* Enlace directo a Home */}
           <Link
             to="/admin/home"
             className={`flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300 ${
@@ -103,7 +91,6 @@ const Sidebar = () => {
               </svg>
             </button>
 
-            {/* Menú colapsable de Inventarios */}
             <div
               className={`pl-6 mt-2 overflow-hidden transition-all duration-300 ease-in-out ${
                 isInventoryOpen ? 'max-h-96' : 'max-h-0'
@@ -168,7 +155,6 @@ const Sidebar = () => {
               </svg>
             </button>
 
-            {/* Menú colapsable de Registros */}
             <div
               className={`pl-6 mt-2 overflow-hidden transition-all duration-300 ease-in-out ${
                 isRegisterOpen ? 'max-h-96' : 'max-h-0'
@@ -195,56 +181,9 @@ const Sidebar = () => {
               </Link>
             </div>
           </div>
-
-          {/* Sección de Configuración */}
-          <div>
-            <button
-              onClick={toggleSettings}
-              className="w-full text-left p-3 rounded-lg hover:bg-purple-600 transition duration-300 flex justify-between items-center"
-            >
-              Configuración
-              <svg
-                className={`w-4 h-4 transform transition-transform duration-300 ${isSettingsOpen ? 'rotate-180' : ''}`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-
-            {/* Menú colapsable de Configuración */}
-            <div
-              className={`pl-6 mt-2 overflow-hidden transition-all duration-300 ease-in-out ${
-                isSettingsOpen ? 'max-h-96' : 'max-h-0'
-              }`}
-              style={{ maxHeight: isSettingsOpen ? '300px' : '0px' }}
-            >
-              <Link
-                to="/admin/configNotificaciones"
-                className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-              >
-                <FaBell className="mr-2" /> Notificaciones
-              </Link>
-              <Link
-                to="/admin/configSeguridad"
-                className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-              >
-                <FaLock className="mr-2" /> Seguridad
-              </Link>
-              <Link
-                to="/admin/configGeneral"
-                className="flex items-center p-3 rounded-lg hover:bg-purple-600 transition duration-300"
-              >
-                <FaCog className="mr-2" /> General
-              </Link>
-            </div>
-          </div>
         </nav>
       </aside>
 
-      {/* Overlay (solo se muestra en móviles cuando el sidebar está abierto) */}
       {isSidebarOpen && <div className="fixed inset-0 bg-black opacity-50 md:hidden" onClick={toggleSidebar}></div>}
     </div>
   );

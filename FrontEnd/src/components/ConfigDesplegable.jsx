@@ -7,7 +7,7 @@ import { RiLogoutCircleRLine } from 'react-icons/ri';
 const ConfigDesplegable = ({ isOpen, closeConfig }) => {
     return (
         <div 
-            className={`fixed inset-y-0 right-0 w-64 bg-white text-black transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 z-50 shadow-lg`}
+            className={`fixed inset-y-0 right-0 w-64 bg-slate-400 text-black transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 z-50 shadow-lg`}
         >
             <div className="p-4 border-b border-gray-200 font-semibold flex justify-between items-center">
                 <span>Configuración</span>
