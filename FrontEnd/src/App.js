@@ -101,13 +101,9 @@ function App() {
             </div>
           } />
 
-          <Route path="/salida/*" element={
-            <div className="flex flex-grow">
-              <Routes>
-              <Route path="salida" element={<Salida />} />
-              </Routes>
-            </div>
-          }/>
+        <Route path="/salida" element={<Salida />} />
+
+
 
           {/* Ruta de contacto */}
           <Route path="/contact" element={<Contact />} />

@@ -4,13 +4,14 @@ import {
   FaClipboardList, FaBoxOpen, FaUserTie, FaHome, FaBars, FaTimes
 } from 'react-icons/fa';
 import LogoCTXY from '../img/LogoCTXY.jpg';
+import {useLanguage} from '../pages/LanguageContext'
 
 const Sidebar = () => {
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
-
+  const {language} = useLanguage();
   const [notifications, setNotifications] = useState({ pedidos: 2, productos: 1 });
 
   const handleNotificationClick = (type) => {
@@ -19,6 +20,7 @@ const Sidebar = () => {
       [type]: 0,
     }));
   };
+  
 
   const toggleInventory = () => {
     setIsInventoryOpen(!isInventoryOpen);
@@ -61,7 +63,8 @@ const Sidebar = () => {
               location.pathname === '/admin/home' ? 'bg-purple-600' : ''
             }`}
           >
-            <FaHome className="mr-2" /> Inicio
+            <FaHome className="mr-2" /> {language === 'es' ? 'Inicio' : 'Home'}
+          
           </Link>
           <Link
             to="/admin/catalogo"
@@ -69,7 +72,7 @@ const Sidebar = () => {
               location.pathname === '/admin/catalogo' ? 'bg-purple-600' : ''
             }`}
           >
-            <FaHome className="mr-2" /> Catálogo Precio
+            <FaHome className="mr-2" /> {language === 'es' ? 'Catálogo Precio' : 'Price Catalog'}
           </Link>
 
           <div>
@@ -79,7 +82,7 @@ const Sidebar = () => {
                 location.pathname.startsWith('/admin/ipedidos') || location.pathname.startsWith('/admin/iproducto') || location.pathname.startsWith('/app/iempleado') ? 'bg-purple-600' : ''
               }`}
             >
-              Inventarios
+              {language === 'es' ? 'Inventarios' : 'Inventory'}
               <svg
                 className={`w-4 h-4 transform transition-transform duration-300 ${isInventoryOpen ? 'rotate-180' : ''}`}
                 xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +121,7 @@ const Sidebar = () => {
                 }`}
                 onClick={() => handleNotificationClick('productos')}
               >
-                <FaBoxOpen className="mr-2" /> Inventario Material
+                <FaBoxOpen className="mr-2" />{language === 'es' ? 'Inventario Material' : 'Material Inventory'}
                 {notifications.productos > 0 && (
                   <span className="ml-auto bg-red-600 text-white text-xs px-2 py-1 rounded-full">
                     {notifications.productos}
@@ -131,7 +134,7 @@ const Sidebar = () => {
                   location.pathname === '/admin/iempleado' ? 'bg-purple-600' : ''
                 }`}
               >
-                <FaUserTie className="mr-2" /> Inventario Empleados
+                <FaUserTie className="mr-2" /> {language === 'es' ? 'Inventario Empleados' : 'Employees Inventory'}
               </Link>
             </div>
           </div>
@@ -143,7 +146,7 @@ const Sidebar = () => {
                 location.pathname.startsWith('/admin/rpedidos') || location.pathname.startsWith('/app/rproductos') || location.pathname.startsWith('/app/rempleado') ? 'bg-purple-600' : ''
               }`}
             >
-              Registros
+              {language === 'es' ? 'Registros' : 'Registers'}
               <svg
                 className={`w-4 h-4 transform transition-transform duration-300 ${isRegisterOpen ? 'rotate-180' : ''}`}
                 xmlns="http://www.w3.org/2000/svg"
@@ -165,19 +168,19 @@ const Sidebar = () => {
                 to="/admin/regiPedido"
                 className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
               >
-                Registro Pedido
+                {language === 'es' ? 'Registro Pedido' : 'Order Register'}
               </Link>
               <Link
                 to="/admin/regiMaterial"
                 className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
               >
-                Registro Material
+                {language === 'es' ? 'Registro Material' : 'Material Register'}
               </Link>
               <Link
                 to="/admin/regiEmpleado"
                 className="block p-3 rounded-lg hover:bg-purple-600 transition duration-300"
               >
-                Registro Empleados
+               {language === 'es' ? 'Registro Empleados' : 'Employee Register'}
               </Link>
             </div>
           </div>

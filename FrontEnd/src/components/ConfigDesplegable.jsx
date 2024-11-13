@@ -24,7 +24,7 @@ const ConfigDesplegable = ({ isOpen, closeConfig }) => {
 
                 {/* Opción de Notificaciones */}
                 <li className="px-4 py-2 hover:bg-purple-200 cursor-pointer">
-                    <Link to="/configuracion/notificaciones" onClick={closeConfig}>
+                    <Link to="/admin/configNotificaciones" onClick={closeConfig}>
                         <MdNotifications className="inline mr-2" />
                         Notificaciones
                     </Link>
@@ -32,7 +32,7 @@ const ConfigDesplegable = ({ isOpen, closeConfig }) => {
 
                 {/* Opción de Configuración General */}
                 <li className="px-4 py-2 hover:bg-purple-200 cursor-pointer">
-                    <Link to="/configuracion/general" onClick={closeConfig}>
+                    <Link to="/admin/configGeneral" onClick={closeConfig}>
                         <MdSettings className="inline mr-2" />
                         Configuración General
                     </Link>
@@ -40,7 +40,7 @@ const ConfigDesplegable = ({ isOpen, closeConfig }) => {
 
                 {/* Opción de Seguridad */}
                 <li className="px-4 py-2 hover:bg-purple-200 cursor-pointer">
-                    <Link to="/configuracion/seguridad" onClick={closeConfig}>
+                    <Link to="/admin/configSeguridad" onClick={closeConfig}>
                         <MdSecurity className="inline mr-2" />
                         Seguridad
                     </Link>
@@ -48,7 +48,7 @@ const ConfigDesplegable = ({ isOpen, closeConfig }) => {
 
                 {/* Opción de Cerrar Sesión */}
                 <li className="px-4 py-2 hover:bg-purple-200 cursor-pointer">
-                    <Link to="/salida/salida" onClick={closeConfig}>
+                    <Link to="/salida" onClick={closeConfig}>
                         <RiLogoutCircleRLine className="inline mr-2" />
                         Cerrar Sesión
                     </Link>

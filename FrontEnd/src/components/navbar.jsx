@@ -5,6 +5,7 @@ import ConfigDesplegable from './ConfigDesplegable';
 import { MdSettings } from 'react-icons/md';
 import { useLanguage } from '../pages/LanguageContext'; 
 import '../index.css';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -118,12 +119,13 @@ const Navbar = () => {
                                         <MdSettings className="mr-2" />
                                         Configuración
                                     </li>
-                                    <li
+                                    <Link
+                                    to="/salida"
                                         className="px-4 py-2 text-center text-gray-600 cursor-pointer hover:text-black"
                                         onClick={closeDropdown}
                                     >
                                         Cerrar Sesion
-                                    </li>
+                                    </Link>
                                 </ul>
                             </div>
                         )}
