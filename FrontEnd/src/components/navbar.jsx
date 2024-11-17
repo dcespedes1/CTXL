@@ -1,5 +1,4 @@
-// Navbar.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RiNotification3Line } from 'react-icons/ri';
 import ConfigDesplegable from './ConfigDesplegable';
 import { MdSettings } from 'react-icons/md';
@@ -9,8 +8,9 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [notificationsOpen, setNotificationsOpen] = useState(false);
-    const [configOpen, setConfigOpen] = useState(false); // Estado para el menú deslizable de configuración
-    const [dropdownOpen, setDropdownOpen] = useState(false); // Estado para el dropdown del perfil
+    const [configOpen, setConfigOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [isNavbarVisible, setIsNavbarVisible] = useState(false); // Estado inicial oculto
 
     const { language, changeLanguage } = useLanguage();
 
@@ -18,15 +18,14 @@ const Navbar = () => {
     const closeNotifications = () => setNotificationsOpen(false);
 
     const openConfig = () => {
-        setConfigOpen(true); // Abre el menú deslizable de configuración
-        setDropdownOpen(false); // Cierra el dropdown del perfil
+        setConfigOpen(true);
+        setDropdownOpen(false);
     };
-    const closeConfig = () => setConfigOpen(false); // Cierra el menú deslizable de configuración
+    const closeConfig = () => setConfigOpen(false);
 
-    const toggleDropdown = () => setDropdownOpen(prev => !prev); // Alterna el estado del dropdown del perfil
-    const closeDropdown = () => setDropdownOpen(false); // Cierra el dropdown del perfil
+    const toggleDropdown = () => setDropdownOpen(prev => !prev);
+    const closeDropdown = () => setDropdownOpen(false);
 
-    // Datos de ejemplo para usuario y notificaciones
     const user = {
         profileImage: 'https://via.placeholder.com/150',
         role: 'Administrador',
@@ -38,12 +37,32 @@ const Navbar = () => {
         { id: 3, message: "Nuevo mensaje en tu bandeja." }
     ];
 
+    // Control de visibilidad de la Navbar
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            if (e.clientY < 50) {
+                setIsNavbarVisible(true); // Mostrar si el mouse está cerca de la parte superior
+            } else {
+                setIsNavbarVisible(false); // Ocultar si no está en la parte superior
+            }
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
     return (
         <>
-            <nav className="bg-gray-800 p-4">
+            {/* Navbar con visibilidad dinámica */}
+            <nav
+                className={`bg-gray-800 p-4 fixed w-full top-0 transition-transform duration-300 ${
+                    isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
+                }`}
+            >
                 <div className="container mx-auto flex justify-end items-center space-x-4">
-
-                    {/* Icono de notificaciones */}
                     <div className="relative">
                         <button
                             onClick={toggleNotifications}
@@ -56,8 +75,6 @@ const Navbar = () => {
                                 </span>
                             )}
                         </button>
-
-                        {/* Dropdown de notificaciones */}
                         {notificationsOpen && (
                             <div
                                 className="absolute right-0 mt-2 w-64 bg-white text-black rounded-lg shadow-lg z-50"
@@ -82,20 +99,16 @@ const Navbar = () => {
                             </div>
                         )}
                     </div>
-                    {/* Selector de idioma */}
                     <div className="relative">
                         <select
                             value={language}
-                            onChange={(e) => changeLanguage(e.target.value)}  // Cambia el idioma
+                            onChange={(e) => changeLanguage(e.target.value)}
                             className="bg-gray-700 text-white p-2 rounded"
                         >
                             <option value="es">{language === 'es' ? 'Español' : 'Spanish'}</option>
                             <option value="en">{language === 'es' ? 'Inglés' : 'English'}</option>
                         </select>
                     </div>
-
-
-                    {/* Imagen de perfil con dropdown */}
                     <div className="relative">
                         <button onClick={toggleDropdown} className="bg-transparent border-none cursor-pointer">
                             <img 
@@ -104,8 +117,6 @@ const Navbar = () => {
                                 className="w-12 h-12 rounded-md object-cover"
                             />
                         </button>
-
-                        {/* Dropdown del perfil */}
                         {dropdownOpen && (
                             <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg z-50">
                                 <div className="p-4 border-b border-gray-200 text-center font-semibold">
@@ -120,7 +131,7 @@ const Navbar = () => {
                                         Configuración
                                     </li>
                                     <Link
-                                    to="/salida"
+                                        to="/salida"
                                         className="px-4 py-2 text-center text-gray-600 cursor-pointer hover:text-black"
                                         onClick={closeDropdown}
                                     >
@@ -133,7 +144,6 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            {/* Componente ConfigDesplegable para el menú deslizable de configuración */}
             <ConfigDesplegable isOpen={configOpen} closeConfig={closeConfig} />
         </>
     );

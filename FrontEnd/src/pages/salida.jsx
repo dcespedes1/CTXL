@@ -1,17 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Salida = () => {
   return (
-    <div className="flex items-center justify-center h-screen w-screen bg-gradient-to-b from-[#1d1f36] to-[#383c58]">
-      <div className="bg-[#181a2e] shadow-lg rounded-lg p-6 text-center">
-        <h1 className="text-2xl font-bold text-white mb-4">Salida Exitosa</h1>
-        <p className="text-gray-400">Muchas gracias por entrar a la página</p>
-        <Link to="/index">
-          <button className="mt-4 bg-purple-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Index
-          </button>
-        </Link>
+    <div
+      className="flex items-center justify-center h-screen w-screen bg-cover bg-center"
+      style={{
+        backgroundImage: `url('https://via.placeholder.com/1920x1080')`, // Reemplaza esta URL por la de tu imagen
+      }}
+    >
+      {/* Contenedor central */}
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-md text-center relative">
+        {/* Logo de Microsoft (Placeholder) */}
+        <div className="mb-6">
+          <div className="flex items-center justify-center w-12 h-12 bg-blue-600 rounded-full mx-auto">
+            <span className="text-white font-bold text-lg">M</span>
+          </div>
+        </div>
+        {/* Título */}
+        <h1 className="text-2xl font-semibold text-gray-800 mb-4">Cerró la sesión de su cuenta</h1>
+        {/* Descripción */}
+        <p className="text-gray-500 mb-6">Cierre todas las ventanas del navegador.</p>
       </div>
     </div>
   );

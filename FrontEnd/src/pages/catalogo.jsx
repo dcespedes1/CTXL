@@ -1,122 +1,86 @@
-import React, { useState } from 'react';
-import { FaThList } from 'react-icons/fa'; // Importa un icono de catálogo
-import ImagenN1 from '../img/ImagenN1.jpeg';
-import ImagenN9 from '../img/ImagenN9.jpeg';
-import ImagenN5 from '../img/ImagenN5.jpeg';
-import ImagenN2 from '../img/Camisetas-Cuello-Redondo.png';
+import React, { useState } from "react";
 
-function Catalogo() {
-    const productos = [
-        { id: 1, img: ImagenN1, precio: 40000 },
-        { id: 2, img: ImagenN9, precio: 50000 },
-        { id: 3, img: ImagenN5, precio: 30000 },
-        { id: 4, img: ImagenN2, precio: 30000 },
-        // Agrega más productos si es necesario
-    ];
+const Catalogo = () => {
+  const productos = [
+    { id: 1, name: "Producto 1", price: 12.99, description: "Descripción del Producto 1." },
+    { id: 2, name: "Producto 2", price: 15.99, description: "Descripción del Producto 2." },
+    { id: 3, name: "Producto 3", price: 9.99, description: "Descripción del Producto 3." },
+    { id: 4, name: "Producto 4", price: 18.99, description: "Descripción del Producto 4." },
+    { id: 5, name: "Producto 5", price: 14.99, description: "Descripción del Producto 5." },
+    { id: 6, name: "Producto 6", price: 10.99, description: "Descripción del Producto 6." },
+    { id: 7, name: "Producto 7", price: 11.99, description: "Descripción del Producto 7." },
+    { id: 8, name: "Producto 8", price: 11.99, description: "Descripción del Producto 8." },
+    { id: 9, name: "Producto 9", price: 11.99, description: "Descripción del Producto 9." },
+  ];
 
-    const [searchTerm, setSearchTerm] = useState('');
-    const [numRecords, setNumRecords] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-    const filteredProductos = productos.filter(producto =>
-        String(producto.precio).toLowerCase().includes(searchTerm.toLowerCase())
-    );
+  const handleProductClick = (producto) => {
+    setSelectedProduct(producto); // Almacena el producto seleccionado
+  };
 
-    const totalPages = Math.ceil(filteredProductos.length / numRecords);
-    const startIndex = (currentPage - 1) * numRecords;
-    const currentProductos = filteredProductos.slice(startIndex, startIndex + numRecords);
+  const closeDescription = () => {
+    setSelectedProduct(null); // Cierra la descripción
+  };
 
-    const handlePageClick = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
+  return (
+    <div className="min-h-screen bg-gray-100 p-8">
+      {/* Título */}
+      <h1 className="text-4xl font-bold text-black text-center mb-8">
+        Catálogo de Productos
+      </h1>
 
-    return (
-        <div className="min-h-screen bg-slate-300 flex flex-col items-center justify-center p-8">
-            <h2 className="text-4xl font-bold text-black mb-14 text-center flex items-center">
-                <FaThList className="mr-2 text-purple-600" /> {/* Icono de catálogo */}
-                Catálogo y precios
+      {/* Banner pequeño */}
+      <div className="bg-purple-100 text-purple-700 p-4 rounded-lg text-center mb-8 shadow-md">
+        <p className="text-lg font-medium">
+          Encuentra los mejores productos al mejor precio. ¡Compra ahora!
+        </p>
+      </div>
+
+      {/* Productos */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {productos.map((producto) => (
+          <div
+            key={producto.id}
+            onClick={() => handleProductClick(producto)} // Maneja el clic en el producto
+            className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition cursor-pointer"
+          >
+            {/* Espacio para Imagen */}
+            <div className="bg-gray-300 w-full h-40 rounded-lg mb-4 flex items-center justify-center">
+              <span className="text-gray-500">Imagen</span>
+            </div>
+            {/* Nombre */}
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              {producto.name}
             </h2>
+            {/* Precio */}
+            <p className="text-purple-600 font-bold text-lg">${producto.price.toFixed(2)}</p>
+          </div>
+        ))}
+      </div>
 
-            <div className="my-4 w-full max-w-md">
-                <input
-                    type="text"
-                    placeholder="Buscar por precio..."
-                    className="p-3 rounded-lg border-2 border-purple-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 w-full"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
-
-            <div className="bg-gray-700 p-8 rounded-md w-full max-w-3xl shadow-lg shadow-purple-600">
-                <div className="flex items-center mb-4">
-                    <label htmlFor="numRecords" className="text-white mr-2">Registros por página:</label>
-                    <select
-                        id="numRecords"
-                        value={numRecords}
-                        onChange={(e) => {
-                            setNumRecords(parseInt(e.target.value));
-                            setCurrentPage(1); // Reiniciar a la primera página
-                        }}
-                        className="p-2 bg-gray-800 text-white rounded-md border border-purple-500"
-                    >
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                    </select>
-                </div>
-
-                <div className="overflow-x-auto">
-                    <table className="w-full bg-gray-900 text-white">
-                        <thead>
-                            <tr>
-                                <th className="p-3 text-center">Imagen</th>
-                                <th className="p-3 text-center">Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentProductos.length > 0 ? (
-                                currentProductos.map((producto) => (
-                                    <tr key={producto.id}>
-                                        <td className="p-3 text-center">
-                                            <img src={producto.img} alt={`Producto ${producto.id}`} className="w-16 h-16 mx-auto" />
-                                        </td>
-                                        <td className="p-3 text-center transition duration-300 hover:bg-purple-600">
-                                            ${producto.precio.toLocaleString()}
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="2" className="p-3 text-center">No hay datos disponibles</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* Paginación */}
-                <div className="flex justify-between items-center mt-4">
-                    <span className="text-sm text-white">
-                        Mostrando {Math.min(numRecords, filteredProductos.length)} de {filteredProductos.length} productos
-                    </span>
-                </div>
-
-                {/* Paginación con números de página */}
-                <div className="flex justify-center items-center p-4 bg-gray-900 text-white">
-                    {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
-                        <button
-                            key={pageNumber}
-                            className={`mx-1 px-3 py-2 rounded-md ${currentPage === pageNumber ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-purple-500 hover:text-white'} transition duration-300`}
-                            onClick={() => handlePageClick(pageNumber)}
-                        >
-                            {pageNumber}
-                        </button>
-                    ))}
-                </div>
-            </div>
+      {/* Modal de Descripción */}
+      {selectedProduct && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg w-96 shadow-lg relative">
+            <button
+              className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600"
+              onClick={closeDescription}
+            >
+              X
+            </button>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+              {selectedProduct.name}
+            </h2>
+            <p className="text-gray-600 mb-4">{selectedProduct.description}</p>
+            <p className="text-purple-600 font-bold text-lg">
+              Precio: ${selectedProduct.price.toFixed(2)}
+            </p>
+          </div>
         </div>
-    );
-}
+      )}
+    </div>
+  );
+};
 
 export default Catalogo;

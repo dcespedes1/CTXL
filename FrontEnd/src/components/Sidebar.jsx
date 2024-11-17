@@ -72,7 +72,7 @@ const Sidebar = () => {
               location.pathname === '/admin/catalogo' ? 'bg-purple-600' : ''
             }`}
           >
-            <FaHome className="mr-2" /> {language === 'es' ? 'Catálogo Precio' : 'Price Catalog'}
+            <FaHome className="mr-2" /> {language === 'es' ? 'Catálogo ' : 'Price Catalog'}
           </Link>
 
           <div>
