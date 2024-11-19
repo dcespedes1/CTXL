@@ -3,7 +3,7 @@ import { FaExclamationTriangle } from 'react-icons/fa'; // Icono de alerta
 import '../index.css';
 import axios from 'axios'; // Asegúrate de tener axios instalado
 
-const URI = "http://localhost:8000/api/stock/";
+const URI = "https://backend2-mhjh.onrender.com/api/stock/";
 
 function Home() {
     const [tasks, setTasks] = useState([

@@ -7,7 +7,7 @@ import RPedidos from './rpedidos';
 import Apedidos from './apedido'; 
 import { Link } from 'react-router-dom';
 
-const URI = 'http://localhost:8000/api/pedidos/';
+const URI = 'https://backend2-mhjh.onrender.com/api/pedidos/';
 
 function IPedidos() {
   const [pedidos, setPedidos] = useState([]);

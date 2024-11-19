@@ -3,7 +3,7 @@ import '../index.css';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const URI = "http://localhost:8000/api/productos/";
+const URI = "https://backend2-mhjh.onrender.com/api/productos/";
 
 function AProductos() {
   const [CantidadR, setCantidadR] = useState("");

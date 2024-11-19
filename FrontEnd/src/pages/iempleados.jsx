@@ -6,7 +6,7 @@ import { VscEdit } from "react-icons/vsc";
 import { FaUser, FaIdCard, FaBirthdayCake, FaEnvelope, FaMobileAlt } from "react-icons/fa";
 import REmpleados from '../pages/rempleados';
 
-const URI = 'http://localhost:8000/api/Empleado/';
+const URI = 'https://backend2-mhjh.onrender.com/api/Empleado/';
 
 function IEmpleados() {
   const [Empleados, setEmpleados] = useState([]);

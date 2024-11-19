@@ -5,7 +5,7 @@ import axios from 'axios'; // Asegúrate de tener axios instalado
 import {useLanguage} from '../pages/LanguageContext'
 
 
-const URI = "http://localhost:8000/api/stock/";
+const URI = "https://backend2-mhjh.onrender.com/api/stock/";
 
 function Home() {
     const { language } = useLanguage(); 

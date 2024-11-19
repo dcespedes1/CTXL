@@ -2,9 +2,9 @@
     import { useNavigate } from 'react-router-dom';
     import axios from 'axios';
 
-    const URI = 'http://localhost:8000/api/pedidos/';
-    const URI_ADMIN = 'http://localhost:8000/api/administrador';
-    const URI_EMPLEADO = 'http://localhost:8000/api/empleado';
+    const URI = 'https://backend2-mhjh.onrender.com/api/pedidos/';
+    const URI_ADMIN = 'https://backend2-mhjh.onrender.com/api/administrador';
+    const URI_EMPLEADO = 'https://backend2-mhjh.onrender.com/api/empleado';
 
     function RPedidos({ setModalVisible }) { 
         const [Cliente, setCliente] = useState('');

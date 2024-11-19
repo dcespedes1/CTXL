@@ -6,7 +6,7 @@ import { VscEdit } from "react-icons/vsc";
 import { FaBoxes, FaCogs, FaPalette } from "react-icons/fa"; // Íconos agregados
 import Rproductos from './rproductos';
 
-const URI = 'http://localhost:8000/api/productos/';
+const URI = 'https://backend2-mhjh.onrender.com/api/productos/';
 
 function IProducto() {
   const [productos, setProductos] = useState([]);

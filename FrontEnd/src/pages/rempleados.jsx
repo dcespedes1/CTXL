@@ -2,8 +2,8 @@ import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const URI = 'http://localhost:8000/api/Empleado/';
-const URI_ADMIN = 'http://localhost:8000/api/administrador';
+const URI = 'https://backend2-mhjh.onrender.com/api/Empleado/';
+const URI_ADMIN = 'https://backend2-mhjh.onrender.com/api/administrador';
 
 function REmpleados({ setModalVisible }) { 
     const [Nombre, setNombre] = useState('');
